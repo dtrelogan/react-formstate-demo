@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BootstrapInput from './BootstrapInput.jsx';
+import BootstrapInput from './Input.jsx';
 
 export default ({className, required, fieldState, handleValueChange, showValidationMessage, formState, ...other}) => {
 
@@ -21,4 +21,4 @@ export default ({className, required, fieldState, handleValueChange, showValidat
       {...other}
       />
   );
-}
+};

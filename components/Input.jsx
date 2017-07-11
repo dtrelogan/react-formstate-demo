@@ -22,4 +22,4 @@ export default ({props}) => {
       <HelpBlock>{props.help}</HelpBlock>
     </FormGroup>
   );
-}
+};
