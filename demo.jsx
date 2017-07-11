@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DemoForm from './DemoForm.jsx';
+import DemoForm from './components/DemoForm.jsx';
 
 ReactDOM.render(
   <DemoForm/>,
