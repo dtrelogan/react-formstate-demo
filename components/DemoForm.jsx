@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FormState, Form } from 'react-formstate';
+import { Grid, Row, Col } from 'react-bootstrap';
 import Input from './RfsInput';
 
 // Using the optional validation library to demonstrate fluent api
