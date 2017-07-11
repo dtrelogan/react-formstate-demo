@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import DemoForm from './DemoForm.jsx';
 
 ReactDOM.render(
-  <div>hello react!</div>,
+  <DemoForm/>,
   document.getElementById('react-mount-point')
 );
