@@ -32,26 +32,39 @@ export default class ChangePasswordForm extends Component {
   render() {
     return (
       <Form formState={this.formState} onSubmit={this.handleSubmit}>
-        <Input
-          formField='newPassword'
-          type='password'
-          label='New Password'
-          required
-          fsv={v => v.regex(/^\S+$/)
-            .msg('Password must not contain whitespace')
-            .minLength(8)
-            .msg('Password must be at least 8 characters')
-          }
-          handleValueChange={this.handlePasswordChange}
-          />
-        <Input
-          formField='confirmNewPassword'
-          type='password'
-          label='Confirm New Password'
-          required
-          validate={this.validateConfirmNewPassword}
-          />
-        <input type='submit' value='Submit' disabled={this.formState.isInvalid()}/>
+        <Grid fluid>
+          <Row>
+            <Col xs={12} sm={6} lg={4}>
+              <Input
+                formField='newPassword'
+                type='password'
+                label='New Password'
+                required
+                fsv={v => v.regex(/^\S+$/)
+                  .msg('Password must not contain whitespace')
+                  .minLength(8)
+                  .msg('Password must be at least 8 characters')
+                }
+                handleValueChange={this.handlePasswordChange}
+                />
+            </Col>
+            <Col xs={12} sm={6} lg={4}>
+              <Input
+                formField='confirmNewPassword'
+                type='password'
+                label='Confirm New Password'
+                required
+                validate={this.validateConfirmNewPassword}
+                />
+            </Col>
+            <Col xsHidden lg={4}/>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <input type='submit' value='Submit' disabled={this.formState.isInvalid()}/>
+            </Col>
+          </Row>
+        </Grid>
       </Form>
     );
   }
