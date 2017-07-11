@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BootstrapInput from './Input.jsx';
+import BootstrapInput from './BootstrapInput.jsx';
 
 export default ({className, required, fieldState, handleValueChange, showValidationMessage, formState, ...other}) => {
 
@@ -16,7 +16,7 @@ export default ({className, required, fieldState, handleValueChange, showValidat
       controlId={fieldState.getKey()}
       validationState={validationState}
       value={fieldState.getValue()}
-      handleValueChange={handleValueChange}
+      onChange={e => handleValueChange(e.target.value)}
       help={fieldState.getMessage()}
       {...other}
       />

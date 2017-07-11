@@ -13,7 +13,7 @@ export default (props) => {
         type={props.type || 'text'}
         value={props.value}
         placeholder={props.placeholder}
-        onChange={e => props.handleValueChange(e.target.value)}
+        onChange={props.onChange}
         disabled={props.disabled}
         autoFocus={props.autoFocus}
         autoComplete={props.autoComplete}

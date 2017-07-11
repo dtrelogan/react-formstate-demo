@@ -4,10 +4,12 @@
   "description": "demo form for react-formstate",
   "main": "notForPublishing.js",
   "scripts": {
-    "build:root": "browserify demo.jsx -o bundle.js -t [ babelify --presets [ es2015 react ] ]",
+    "build:root": "browserify demo.jsx -o public/bundle.js -t [ babelify --presets [ es2015 react ] ]",
+    "build:local": "npm run build:root",
     "build:dev": "npm run build:root -- -r ./cdn.react.js:react -r ./cdn.react-dom.js:react-dom -r ./cdn.react-bootstrap.js:react-bootstrap -t uglifyify",
-    "uglify": "uglifyjs bundle.js --compress --output bundle.min.js",
-    "build": "npm run build:dev && npm run uglify"
+    "uglify": "uglifyjs public/bundle.js --compress --output public/bundle.min.js",
+    "build": "npm run build:dev && npm run uglify",
+    "start": "npm run build:local && node server.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,9 @@
     "babel-preset-react": "^6.24.1",
     "babelify": "^7.3.0",
     "browserify": "^14.4.0",
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.6.1",
     "react-formstate": "^0.4.17",
     "react-formstate-validation": "^0.3.4",
     "uglify-js": "^3.0.24",
