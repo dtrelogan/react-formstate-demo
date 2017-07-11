@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
-export default ({props}) => {
+export default (props) => {
   return (
     <FormGroup
       className={props.className}
