@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { FormState, Form } from 'react-formstate';
+import { library as vlib } from 'react-formstate-validation';
 import { Grid, Row, Col } from 'react-bootstrap';
-import Input from './RfsInput.jsx';
-
-
-// Using the optional validation library to demonstrate fluent api
-import { validationAdapter } from 'react-formstate-validation';
-validationAdapter.plugInto(FormState);
+import Input from './inputs/rfs-bootstrap/Input.jsx';
+import Submit from './inputs/bootstrap/Submit.jsx';
+import SimpleModal from './inputs/bootstrap/SimpleModal.jsx';
+import DateInput from './inputs/rfs-bootstrap/DateInput.jsx';
+import moment from 'moment';
 
 
 export default class ChangePasswordForm extends Component {
@@ -14,15 +15,55 @@ export default class ChangePasswordForm extends Component {
   constructor(props) {
     super(props);
     this.formState = new FormState(this);
-    this.state = {};
+    this.state = this.formState.injectModel(props.model);
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.validateConfirmNewPassword = this.validateConfirmNewPassword.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    // might need to "reverse coerce" a string to a moment here
+    // i.e., moment('2017-07-12T18:32:24.402Z');
+    // otherwise set an appropriate default value
+    // pass true to skip flattening the moment object into form state.
+    this.formState.add(this.state, 'when', (props.model && props.model.when) ? moment(props.model.when) : null, true);
+
+    this.updateBlurSettings(props);
+  }
+
+  updateBlurSettings(props) {
+    // These are standard react-formstate settings that influence
+    // the standard onChange and onBlur handlers.
+    // You can also set them application wide on the FormState class.
+    this.formState.setShowMessageOnBlur(props.showOnBlur);
+    this.formState.setEnsureValidationOnBlur(props.validateOnBlur);
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.updateBlurSettings(newProps);
   }
 
 
-  // you can write plain old validation code
+  // <RadioGroup
+  //   controlId='onBlurToggle'
+  //   inline
+  //   buttonValues={[{id: '1', text: 'onChange'}, {id: '2', text: 'onBlur'}]}
+  //   value={this.state.onBlurToggle}
+  //   onChange={e => this.setState({onBlurToggle: e.target.value})}
+  //   />
+
+
+  validateNewPassword(newPassword, context) {
+    if (!vlib.regex(newPassword, /^\S+$/)) {
+      return 'Password must not contain whitespace';
+    }
+    if (newPassword.length < 8) {
+      return 'Password must be at least 8 characters';
+    }
+    if (newPassword.length < 12) {
+      const fi = context.getFieldState('newPassword');
+      fi.setValid('Passwords are ideally at least 12 characters');
+      fi.set('warn', true);
+      return;
+    }
+  }
+
+
   validateConfirmNewPassword(confirmationValue, context) {
     if (confirmationValue !== context.get('newPassword')) {
       return 'Password confirmation does not match';
@@ -30,11 +71,36 @@ export default class ChangePasswordForm extends Component {
   }
 
 
-  // or you can use a fluent validation api as appropriate
+  validateWhen(value) {
+    if (!value) {
+      return 'When is required';
+    }
+  }
+
+
   render() {
     return (
-      <Form formState={this.formState} onSubmit={this.handleSubmit}>
+      <Form formState={this.formState} onSubmit={e => this.handleSubmit(e)}>
         <Grid fluid>
+          <Row>
+            <Col xs={12} sm={6} lg={4}>
+              <Input
+                formField='name'
+                label='Name'
+                required
+                fsv={v => v.minLength(8).msg("must be 8 chars")}
+                autoComplete='off'
+                />
+            </Col>
+            <Col xs={12} sm={6} lg={4}>
+              <DateInput
+                formField='when'
+                label='When'
+                required='-'
+                />
+            </Col>
+            <Col xsHidden lg={4}/>
+          </Row>
           <Row>
             <Col xs={12} sm={6} lg={4}>
               <Input
@@ -42,12 +108,7 @@ export default class ChangePasswordForm extends Component {
                 type='password'
                 label='New Password'
                 required
-                fsv={v => v.regex(/^\S+$/)
-                  .msg('Password must not contain whitespace')
-                  .minLength(8)
-                  .msg('Password must be at least 8 characters')
-                }
-                handleValueChange={this.handlePasswordChange}
+                handleValueChange={v => this.handlePasswordChange(v)}
                 />
             </Col>
             <Col xs={12} sm={6} lg={4}>
@@ -56,37 +117,47 @@ export default class ChangePasswordForm extends Component {
                 type='password'
                 label='Confirm New Password'
                 required
-                validate={this.validateConfirmNewPassword}
                 />
             </Col>
             <Col xsHidden lg={4}/>
           </Row>
           <Row>
             <Col xs={12}>
-              <input type='submit' value='Submit' disabled={this.formState.isInvalid()}/>
+              <Submit
+                invalid={this.formState.isInvalid(this.formState.getu('showOnBlur'))}
+                grabRef={c => this.submitButton = c}
+                />
             </Col>
           </Row>
         </Grid>
+        <SimpleModal
+          title='Model Output'
+          show={Boolean(this.state.modelOutput)}
+          onClose={() => this.setState({modelOutput: null})}
+          >
+          <pre>
+            {JSON.stringify(this.state.modelOutput, null, 2)}
+          </pre>
+        </SimpleModal>
       </Form>
     );
   }
 
 
-  // you can override the framework generated change handler if necessary
   handlePasswordChange(newPassword) {
     const context = this.formState.createUnitOfWork();
     context.set('newPassword', newPassword).validate();
     context.set('confirmNewPassword', ''); // clear the confirmation field
-    context.updateFormState(); // make a call to setState
+    context.updateFormState();
   }
 
 
   handleSubmit(e) {
     e.preventDefault();
+    ReactDOM.findDOMNode(this.submitButton).focus();
     const model = this.formState.createUnitOfWork().createModel();
     if (model) {
-      alert(JSON.stringify(model)); // proceed with valid data
+      this.setState({modelOutput: model});
     }
-    // else: createModel called setState to set the appropriate validation messages
   }
 }
