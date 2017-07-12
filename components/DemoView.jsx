@@ -16,7 +16,7 @@ export default class DemoView extends Component {
     };
 
     this.model = {
-      name: 'Danny Trelogan',
+      name: 'Buster Brown',
       newPassword: 'password',
       confirmNewPassword: 'password',
       when: '2017-07-12T18:32:24.402Z'
