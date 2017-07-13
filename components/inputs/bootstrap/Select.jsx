@@ -9,7 +9,7 @@ export default ({className, controlId, validationState, optionValues, multiple, 
       controlId={controlId}
       validationState={validationState}
       >
-      <ControlLabel>{label}</ControlLabel>
+      {label ? <ControlLabel>{label}</ControlLabel> : null}
       <FormControl
         componentClass="select"
         placeholder={placeholder}

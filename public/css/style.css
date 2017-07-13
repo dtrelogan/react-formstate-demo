@@ -1,10 +1,10 @@
 .jumbotron {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 20px;
 }
 
+.main-title {margin-top: 0px;}
 .demo-form-select {max-width: 600px;}
-.demo-toolbar {margin-top: 20px;}
+.main-demo-options {margin-bottom: 15px;}
 
 /*.date-input-container div {width: 100% !important;}*/
 

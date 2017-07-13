@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Jumbotron, ButtonToolbar, Button } from 'react-bootstrap';
+import { Form as InlineForm, Jumbotron, Button, Radio } from 'react-bootstrap';
 import { FormState } from 'react-formstate';
 import Select from '../inputs/bootstrap/Select.jsx';
 import UserAccountForm from '../forms/UserAccount.jsx';
@@ -35,8 +35,8 @@ export default class DemoView extends Component {
         model: {
           id: 123,
           name: 'Travel to Europe (I wish!)',
-          from: '2019-07-12T18:32:24.402Z',
-          to: '2019-07-26T18:32:24.402Z'
+          startDate: '2019-07-12T18:32:24.402Z',
+          endDate: '2019-07-26T18:32:24.402Z'
         }
       }
     };
@@ -54,33 +54,35 @@ export default class DemoView extends Component {
   render() {
 
     const Form = this.forms[this.state.formId].type;
+    const spacer = <span>&nbsp;&nbsp;&nbsp;</span>;
 
     return (
       <div>
         <Jumbotron>
-          <h1>react-formstate-demo</h1>
+          <h3 className='main-title'>react-formstate-demo</h3>
           <Select
             className='demo-form-select'
             controlId='formSelect'
-            label='Select a form'
             optionValues={Object.keys(this.forms).map(id => {return {id: id, name: this.forms[id].name}})}
             value={this.state.formId}
             onChange={e => this.setState({edit: false, formId: e.target.value})}
             />
-          <ButtonToolbar className='demo-toolbar'>
-            <Button onClick={() => this.setState({key: this.state.key + 1, edit: false})}>
-              Clear Form
-            </Button>
-            <Button onClick={() => this.setState({key: this.state.key + 1, edit: true})}>
-              Inject Model
-            </Button>
-            <Button onClick={() => this.toggleShowOnBlur()}>
-              {this.state.showOnBlur ? 'Show onChange' : 'Show onBlur'}
-            </Button>
-            <Button onClick={() => this.toggleValidateOnBlur()}>
-              {this.state.validateOnBlur ? 'No Validation onBlur' : 'Validate onBlur'}
-            </Button>
-          </ButtonToolbar>
+          <InlineForm className='main-demo-options' inline>
+            <Radio checked={this.state.edit} onClick={() => this.setState({key: this.state.key + 1, edit: !this.state.edit})}>
+              &nbsp;Edit Existing Model
+            </Radio>
+            {spacer}
+            <Radio checked={this.state.showOnBlur} onClick={() => this.toggleShowOnBlur()}>
+              &nbsp;Show Message onBlur
+            </Radio>
+            {spacer}
+            <Radio checked={this.state.validateOnBlur} onClick={() => this.toggleValidateOnBlur()}>
+              &nbsp;Validate onBlur
+            </Radio>
+          </InlineForm>
+          <Button onClick={() => this.setState({key: this.state.key + 1})}>
+            Reset Form
+          </Button>
         </Jumbotron>
         <Form
           key={this.state.key}
