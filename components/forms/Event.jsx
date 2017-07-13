@@ -70,7 +70,6 @@ class EventForm extends Component {
           </Row>
         </Grid>
         <Instructions>
-          <h3>Notes</h3>
           <ListGroup>
             <ListGroupItem>Check out the <a href='https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/Event.jsx'>source code</a></ListGroupItem>
             <ListGroupItem>Unlike a standard HTML input that works with string values, react-datepicker is a nonstandard input that works with {'"moment"'} objects.</ListGroupItem>
