@@ -69,15 +69,13 @@ export default class DemoView extends Component {
             />
           <InlineForm className='main-demo-options' inline>
             <Radio checked={this.state.edit} onClick={() => this.setState({key: this.state.key + 1, edit: !this.state.edit})}>
-              &nbsp;Edit Existing Model
+              &nbsp;Edit Existing Model&nbsp;&nbsp;&nbsp;
             </Radio>
-            {spacer}
             <Radio checked={this.state.showOnBlur} onClick={() => this.toggleShowOnBlur()}>
-              &nbsp;Show Message onBlur
+              &nbsp;Show Message onBlur&nbsp;&nbsp;&nbsp;
             </Radio>
-            {spacer}
             <Radio checked={this.state.validateOnBlur} onClick={() => this.toggleValidateOnBlur()}>
-              &nbsp;Validate onBlur
+              &nbsp;Ensure Validation onBlur
             </Radio>
           </InlineForm>
           <Button onClick={() => this.setState({key: this.state.key + 1})}>
