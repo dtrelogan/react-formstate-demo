@@ -65,7 +65,7 @@ export default class DemoView extends Component {
             label='Select a form'
             optionValues={Object.keys(this.forms).map(id => {return {id: id, name: this.forms[id].name}})}
             value={this.state.formId}
-            onChange={e => this.setState({formId: e.target.value})}
+            onChange={e => this.setState({edit: false, formId: e.target.value})}
             />
           <ButtonToolbar className='demo-toolbar'>
             <Button onClick={() => this.setState({key: this.state.key + 1, edit: false})}>
