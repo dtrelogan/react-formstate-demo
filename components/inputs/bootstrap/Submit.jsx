@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
-export default ({bsStyle, bsSize, message, invalid, validating, uploading, disabled, grabRef}) => {
+export default ({className, bsStyle, bsSize, message, invalid, validating, uploading, disabled, grabRef}) => {
 
   let computedBsStyle = 'primary', computedMessage = 'Submit';
 
@@ -13,7 +13,7 @@ export default ({bsStyle, bsSize, message, invalid, validating, uploading, disab
   if (message) {computedMessage = message;}
 
   return (
-    <div>
+    <div className={className}>
       <Button
         type='submit'
         bsStyle={computedBsStyle}

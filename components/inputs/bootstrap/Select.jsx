@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
-export default ({className, controlId, validationState, type, label, value, help, onChange, onBlur, placeholder, disabled, autoFocus, autoComplete, showFeedback}) => {
+export default ({className, controlId, validationState, optionValues, multiple, label, value, help, onChange, onBlur, placeholder}) => {
 
   return (
     <FormGroup
@@ -11,16 +11,15 @@ export default ({className, controlId, validationState, type, label, value, help
       >
       <ControlLabel>{label}</ControlLabel>
       <FormControl
-        type={type || 'text'}
-        value={value}
+        componentClass="select"
         placeholder={placeholder}
+        multiple={multiple}
+        value={multiple ? (value || []) : value}
         onChange={onChange}
         onBlur={onBlur}
-        disabled={disabled}
-        autoFocus={autoFocus}
-        autoComplete={autoComplete}
-        />
-      {showFeedback === false ? null : <FormControl.Feedback />}
+        >
+        {optionValues.map((v) => <option key={v.id} value={v.id.toString()}>{v.name || v.text}</option>)}
+      </FormControl>
       <HelpBlock>{help}</HelpBlock>
     </FormGroup>
   );

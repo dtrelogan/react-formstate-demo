@@ -3,4 +3,12 @@
   padding-right: 20px;
 }
 
+.demo-form-select {max-width: 600px;}
 .demo-toolbar {margin-top: 20px;}
+
+/*.date-input-container div {width: 100% !important;}*/
+
+body {margin-bottom: 100px;}
+.instructions {margin-left: 20px; margin-top: 50px; max-width: 600px;}
+.required .control-label::after, .required .checkbox-label::after {content: '\2217';}
+.emphasized-note {color: green;}

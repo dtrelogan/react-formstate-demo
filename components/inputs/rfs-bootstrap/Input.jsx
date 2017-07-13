@@ -1,10 +1,14 @@
 import React from 'react';
 import BootstrapInput from '../bootstrap/Input.jsx';
-import InputHoc from  './InputHoc.jsx';
+import processProps from  './_processProps.es6';
 
-const Input = ({fieldState, handleValueChange, showValidationMessage, validationState, help, ...other}) => {
+export default ({className, required, formState, fieldState, handleValueChange, showValidationMessage, ...other}) => {
+
+  const {computedClassName, validationState, help} = processProps({className, required, formState, fieldState});
+
   return (
     <BootstrapInput
+      className={computedClassName}
       controlId={fieldState.getKey()}
       validationState={validationState}
       value={fieldState.getValue()}
@@ -15,5 +19,3 @@ const Input = ({fieldState, handleValueChange, showValidationMessage, validation
       />
   );
 };
-
-export default InputHoc(Input);

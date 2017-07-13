@@ -29,7 +29,7 @@ export default ({controlId, label, inline, buttonValues, value, help, onChange, 
           inline={inline}
           disabled={disabled}
           >
-          {v.text}
+          {v.name || v.text}
         </Radio>
         {buttonSpacer}
       </span>

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import BootstrapInput from '../bootstrap/DateInput.jsx';
-import InputHoc from  './InputHoc.jsx';
+import BootstrapDateInput from '../bootstrap/DateInput.jsx';
+import processProps from  './_processProps.es6';
 
-const DateInput = ({fieldState, handleValueChange, showValidationMessage, validationState, help, ...other}) => {
+const DateInput = ({className, required, formState, fieldState, handleValueChange, showValidationMessage, ...other}) => {
+
+  const {computedClassName, validationState, help} = processProps({className, required, formState, fieldState});
 
   return (
-    <BootstrapInput
+    <BootstrapDateInput
+      className={computedClassName}
       controlId={fieldState.getKey()}
       validationState={validationState}
       value={fieldState.getValue()}
@@ -17,8 +20,6 @@ const DateInput = ({fieldState, handleValueChange, showValidationMessage, valida
   );
 };
 
-const DateInputHoc = InputHoc(DateInput);
+DateInput.rfsNoCoercion = true; // <---- set it ONCE
 
-DateInputHoc.rfsNoCoercion = true; // <---- set it ONCE
-
-export default DateInputHoc;
+export default DateInput;
