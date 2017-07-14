@@ -6,6 +6,7 @@ import UserAccountForm from '../forms/UserAccount.jsx';
 import EventForm from '../forms/Event.jsx';
 import LoginForm from '../forms/Login.jsx';
 import DependentsForm from '../forms/Dependents.jsx';
+import OtherInputsForm from '../forms/OtherInputs.jsx';
 
 
 export default class DemoView extends Component {
@@ -18,6 +19,7 @@ export default class DemoView extends Component {
     if (location.search.toLowerCase().endsWith('form=event')) {formId = 'Event';}
     if (location.search.toLowerCase().endsWith('form=login')) {formId = 'Login';}
     if (location.search.toLowerCase().endsWith('form=dependents')) {formId = 'Dependents';}
+    if (location.search.toLowerCase().endsWith('form=otherinputs')) {formId = 'OtherInputs';}
 
     this.state = {
       formId,
@@ -66,16 +68,19 @@ export default class DemoView extends Component {
             { id: 3, name: 'Lowly the Worm', age: 8 }
           ]
         }
+      },
+      'OtherInputs' : {
+        name: 'Other Inputs',
+        type: OtherInputsForm,
+        model: {
+          favoriteOceanId: 2,
+          lunch: [6],
+          say: 'Thank you for your interest in react-formstate',
+          yumIds: [1,4],
+          youCheckedTheBox: true
+        }
       }
     };
-
-    // const address = {
-    //   line1: '123 Scarry Street',
-    //   city: 'Busytown',
-    //   state: 'MA',
-    //   zip: '12345',
-    //   country: 'USA'
-    // };
   }
 
 
@@ -91,7 +96,7 @@ export default class DemoView extends Component {
           <Select
             className='demo-form-select'
             controlId='formSelect'
-            optionValues={Object.keys(this.forms).map(id => {return {id: id, name: this.forms[id].name}})}
+            optionValues={Object.keys(this.forms).map(id => {return {id, name: this.forms[id].name}})}
             value={this.state.formId}
             onChange={e => this.setState({edit: false, formId: e.target.value})}
             />

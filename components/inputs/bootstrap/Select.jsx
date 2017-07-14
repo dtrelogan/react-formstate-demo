@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
-const Select = ({className, controlId, validationState, optionValues, multiple, label, value, help, onChange, onBlur, placeholder}) => {
+const Select = ({className, controlId, validationState, optionValues, multiple, label, value, help, onChange, onBlur, placeholder, size}) => {
 
   return (
     <FormGroup
@@ -17,6 +17,7 @@ const Select = ({className, controlId, validationState, optionValues, multiple, 
         value={multiple ? (value || []) : value}
         onChange={onChange}
         onBlur={onBlur}
+        size={size}
         >
         {optionValues.map((v) => <option key={v.id} value={v.id.toString()}>{v.name || v.text}</option>)}
       </FormControl>

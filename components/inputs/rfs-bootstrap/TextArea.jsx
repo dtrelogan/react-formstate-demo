@@ -1,5 +1,5 @@
-import React from 'react';
-import RadioGroup from '../bootstrap/RadioGroup.jsx';
+import React, { Component } from 'react';
+import BootstrapTextArea from '../bootstrap/TextArea.jsx';
 import processProps from  './_processProps.es6';
 
 export default ({className, required, formState, fieldState, handleValueChange, showValidationMessage, ...other}) => {
@@ -7,7 +7,7 @@ export default ({className, required, formState, fieldState, handleValueChange, 
   const {computedClassName, validationState, help, onBlur} = processProps({className, required, formState, fieldState, showValidationMessage});
 
   return (
-    <RadioGroup
+    <BootstrapTextArea
       className={computedClassName}
       controlId={fieldState.getKey()}
       validationState={validationState}

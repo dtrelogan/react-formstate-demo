@@ -1,5 +1,5 @@
-import React from 'react';
-import RadioGroup from '../bootstrap/RadioGroup.jsx';
+import React, { Component } from 'react';
+import BootstrapValidatedCheckbox from '../bootstrap/ValidatedCheckbox.jsx';
 import processProps from  './_processProps.es6';
 
 export default ({className, required, formState, fieldState, handleValueChange, showValidationMessage, ...other}) => {
@@ -7,15 +7,15 @@ export default ({className, required, formState, fieldState, handleValueChange, 
   const {computedClassName, validationState, help, onBlur} = processProps({className, required, formState, fieldState, showValidationMessage});
 
   return (
-    <RadioGroup
+    <BootstrapValidatedCheckbox
       className={computedClassName}
       controlId={fieldState.getKey()}
       validationState={validationState}
-      value={fieldState.getValue()}
-      onChange={e => handleValueChange(e.target.value)}
+      checked={fieldState.getValue()}
+      onChange={e => handleValueChange(e.target.checked)}
       onBlur={onBlur}
       help={help}
       {...other}
       />
   );
-};
+}

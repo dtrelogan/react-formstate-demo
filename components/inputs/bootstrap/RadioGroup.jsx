@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormGroup, Radio, HelpBlock, ControlLabel } from 'react-bootstrap';
 
-export default ({controlId, label, inline, buttonValues, value, help, onChange, disabled}) => {
+export default ({className, controlId, validationState, label, inline, buttonValues, value, help, onChange, onBlur, disabled}) => {
 
   let labelDiv = null;
 
@@ -37,7 +37,7 @@ export default ({controlId, label, inline, buttonValues, value, help, onChange, 
   });
 
   return (
-    <FormGroup controlId={controlId}>
+    <FormGroup className={className} controlId={controlId} validationState={validationState} onBlur={onBlur}>
       {labelDiv}
       {buttons}
       <HelpBlock>{help}</HelpBlock>
