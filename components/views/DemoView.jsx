@@ -12,8 +12,13 @@ export default class DemoView extends Component {
   constructor(props) {
     super(props);
 
+    let formId = 'UserAccount';
+    if (location.search.toLowerCase().endsWith('form=useraccount')) {formId = 'UserAccount';}
+    if (location.search.toLowerCase().endsWith('form=event')) {formId = 'Event';}
+    if (location.search.toLowerCase().endsWith('form=login')) {formId = 'Login';}
+
     this.state = {
-      formId: '1',
+      formId,
       key: 0,
       edit: false,
       showOnBlur: false,
@@ -23,7 +28,7 @@ export default class DemoView extends Component {
 
 
     this.forms = {
-      '1' : {
+      'UserAccount' : {
         name: 'User Account (async validation)',
         type: UserAccountForm,
         model: {
@@ -32,7 +37,7 @@ export default class DemoView extends Component {
           username: 'huckle'
         }
       },
-      '2' : {
+      'Event' : {
         name: 'Event (non-HTML input)',
         type: EventForm,
         model: {
@@ -42,7 +47,7 @@ export default class DemoView extends Component {
           endDate: '2019-07-26T18:32:24.402Z'
         }
       },
-      '3' : {
+      'Login' : {
         name: 'Login (onUpdate callback)',
         type: LoginForm,
         model: null
