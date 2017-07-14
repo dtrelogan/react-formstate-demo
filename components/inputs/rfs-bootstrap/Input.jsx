@@ -4,7 +4,7 @@ import processProps from  './_processProps.es6';
 
 export default ({className, required, formState, fieldState, handleValueChange, showValidationMessage, ...other}) => {
 
-  const {computedClassName, validationState, help} = processProps({className, required, formState, fieldState});
+  const {computedClassName, validationState, help, onBlur} = processProps({className, required, formState, fieldState, showValidationMessage});
 
   return (
     <BootstrapInput
@@ -13,7 +13,7 @@ export default ({className, required, formState, fieldState, handleValueChange, 
       validationState={validationState}
       value={fieldState.getValue()}
       onChange={e => handleValueChange(e.target.value)}
-      onBlur={showValidationMessage}
+      onBlur={onBlur}
       help={help}
       {...other}
       />

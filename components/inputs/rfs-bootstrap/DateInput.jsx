@@ -4,7 +4,7 @@ import processProps from  './_processProps.es6';
 
 const DateInput = ({className, required, formState, fieldState, handleValueChange, showValidationMessage, ...other}) => {
 
-  const {computedClassName, validationState, help} = processProps({className, required, formState, fieldState});
+  const {computedClassName, validationState, help, onBlur} = processProps({className, required, formState, fieldState, showValidationMessage});
 
   return (
     <BootstrapDateInput
@@ -13,7 +13,7 @@ const DateInput = ({className, required, formState, fieldState, handleValueChang
       validationState={validationState}
       value={fieldState.getValue()}
       onChange={handleValueChange}
-      onBlur={showValidationMessage}
+      onBlur={onBlur}
       help={help}
       {...other}
       />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 
-export default ({className, controlId, validationState, optionValues, multiple, label, value, help, onChange, onBlur, placeholder}) => {
+const Select = ({className, controlId, validationState, optionValues, multiple, label, value, help, onChange, onBlur, placeholder}) => {
 
   return (
     <FormGroup
@@ -24,3 +24,15 @@ export default ({className, controlId, validationState, optionValues, multiple, 
     </FormGroup>
   );
 };
+
+Select.getSelectMultipleValue = (e) => {
+  const value = [], options = e.target.options;
+  for (let i = 0, len = options.length; i < len; i++) {
+    if (options[i].selected) {
+      value.push(options[i].value);
+    }
+  }
+  return value;
+}
+
+export default Select;

@@ -5,9 +5,9 @@ export default ({className, bsStyle, bsSize, message, invalid, validating, uploa
 
   let computedBsStyle = 'primary', computedMessage = 'Submit';
 
-  if (invalid) {computedBsStyle = 'danger'; computedMessage = 'Please fix validation errors';}
   if (validating) {computedBsStyle = 'warning'; computedMessage = 'Waiting for validation...';}
   if (uploading) {computedBsStyle = 'warning'; computedMessage = 'Waiting for upload...';}
+  if (invalid) {computedBsStyle = 'danger'; computedMessage = 'Please fix validation errors';}
 
   if (bsStyle) {computedBsStyle = bsStyle;}
   if (message) {computedMessage = message;}

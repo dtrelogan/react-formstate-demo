@@ -166,7 +166,7 @@ class UserAccountForm extends Component {
       return;
     } // else
 
-    const asyncToken = fieldState.setValidating('Verifying username...', !this.formState.showMessageOnBlur());
+    const asyncToken = fieldState.setValidating('Verifying username...');
     context.updateFormState();
 
     // simulate calling an api

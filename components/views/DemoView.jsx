@@ -15,7 +15,8 @@ export default class DemoView extends Component {
       key: 0,
       edit: false,
       showOnBlur: false,
-      validateOnBlur: false
+      validateOnBlur: false,
+      showOnSubmit: false
     };
 
 
@@ -75,7 +76,10 @@ export default class DemoView extends Component {
               &nbsp;Show Message onBlur&nbsp;&nbsp;&nbsp;
             </Radio>
             <Radio checked={this.state.validateOnBlur} onClick={() => this.toggleValidateOnBlur()}>
-              &nbsp;Ensure Validation onBlur
+              &nbsp;Ensure Validation onBlur&nbsp;&nbsp;&nbsp;
+            </Radio>
+            <Radio checked={this.state.showOnSubmit} onClick={() => this.toggleShowOnSubmit()}>
+              &nbsp;Show Message onSubmit
             </Radio>
           </InlineForm>
           <Button onClick={() => this.setState({key: this.state.key + 1})}>
@@ -104,5 +108,10 @@ export default class DemoView extends Component {
   toggleValidateOnBlur() {
     FormState.setEnsureValidationOnBlur(!this.state.validateOnBlur);
     this.setState({validateOnBlur: !this.state.validateOnBlur})
+  }
+
+  toggleShowOnSubmit() {
+    FormState.setShowMessageOnSubmit(!this.state.showOnSubmit);
+    this.setState({showOnSubmit: !this.state.showOnSubmit});
   }
 };
