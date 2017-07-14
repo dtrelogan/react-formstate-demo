@@ -4,6 +4,8 @@ import { FormState } from 'react-formstate';
 import Select from '../inputs/bootstrap/Select.jsx';
 import UserAccountForm from '../forms/UserAccount.jsx';
 import EventForm from '../forms/Event.jsx';
+import LoginForm from '../forms/Login.jsx';
+
 
 export default class DemoView extends Component {
 
@@ -39,6 +41,11 @@ export default class DemoView extends Component {
           startDate: '2019-07-12T18:32:24.402Z',
           endDate: '2019-07-26T18:32:24.402Z'
         }
+      },
+      '3' : {
+        name: 'Login (onUpdate callback)',
+        type: LoginForm,
+        model: null
       }
     };
 
