@@ -1,3 +1,7 @@
+// react-datepicker seems to crash if you give it onBlur=null
+const emptyOnBlur = () => {};
+
+
 export default ({className, required, formState, fieldState, showValidationMessage}) => {
 
   let validationState = null, help = null;
@@ -16,6 +20,6 @@ export default ({className, required, formState, fieldState, showValidationMessa
     computedClassName: `${className || ''} ${required ? 'required' : ''}`,
     validationState,
     help,
-    onBlur: formState.showMessageOnSubmit() ? null : showValidationMessage
+    onBlur: formState.showMessageOnSubmit() ? emptyOnBlur : showValidationMessage
   };
 };
