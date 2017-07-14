@@ -47,7 +47,7 @@ class UserAccountForm extends Component {
           </Row>
           <Row>
             <CheckboxGroup
-              formField='lunch'
+              formField='lunchIds'
               label='Lunch'
               checkboxValues={options(['Sandwich','Potato Chips','Fruit','Pickle','Milkshake','Beer','Martini(s)'])}
               required='-'

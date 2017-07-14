@@ -74,7 +74,7 @@ export default class DemoView extends Component {
         type: OtherInputsForm,
         model: {
           favoriteOceanId: 2,
-          lunch: [6],
+          lunchIds: [6],
           say: 'Thank you for your interest in react-formstate',
           yumIds: [1,4],
           youCheckedTheBox: true
