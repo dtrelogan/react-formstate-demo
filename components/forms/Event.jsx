@@ -74,6 +74,9 @@ class EventForm extends Component {
               startDate &lt; endDate validation takes place against endDate. If startDate changes, the validation status of endDate gets reset, and, if empty, initialized
               to startDate. (This is very similar to resetting password confirmation when password changes. It is a handy pattern.)
             </ListGroupItem>
+            <ListGroupItem>
+              react-datepicker is not designed to work as a controlled component and runs into issues with being controlled by form state if you manually wipe the input box.
+            </ListGroupItem>
           </ListGroup>
         </Instructions>
       </Form>

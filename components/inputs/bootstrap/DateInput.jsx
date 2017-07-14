@@ -2,23 +2,23 @@ import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 
-export default (props) => {
+export default ({className, controlId, validationState, label, value, help, onChange, onBlur}) => {
   return (
     <FormGroup
-      className={props.className}
-      controlId={props.controlId}
-      validationState={props.validationState}
+      className={className}
+      controlId={controlId}
+      validationState={validationState}
       >
-      <ControlLabel>{props.label}</ControlLabel>
+      <ControlLabel>{label}</ControlLabel>
       <div className='date-input-container'>
         <DatePicker
           className='form-control'
-          selected={props.value}
-          onChange={props.onChange}
-          onBlur={props.onBlur}
+          selected={value}
+          onChange={onChange}
+          onBlur={onBlur}
           />
       </div>
-      <HelpBlock>{props.help}</HelpBlock>
+      <HelpBlock>{help}</HelpBlock>
     </FormGroup>
   );
 };
