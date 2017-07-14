@@ -13,6 +13,15 @@ import DateInput from '../inputs/rfs-bootstrap/DateInput.jsx';
 import moment from 'moment';
 
 
+//
+//
+// Register a reusable validation that works for react-datepicker
+//
+//
+FormState.registerValidation('rdpRequired', function(value, label) {
+  if (!value) { return `${label} is required`; }
+});
+
 
 class EventForm extends Component {
 
@@ -27,28 +36,16 @@ class EventForm extends Component {
       this.formState.add(this.state, 'startDate', moment(props.model.startDate), true);
       this.formState.add(this.state, 'endDate', moment(props.model.endDate), true);
     }
-
-    this.validateDates = this.validateDates.bind(this);
   }
 
   editMode() {
     return Boolean(this.props.model);
   }
 
-  validateDates(v, context, field) {
-    if (!v) { return `${field.label} is required`; }
-
-    const start = context.getFieldState('startDate');
-    const end = context.getFieldState('endDate');
-
-    if (!start.getUncoercedValue() || !end.getUncoercedValue()) { return; }
-
-    if (start.getUncoercedValue() >= end.getUncoercedValue()) {
-      start.setInvalid('Start Date must be before End Date');
-      end.setInvalid('End Date must be after Start Date');
-    } else {
-      start.setValid();
-      end.setValid();
+  validateEndDate(v, context) {
+    if (!v) { return 'End Date is required'; }
+    if (v <= context.getu('startDate')) {
+      return 'End Date must be after Start Date';
     }
   }
 
@@ -58,8 +55,8 @@ class EventForm extends Component {
         <Grid fluid>
           <Row><HiddenInput formField='id' defaultValue='0' intConvert/></Row>
           <Row><Input formField='name' label='Event Name' required autoComplete='off'/></Row>
-          <Row><DateInput formField='startDate' label='Start Date' required='-' validate={this.validateDates}/></Row>
-          <Row><DateInput formField='endDate' label='End Date' required='-' validate={this.validateDates}/></Row>
+          <Row><DateInput formField='startDate' label='Start Date' required='-' fsv={v => v.rdpRequired()} handleValueChange={v => this.handleStartDateChange(v)}/></Row>
+          <Row><DateInput formField='endDate' label='End Date' required='-'/></Row>
           <Row>
             <Submit
               className='submit'
@@ -73,11 +70,23 @@ class EventForm extends Component {
           <ListGroup>
             <ListGroupItem>Check out the <a href='https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/Event.jsx'>source code</a></ListGroupItem>
             <ListGroupItem>Unlike a standard HTML input that works with string values, react-datepicker is a nonstandard input that works with {'"moment"'} objects.</ListGroupItem>
-            <ListGroupItem>Validating that start date is before end date onChange is not as clean as validating at time of render, but it&apos;s doable.</ListGroupItem>
+            <ListGroupItem>
+              startDate &lt; endDate validation takes place against endDate. If startDate changes, the validation status of endDate gets reset, and, if empty, initialized
+              to startDate. (This is very similar to resetting password confirmation when password changes. It is a handy pattern.)
+            </ListGroupItem>
           </ListGroup>
         </Instructions>
       </Form>
     );
+  }
+
+  handleStartDateChange(v) {
+    const context = this.formState.createUnitOfWork();
+    context.set('startDate', v).validate();
+    // reset endDate's validation status. if empty initialize it to startDate.
+    const endDate = context.getu('endDate');
+    context.set('endDate', endDate ? endDate : v);
+    context.updateFormState();
   }
 
   handleSubmit(e) {

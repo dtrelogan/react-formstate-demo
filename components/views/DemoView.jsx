@@ -59,7 +59,7 @@ export default class DemoView extends Component {
     return (
       <div>
         <Jumbotron>
-          <h3 className='main-title'>react-formstate-demo</h3>
+          <span className='main-title'>react-formstate-demo</span> <span className='choose-a-form-label'>Choose&nbsp;a&nbsp;form:</span>
           <Select
             className='demo-form-select'
             controlId='formSelect'

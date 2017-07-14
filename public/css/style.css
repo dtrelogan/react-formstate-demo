@@ -2,8 +2,9 @@
   padding: 20px;
 }
 
-.main-title {margin-top: 0px;}
-.demo-form-select {max-width: 600px;}
+.main-title {margin-top: 0px; font-size: 16pt; font-weight: bold; margin-right: 20px; color: green;}
+
+.demo-form-select {margin-top: 5px; max-width: 600px;}
 .main-demo-options {margin-bottom: 15px;}
 
 /*.date-input-container div {width: 100% !important;}*/
