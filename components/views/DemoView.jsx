@@ -5,6 +5,7 @@ import Select from '../inputs/bootstrap/Select.jsx';
 import UserAccountForm from '../forms/UserAccount.jsx';
 import EventForm from '../forms/Event.jsx';
 import LoginForm from '../forms/Login.jsx';
+import DependentsForm from '../forms/Dependents.jsx';
 
 
 export default class DemoView extends Component {
@@ -16,6 +17,7 @@ export default class DemoView extends Component {
     if (location.search.toLowerCase().endsWith('form=useraccount')) {formId = 'UserAccount';}
     if (location.search.toLowerCase().endsWith('form=event')) {formId = 'Event';}
     if (location.search.toLowerCase().endsWith('form=login')) {formId = 'Login';}
+    if (location.search.toLowerCase().endsWith('form=dependents')) {formId = 'Dependents';}
 
     this.state = {
       formId,
@@ -51,6 +53,19 @@ export default class DemoView extends Component {
         name: 'Login (onUpdate callback)',
         type: LoginForm,
         model: null
+      },
+      'Dependents' : {
+        name: 'Dependents (nested form components)',
+        type: DependentsForm,
+        model: {
+          id: 8910,
+          name: 'Father Cat',
+          dependents: [
+            { id: 1, name: 'Huckle Cat', age: 8 },
+            { id: 2, name: 'Sally Cat', age: 5 },
+            { id: 3, name: 'Lowly the Worm', age: 8 }
+          ]
+        }
       }
     };
 
