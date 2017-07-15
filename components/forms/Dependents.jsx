@@ -35,7 +35,7 @@ class Dependent extends Component {
     return (
       <FormExtension nestedForm={this}>
         <div><HiddenInput formField='id' defaultValue='0' intConvert/></div>
-        <div><Input formField='name' label='Name' required/></div>
+        <div><Input formField='name' label='Name' required autoComplete='off'/></div>
         <div>
           <Select
             formField='age'
@@ -71,7 +71,7 @@ class DependentsForm extends Component {
   }
 
   render() {
-    let dependents = [];
+    const dependents = [];
 
     for (let i = 0; i < this.state.numDependents; i++) {
       if (!this.formState.isDeleted(`dependents.${i}`)) {
@@ -126,7 +126,7 @@ class DependentsForm extends Component {
   removeDependent(i) {
     return (e) => {
       e.preventDefault();
-      let context = this.formState.createUnitOfWork();
+      const context = this.formState.createUnitOfWork();
       context.remove(`dependents.${i}`);
       context.updateFormState();
     };
