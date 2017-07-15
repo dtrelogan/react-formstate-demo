@@ -41,7 +41,7 @@ class UserAccountForm extends Component {
               formField='favoriteOceanId'
               label='Favorite Ocean'
               buttonValues={options(['Arctic', 'Atlantic', 'Indian', 'Pacific', 'Southern', 'Billy'])}
-              required='Water, water, everywhere...'
+              required="Water, water, everywhere... ap-par-ent-ly you don't care"
               intConvert
               />
           </Row>
@@ -51,7 +51,7 @@ class UserAccountForm extends Component {
               label='Lunch'
               checkboxValues={options(['Sandwich','Potato Chips','Fruit','Pickle','Milkshake','Beer','Martini(s)'])}
               required='-'
-              fsv={v => v.minLength(1).msg('Have something to eat please!')}
+              fsv={v => v.minLength(1).msg('Not hungry?')}
               intConvert
               />
           </Row>
@@ -71,7 +71,7 @@ class UserAccountForm extends Component {
               multiple
               optionValues={options(['Cake','Cookies','Pie','Ice Cream','Doughnuts'])}
               required='-'
-              fsv={v => v.minLength(1).msg('Eat your dessert!')}
+              fsv={v => v.minLength(1).msg('Got something against cake?')}
               size={5}
               intConvert
               />
