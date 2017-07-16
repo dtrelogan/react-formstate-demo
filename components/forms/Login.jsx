@@ -18,7 +18,7 @@ class LoginForm extends Component {
     this.formState = new FormState(this);
     this.state = this.formState.injectModel(props.model);
 
-    // set a callback from the framework generated onChange handler
+    // set a callback from the standard onChange handler
     this.formState.onUpdate(this.onUpdate.bind(this));
   }
 
@@ -64,15 +64,6 @@ class LoginForm extends Component {
         </Instructions>
       </Form>
     );
-  }
-
-  handleStartDateChange(v) {
-    const context = this.formState.createUnitOfWork();
-    context.set('startDate', v).validate();
-    // reset endDate's validation status. if empty initialize it to startDate.
-    const endDate = context.getu('endDate');
-    context.set('endDate', endDate ? endDate : v);
-    context.updateFormState();
   }
 
   handleSubmit(e) {
