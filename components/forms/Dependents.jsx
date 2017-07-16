@@ -43,6 +43,7 @@ class Dependent extends Component {
             optionValues={this.constructor.ageOptions}
             required='-'
             fsv={v => v.minLength(1).msg('Age is required')}
+            intConvert
             />
         </div>
       </FormExtension>
@@ -111,6 +112,7 @@ class DependentsForm extends Component {
             <ListGroupItem>Check out the <a href='https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/Dependents.jsx'>source code</a></ListGroupItem>
             <ListGroupItem>This demonstrates a very simple nested form component.</ListGroupItem>
             <ListGroupItem>It also demonstrates dynamically adding and removing inputs and the resulting model output.</ListGroupItem>
+            <ListGroupItem>The intConvert setting transforms the age value to a number upon output.</ListGroupItem>
           </ListGroup>
         </Instructions>
       </Form>
