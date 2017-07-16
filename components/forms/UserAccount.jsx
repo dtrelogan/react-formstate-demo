@@ -102,6 +102,7 @@ class UserAccountForm extends Component {
               label={this.editMode() ? 'New Password' : 'Password'}
               required={!this.editMode()}
               handleValueChange={v => this.handlePasswordChange(v)}
+              preferNull
               />
           </Row>
           <Row>
@@ -110,6 +111,7 @@ class UserAccountForm extends Component {
               formField='confirmNewPassword'
               label={this.editMode() ? 'Confirm New Password' : 'Confirm Password'}
               required={!this.editMode()}
+              preferNull
               />
           </Row>
           <Row>
@@ -134,6 +136,7 @@ class UserAccountForm extends Component {
                 <li>Password less than 12 characters will warn.</li>
               </ul>
             </ListGroupItem>
+            <ListGroupItem>Password and confirmation fields use preferNull for model output - when editing an account and password is left unchanged.</ListGroupItem>
           </ListGroup>
         </Instructions>
       </Form>
