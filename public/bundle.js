@@ -11717,6 +11717,8 @@ var FieldState = function () {
   }, {
     key: 'setValidating',
     value: function setValidating(message, visible) {
+      // actually, the visible parameter is pointless since you could just make a subsequent call to showMessage.
+      // it's a holdover from previous implementation that automatically set message to visible here.
       var asyncToken = generateQuickGuid();
       this.setProps(this.getValue(), this.isCoerced(), 3, message, asyncToken, exists(visible) ? visible : false);
       return asyncToken; // thinking this is more valuable than chaining
