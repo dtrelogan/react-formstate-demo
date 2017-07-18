@@ -13,6 +13,14 @@ import DateInput from '../inputs/rfs-bootstrap/DateInput.jsx';
 import moment from 'moment';
 
 
+const testModel = {
+  id: 123,
+  name: 'Travel to Europe (I wish!)',
+  startDate: '2019-07-12T18:32:24.402Z',
+  endDate: '2019-07-26T18:32:24.402Z'
+};
+
+
 //
 //
 // Register a reusable validation that works for react-datepicker
@@ -103,4 +111,6 @@ class EventForm extends Component {
 }
 
 
-export default ShowModel(EventForm);
+const Hoc = ShowModel(EventForm);
+Hoc.testModel = testModel;
+export default Hoc;

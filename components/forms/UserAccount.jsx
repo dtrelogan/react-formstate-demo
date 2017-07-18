@@ -10,6 +10,14 @@ import Submit from '../inputs/bootstrap/Submit.jsx';
 import ShowModel from './ShowModelHoc.jsx';
 import Instructions from './Instructions.jsx';
 
+
+const testModel = {
+  id: 123,
+  name: 'Huckle',
+  username: 'huckle'
+};
+
+
 class UserAccountForm extends Component {
 
   //
@@ -210,4 +218,6 @@ class UserAccountForm extends Component {
 }
 
 
-export default ShowModel(UserAccountForm);
+const Hoc = ShowModel(UserAccountForm);
+Hoc.testModel = testModel;
+export default Hoc;

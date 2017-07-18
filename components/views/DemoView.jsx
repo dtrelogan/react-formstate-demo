@@ -34,51 +34,23 @@ export default class DemoView extends Component {
     this.forms = {
       'UserAccount' : {
         name: 'User Account (async validation)',
-        type: UserAccountForm,
-        model: {
-          id: 123,
-          name: 'Huckle',
-          username: 'huckle'
-        }
+        type: UserAccountForm
       },
       'Event' : {
         name: 'Event (non-HTML input)',
-        type: EventForm,
-        model: {
-          id: 123,
-          name: 'Travel to Europe (I wish!)',
-          startDate: '2019-07-12T18:32:24.402Z',
-          endDate: '2019-07-26T18:32:24.402Z'
-        }
+        type: EventForm
       },
       'Login' : {
         name: 'Login (onUpdate callback)',
-        type: LoginForm,
-        model: null
+        type: LoginForm
       },
       'Dependents' : {
         name: 'Dependents (nested form components)',
-        type: DependentsForm,
-        model: {
-          id: 8910,
-          name: 'Father Cat',
-          dependents: [
-            { id: 1, name: 'Huckle Cat', age: 8 },
-            { id: 2, name: 'Sally Cat', age: 5 },
-            { id: 3, name: 'Lowly the Worm', age: 8 }
-          ]
-        }
+        type: DependentsForm
       },
       'OtherInputs' : {
         name: 'Other Inputs',
-        type: OtherInputsForm,
-        model: {
-          favoriteOceanId: 2,
-          lunchIds: [1,2,3,4,5,6,7],
-          say: 'Thank you for your interest in react-formstate',
-          yumIds: [1,2,3,4,5],
-          youCheckedTheBox: true
-        }
+        type: OtherInputsForm
       }
     };
   }
@@ -120,7 +92,7 @@ export default class DemoView extends Component {
         </Jumbotron>
         <Form
           key={this.state.key}
-          model={this.state.edit ? this.forms[this.state.formId].model : null}
+          model={this.state.edit ? Form.testModel : null}
           />
       </div>
     );

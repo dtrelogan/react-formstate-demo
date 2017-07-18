@@ -16,11 +16,21 @@ import ValidatedCheckbox from '../inputs/rfs-bootstrap/ValidatedCheckbox.jsx';
 import CheckboxGroup from '../inputs/rfs-bootstrap/CheckboxGroup.jsx';
 
 
+const testModel = {
+  favoriteOceanId: 2,
+  lunchIds: [1,2,3,4,5,6,7],
+  say: 'Thank you for your interest in react-formstate',
+  yumIds: [1,2,3,4,5],
+  youCheckedTheBox: true
+};
+
+
 const options = (a) => {
   return a.map((name,id) => { return {id: id + 1, name}; });
 }
 
-class UserAccountForm extends Component {
+
+class OtherInputsForm extends Component {
 
   constructor(props) {
     super(props);
@@ -120,4 +130,6 @@ class UserAccountForm extends Component {
 }
 
 
-export default ShowModel(UserAccountForm);
+const Hoc = ShowModel(OtherInputsForm);
+Hoc.testModel = testModel;
+export default Hoc;

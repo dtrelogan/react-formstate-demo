@@ -12,6 +12,16 @@ import Instructions from './Instructions.jsx';
 import Select from '../inputs/rfs-bootstrap/Select.jsx';
 
 
+const testModel = {
+  id: 8910,
+  name: 'Father Cat',
+  dependents: [
+    { id: 1, name: 'Huckle Cat', age: 8 },
+    { id: 2, name: 'Sally Cat', age: 5 },
+    { id: 3, name: 'Lowly the Worm', age: 8 }
+  ]
+};
+
 // even though it's stateless, you have to make this extend Component to work with react-formstate
 // so that react-formstate can retrieve generated props and pass them along to more deeply nested components
 //
@@ -145,4 +155,6 @@ class DependentsForm extends Component {
 }
 
 
-export default ShowModel(DependentsForm);
+const Hoc = ShowModel(DependentsForm);
+Hoc.testModel = testModel;
+export default Hoc;
