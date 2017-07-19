@@ -44,8 +44,21 @@ class Dependent extends Component {
 
     return (
       <FormExtension nestedForm={this}>
-        <div><HiddenInput formField='id' defaultValue='0' intConvert/></div>
-        <div><Input formField='name' label='Name' required autoComplete='off'/></div>
+        <div>
+          <HiddenInput
+            formField='id'
+            defaultValue='0'
+            intConvert
+            />
+        </div>
+        <div>
+          <Input
+            formField='name'
+            label='Name'
+            required
+            autoComplete='off'
+            />
+        </div>
         <div>
           <Select
             formField='age'
@@ -91,7 +104,9 @@ class DependentsForm extends Component {
             <ListGroup>
               <ListGroupItem>
                 <Dependent formObject={i}/>
-                <div><a href='#' onClick={this.removeDependent(i)}>remove</a></div>
+                <div>
+                  <a href='#' onClick={this.removeDependent(i)}>remove</a>
+                </div>
               </ListGroupItem>
             </ListGroup>
           </Row>
@@ -103,8 +118,19 @@ class DependentsForm extends Component {
       <Form formState={this.formState} onSubmit={e => this.handleSubmit(e)}>
         <Grid fluid>
           <Row><HiddenInput formField='id' defaultValue='0' intConvert/></Row>
-          <Row><Input formField='name' label='Name' required autoComplete='off'/></Row>
-          <Row><div className='add-dependent'><a href='#' onClick={e => this.addDependent(e)}>add dependent</a></div></Row>
+          <Row>
+            <Input
+              formField='name'
+              label='Name'
+              required
+              autoComplete='off'
+              />
+          </Row>
+          <Row>
+            <div className='add-dependent'>
+              <a href='#' onClick={e => this.addDependent(e)}>add dependent</a>
+            </div>
+          </Row>
           <FormArray name='dependents'>
             {dependents}
           </FormArray>

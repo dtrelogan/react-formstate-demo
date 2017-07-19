@@ -39,9 +39,25 @@ class LoginForm extends Component {
     return (
       <Form formState={this.formState} onSubmit={e => this.handleSubmit(e)}>
         <Grid fluid>
-          <Row><div className='failed-login-message'>{this.state.failedLogin ? 'Invalid username or password' : null}</div></Row>
-          <Row><Input formField='username' label='Username' required autoComplete='off' /></Row>
-          <Row><Input formField='password' label='Password' required type='password' /></Row>
+          <Row>
+            <div className='failed-login-message'>{this.state.failedLogin ? 'Invalid username or password' : null}</div>
+          </Row>
+          <Row>
+            <Input
+              formField='username'
+              label='Username'
+              required
+              autoComplete='off'
+              />
+          </Row>
+          <Row>
+            <Input
+              formField='password'
+              label='Password'
+              required
+              type='password'
+              />
+          </Row>
           <Row>
             <Submit
               className='submit'

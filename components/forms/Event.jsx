@@ -61,10 +61,37 @@ class EventForm extends Component {
     return (
       <Form formState={this.formState} onSubmit={e => this.handleSubmit(e)}>
         <Grid fluid>
-          <Row><HiddenInput formField='id' defaultValue='0' intConvert/></Row>
-          <Row><Input formField='name' label='Event Name' required autoComplete='off'/></Row>
-          <Row><DateInput formField='startDate' label='Start Date' required='-' fsv={v => v.rdpRequired()} handleValueChange={v => this.handleStartDateChange(v)}/></Row>
-          <Row><DateInput formField='endDate' label='End Date' required='-'/></Row>
+          <Row>
+            <HiddenInput
+              formField='id'
+              defaultValue='0'
+              intConvert
+              />
+          </Row>
+          <Row>
+            <Input
+              formField='name'
+              label='Event Name'
+              required
+              autoComplete='off'
+              />
+          </Row>
+          <Row>
+            <DateInput
+              formField='startDate'
+              label='Start Date'
+              required='-'
+              fsv={v => v.rdpRequired()}
+              handleValueChange={v => this.handleStartDateChange(v)}
+              />
+          </Row>
+          <Row>
+            <DateInput
+              formField='endDate'
+              label='End Date'
+              required='-'
+              />
+          </Row>
           <Row>
             <Submit
               className='submit'
