@@ -183,7 +183,8 @@ class UserAccountForm extends Component {
     // simulate calling an api
     window.setTimeout(() => {
       const context = this.formState.createUnitOfWork(),
-        fieldState = context.getFieldState('username', asyncToken);
+        fieldState = context.getFieldState('username', asyncToken),
+        visible = fieldState.isMessageVisible();
 
       // if the token still matches, the username we are verifying is still relevant
       if (fieldState) {
@@ -192,7 +193,7 @@ class UserAccountForm extends Component {
         } else {
           fieldState.setValid('Verified');
         }
-        fieldState.showMessage();
+        if (visible) { fieldState.showMessage(); }
         context.updateFormState();
       }
     }, 2000);
