@@ -2,7 +2,7 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
 "use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),_react=require("react"),_react2=_interopRequireDefault(_react),_reactDom=require("react-dom"),_reactDom2=_interopRequireDefault(_reactDom),_reactFormstate=require("react-formstate"),_reactFormstateValidation=require("react-formstate-validation"),_reactBootstrap=require("react-bootstrap"),_SingleColumnRow=require("../layout/bootstrap/SingleColumnRow.jsx"),_SingleColumnRow2=_interopRequireDefault(_SingleColumnRow),_HiddenInput=require("../inputs/rfs-bootstrap/HiddenInput.jsx"),_HiddenInput2=_interopRequireDefault(_HiddenInput),_Input=require("../inputs/rfs-bootstrap/Input.jsx"),_Input2=_interopRequireDefault(_Input),_Submit=require("../inputs/bootstrap/Submit.jsx"),_Submit2=_interopRequireDefault(_Submit),_ShowModelHoc=require("./ShowModelHoc.jsx"),_ShowModelHoc2=_interopRequireDefault(_ShowModelHoc),_Instructions=require("./Instructions.jsx"),_Instructions2=_interopRequireDefault(_Instructions),_Select=require("../inputs/rfs-bootstrap/Select.jsx"),_Select2=_interopRequireDefault(_Select),testModel={id:8910,name:"Father Cat",dependents:[{id:1,name:"Huckle Cat",age:8},{id:2,name:"Sally Cat",age:5},{id:3,name:"Lowly the Worm",age:8}]},Dependent=function(e){function t(){return _classCallCheck(this,t),_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}return _inherits(t,_react.Component),_createClass(t,[{key:"validateName",value:function(e){if(e.substring(0,1)===e.substring(0,1).toLowerCase())return"Name should be capitalized"}},{key:"render",value:function(){if(!this.constructor.ageOptions){this.constructor.ageOptions=[];for(var e=0;e<150;e++)this.constructor.ageOptions.push({id:e.toString(),text:e.toString()})}return _react2.default.createElement(_reactFormstate.FormExtension,{nestedForm:this},_react2.default.createElement("div",null,_react2.default.createElement(_HiddenInput2.default,{formField:"id",defaultValue:"0",intConvert:!0})),_react2.default.createElement("div",null,_react2.default.createElement(_Input2.default,{formField:"name",label:"Name",required:!0,autoComplete:"off"})),_react2.default.createElement("div",null,_react2.default.createElement(_Select2.default,{formField:"age",label:"Age",optionValues:this.constructor.ageOptions,required:"-",fsv:function(e){return e.minLength(1).msg("Age is required")},intConvert:!0})))}}]),t}(),DependentsForm=function(e){function t(e){_classCallCheck(this,t);var r=_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));return r.formState=new _reactFormstate.FormState(r),r.state=r.formState.injectModel(e.model),r.state.numDependents=0,e.model&&e.model.dependents&&(r.state.numDependents=e.model.dependents.length),r}return _inherits(t,_react.Component),_createClass(t,[{key:"editMode",value:function(){return Boolean(this.props.model)}},{key:"render",value:function(){for(var e=this,t=[],r=0;r<this.state.numDependents;r++)this.formState.isDeleted("dependents."+r)||t.push(_react2.default.createElement(_SingleColumnRow2.default,{key:r},_react2.default.createElement(_reactBootstrap.ListGroup,null,_react2.default.createElement(_reactBootstrap.ListGroupItem,null,_react2.default.createElement(Dependent,{formObject:r}),_react2.default.createElement("div",null,_react2.default.createElement("a",{href:"#",onClick:this.removeDependent(r)},"remove"))))));return _react2.default.createElement(_reactFormstate.Form,{formState:this.formState,onSubmit:function(t){return e.handleSubmit(t)}},_react2.default.createElement(_reactBootstrap.Grid,{fluid:!0},_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement(_HiddenInput2.default,{formField:"id",defaultValue:"0",intConvert:!0})),_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement(_Input2.default,{formField:"name",label:"Name",required:!0,autoComplete:"off"})),_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement("div",{className:"add-dependent"},_react2.default.createElement("a",{href:"#",onClick:function(t){return e.addDependent(t)}},"add dependent"))),_react2.default.createElement(_reactFormstate.FormArray,{name:"dependents"},t),_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement(_Submit2.default,{className:"submit",invalid:this.formState.isInvalid(),validating:this.formState.isValidating(),grabRef:function(t){return e.submitButton=t}}))),_react2.default.createElement(_Instructions2.default,null,_react2.default.createElement(_reactBootstrap.ListGroup,null,_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Check out the ",_react2.default.createElement("a",{href:"https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/Dependents.jsx"},"source code")),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"This demonstrates a very simple nested form component."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"It also demonstrates dynamically adding and removing inputs and the resulting model output."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"The intConvert setting transforms the age value to a number upon output."))))}},{key:"addDependent",value:function(e){e.preventDefault(),this.setState({numDependents:this.state.numDependents+1})}},{key:"removeDependent",value:function(e){var t=this;return function(r){r.preventDefault();var n=t.formState.createUnitOfWork();n.remove("dependents."+e),n.updateFormState()}}},{key:"handleSubmit",value:function(e){e.preventDefault(),_reactDom2.default.findDOMNode(this.submitButton).focus();var t=this.formState.createUnitOfWork().createModel();t&&this.props.showModel(t)}}]),t}(),Hoc=(0,_ShowModelHoc2.default)(DependentsForm);Hoc.testModel=testModel,exports.default=Hoc;
 
 },{"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../inputs/rfs-bootstrap/Select.jsx":22,"../layout/bootstrap/SingleColumnRow.jsx":26,"./Instructions.jsx":3,"./ShowModelHoc.jsx":6,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":328,"react-formstate-validation":327}],2:[function(require,module,exports){
-"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var a=0;a<t.length;a++){var r=t[a];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,a,r){return a&&e(t.prototype,a),r&&e(t,r),t}}(),_react=require("react"),_react2=_interopRequireDefault(_react),_reactDom=require("react-dom"),_reactDom2=_interopRequireDefault(_reactDom),_reactFormstate=require("react-formstate"),_reactFormstateValidation=require("react-formstate-validation"),_reactBootstrap=require("react-bootstrap"),_SingleColumnRow=require("../layout/bootstrap/SingleColumnRow.jsx"),_SingleColumnRow2=_interopRequireDefault(_SingleColumnRow),_HiddenInput=require("../inputs/rfs-bootstrap/HiddenInput.jsx"),_HiddenInput2=_interopRequireDefault(_HiddenInput),_Input=require("../inputs/rfs-bootstrap/Input.jsx"),_Input2=_interopRequireDefault(_Input),_Submit=require("../inputs/bootstrap/Submit.jsx"),_Submit2=_interopRequireDefault(_Submit),_ShowModelHoc=require("./ShowModelHoc.jsx"),_ShowModelHoc2=_interopRequireDefault(_ShowModelHoc),_Instructions=require("./Instructions.jsx"),_Instructions2=_interopRequireDefault(_Instructions),_DateInput=require("../inputs/rfs-bootstrap/DateInput.jsx"),_DateInput2=_interopRequireDefault(_DateInput),_moment=require("moment"),_moment2=_interopRequireDefault(_moment),testModel={id:123,name:"Travel to Europe (I wish!)",startDate:"2019-07-12T18:32:24.402Z",endDate:"2019-07-26T18:32:24.402Z"};_reactFormstate.FormState.registerValidation("rdpRequired",function(e,t){if(!e)return t+" is required"});var EventForm=function(e){function t(e){_classCallCheck(this,t);var a=_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));return a.formState=new _reactFormstate.FormState(a),a.state=a.formState.injectModel(e.model),e.model&&(a.formState.add(a.state,"startDate",(0,_moment2.default)(e.model.startDate),!0),a.formState.add(a.state,"endDate",(0,_moment2.default)(e.model.endDate),!0)),a}return _inherits(t,_react.Component),_createClass(t,[{key:"editMode",value:function(){return Boolean(this.props.model)}},{key:"validateEndDate",value:function(e,t){return e?e<=t.getu("startDate")?"End Date must be after Start Date":void 0:"End Date is required"}},{key:"render",value:function(){var e=this;return _react2.default.createElement(_reactFormstate.Form,{formState:this.formState,onSubmit:function(t){return e.handleSubmit(t)}},_react2.default.createElement(_reactBootstrap.Grid,{fluid:!0},_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement(_HiddenInput2.default,{formField:"id",defaultValue:"0",intConvert:!0})),_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement(_Input2.default,{formField:"name",label:"Event Name",required:!0,autoComplete:"off"})),_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement(_DateInput2.default,{formField:"startDate",label:"Start Date",required:"-",fsv:function(e){return e.rdpRequired()},handleValueChange:function(t){return e.handleStartDateChange(t)}})),_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement(_DateInput2.default,{formField:"endDate",label:"End Date",required:"-"})),_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement(_Submit2.default,{className:"submit",invalid:this.formState.isInvalid(),validating:this.formState.isValidating(),grabRef:function(t){return e.submitButton=t}}))),_react2.default.createElement(_Instructions2.default,null,_react2.default.createElement(_reactBootstrap.ListGroup,null,_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Check out the ",_react2.default.createElement("a",{href:"https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/Event.jsx"},"source code")),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Unlike a standard HTML input that works with string values, react-datepicker is a nonstandard input that works with ",'"moment"'," objects."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"startDate < endDate validation takes place against endDate. If startDate changes, the validation status of endDate gets reset, and, if empty, initialized to startDate. (This is very similar to resetting password confirmation when password changes. It is a handy pattern.)"),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"react-datepicker is not designed to work as a controlled component and runs into issues with being controlled by form state if you manually wipe the input box."))))}},{key:"handleStartDateChange",value:function(e){var t=this.formState.createUnitOfWork();t.set("startDate",e).validate();var a=t.getu("endDate");t.set("endDate",a||e),t.updateFormState()}},{key:"handleSubmit",value:function(e){e.preventDefault(),_reactDom2.default.findDOMNode(this.submitButton).focus();var t=this.formState.createUnitOfWork().createModel();t&&this.props.showModel(t)}}]),t}(),Hoc=(0,_ShowModelHoc2.default)(EventForm);Hoc.testModel=testModel,exports.default=Hoc;
+"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var r=0;r<t.length;r++){var a=t[r];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(t,r,a){return r&&e(t.prototype,r),a&&e(t,a),t}}(),_react=require("react"),_react2=_interopRequireDefault(_react),_reactDom=require("react-dom"),_reactDom2=_interopRequireDefault(_reactDom),_reactFormstate=require("react-formstate"),_reactFormstateValidation=require("react-formstate-validation"),_reactBootstrap=require("react-bootstrap"),_SingleColumnRow=require("../layout/bootstrap/SingleColumnRow.jsx"),_SingleColumnRow2=_interopRequireDefault(_SingleColumnRow),_HiddenInput=require("../inputs/rfs-bootstrap/HiddenInput.jsx"),_HiddenInput2=_interopRequireDefault(_HiddenInput),_Input=require("../inputs/rfs-bootstrap/Input.jsx"),_Input2=_interopRequireDefault(_Input),_Submit=require("../inputs/bootstrap/Submit.jsx"),_Submit2=_interopRequireDefault(_Submit),_ShowModelHoc=require("./ShowModelHoc.jsx"),_ShowModelHoc2=_interopRequireDefault(_ShowModelHoc),_Instructions=require("./Instructions.jsx"),_Instructions2=_interopRequireDefault(_Instructions),_DateInput=require("../inputs/rfs-bootstrap/DateInput.jsx"),_DateInput2=_interopRequireDefault(_DateInput),_moment=require("moment"),_moment2=_interopRequireDefault(_moment),testModel={id:123,name:"Travel to Europe (I wish!)",startDate:"2019-07-12T18:32:24.402Z",endDate:"2019-07-26T18:32:24.402Z"};_reactFormstate.FormState.registerValidation("rdpRequired",function(e,t){if(!e)return t+" is required"});var EventForm=function(e){function t(e){_classCallCheck(this,t);var r=_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));return r.formState=new _reactFormstate.FormState(r),r.state=r.formState.injectModel(e.model),e.model&&(r.formState.injectField(r.state,"startDate",(0,_moment2.default)(e.model.startDate),!0),r.formState.injectField(r.state,"endDate",(0,_moment2.default)(e.model.endDate),!0)),r}return _inherits(t,_react.Component),_createClass(t,[{key:"editMode",value:function(){return Boolean(this.props.model)}},{key:"validateEndDate",value:function(e,t){return e?e<=t.getu("startDate")?"End Date must be after Start Date":void 0:"End Date is required"}},{key:"render",value:function(){var e=this;return _react2.default.createElement(_reactFormstate.Form,{formState:this.formState,onSubmit:function(t){return e.handleSubmit(t)}},_react2.default.createElement(_reactBootstrap.Grid,{fluid:!0},_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement(_HiddenInput2.default,{formField:"id",defaultValue:"0",intConvert:!0})),_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement(_Input2.default,{formField:"name",label:"Event Name",required:!0,autoComplete:"off"})),_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement(_DateInput2.default,{formField:"startDate",label:"Start Date",required:"-",fsv:function(e){return e.rdpRequired()},handleValueChange:function(t){return e.handleStartDateChange(t)}})),_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement(_DateInput2.default,{formField:"endDate",label:"End Date",required:"-"})),_react2.default.createElement(_SingleColumnRow2.default,null,_react2.default.createElement(_Submit2.default,{className:"submit",invalid:this.formState.isInvalid(),validating:this.formState.isValidating(),grabRef:function(t){return e.submitButton=t}}))),_react2.default.createElement(_Instructions2.default,null,_react2.default.createElement(_reactBootstrap.ListGroup,null,_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Check out the ",_react2.default.createElement("a",{href:"https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/Event.jsx"},"source code")),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Unlike a standard HTML input that works with string values, react-datepicker is a nonstandard input that works with ",'"moment"'," objects."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"startDate < endDate validation takes place against endDate. If startDate changes, the validation status of endDate gets reset, and, if empty, initialized to startDate. (This is very similar to resetting password confirmation when password changes. It is a handy pattern.)"),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"react-datepicker is not designed to work as a controlled component and runs into issues with being controlled by form state if you manually wipe the input box."))))}},{key:"handleStartDateChange",value:function(e){var t=this.formState.createUnitOfWork();t.set("startDate",e).validate();var r=t.getu("endDate");t.set("endDate",r||e),t.updateFormState()}},{key:"handleSubmit",value:function(e){e.preventDefault(),_reactDom2.default.findDOMNode(this.submitButton).focus();var t=this.formState.createUnitOfWork().createModel();t&&this.props.showModel(t)}}]),t}(),Hoc=(0,_ShowModelHoc2.default)(EventForm);Hoc.testModel=testModel,exports.default=Hoc;
 
 },{"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/DateInput.jsx":18,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../layout/bootstrap/SingleColumnRow.jsx":26,"./Instructions.jsx":3,"./ShowModelHoc.jsx":6,"moment":324,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":328,"react-formstate-validation":327}],3:[function(require,module,exports){
 "use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(exports,"__esModule",{value:!0});var _react=require("react"),_react2=_interopRequireDefault(_react);exports.default=function(e){var t=e.children;return _react2.default.createElement("div",{className:"instructions"},_react2.default.createElement("hr",null),_react2.default.createElement("h3",null,"Notes"),t)};
@@ -80,7 +80,7 @@ require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof requ
 "use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),_react=require("react"),_react2=_interopRequireDefault(_react),_reactBootstrap=require("react-bootstrap"),_reactFormstate=require("react-formstate"),_Select=require("../inputs/bootstrap/Select.jsx"),_Select2=_interopRequireDefault(_Select),_UserAccount=require("../forms/UserAccount.jsx"),_UserAccount2=_interopRequireDefault(_UserAccount),_Event=require("../forms/Event.jsx"),_Event2=_interopRequireDefault(_Event),_Login=require("../forms/Login.jsx"),_Login2=_interopRequireDefault(_Login),_Dependents=require("../forms/Dependents.jsx"),_Dependents2=_interopRequireDefault(_Dependents),_OtherInputs=require("../forms/OtherInputs.jsx"),_OtherInputs2=_interopRequireDefault(_OtherInputs),DemoView=function(e){function t(e){_classCallCheck(this,t);var r=_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e)),n="UserAccount";return location.search.toLowerCase().endsWith("form=useraccount")&&(n="UserAccount"),location.search.toLowerCase().endsWith("form=event")&&(n="Event"),location.search.toLowerCase().endsWith("form=login")&&(n="Login"),location.search.toLowerCase().endsWith("form=dependents")&&(n="Dependents"),location.search.toLowerCase().endsWith("form=otherinputs")&&(n="OtherInputs"),r.state={formId:n,key:0,edit:!1,showOnBlur:!1,validateOnBlur:!1,showOnSubmit:!1},r.forms={UserAccount:{name:"User Account (async validation)",type:_UserAccount2.default},Event:{name:"Event (non-HTML input)",type:_Event2.default},Login:{name:"Login (onUpdate callback)",type:_Login2.default},Dependents:{name:"Dependents (nested form components)",type:_Dependents2.default},OtherInputs:{name:"Other Inputs",type:_OtherInputs2.default}},r}return _inherits(t,_react.Component),_createClass(t,[{key:"render",value:function(){var e=this,t=this.forms[this.state.formId].type;_react2.default.createElement("span",null,"   ");return _react2.default.createElement("div",null,_react2.default.createElement(_reactBootstrap.Jumbotron,null,_react2.default.createElement("span",{className:"main-title"},"react-formstate-demo")," ",_react2.default.createElement("span",{className:"choose-a-form-label"},"Choose a form:"),_react2.default.createElement(_Select2.default,{className:"demo-form-select",controlId:"formSelect",optionValues:Object.keys(this.forms).map(function(t){return{id:t,name:e.forms[t].name}}),value:this.state.formId,onChange:function(t){return e.setState({edit:!1,formId:t.target.value})}}),_react2.default.createElement(_reactBootstrap.Form,{className:"main-demo-options",inline:!0},_react2.default.createElement(_reactBootstrap.Radio,{checked:this.state.edit,onClick:function(){return e.setState({key:e.state.key+1,edit:!e.state.edit})}}," Edit Existing Model   "),_react2.default.createElement(_reactBootstrap.Radio,{checked:this.state.showOnBlur,onClick:function(){return e.toggleShowOnBlur()}}," Show Message onBlur   "),_react2.default.createElement(_reactBootstrap.Radio,{checked:this.state.validateOnBlur,onClick:function(){return e.toggleValidateOnBlur()}}," Ensure Validation onBlur   "),_react2.default.createElement(_reactBootstrap.Radio,{checked:this.state.showOnSubmit,onClick:function(){return e.toggleShowOnSubmit()}}," Show Message onSubmit")),_react2.default.createElement(_reactBootstrap.Button,{onClick:function(){return e.setState({key:e.state.key+1})}},"Reset Form")),_react2.default.createElement(t,{key:this.state.key,model:this.state.edit?t.testModel:null}))}},{key:"toggleShowOnBlur",value:function(){_reactFormstate.FormState.setShowMessageOnBlur(!this.state.showOnBlur),this.setState({showOnBlur:!this.state.showOnBlur})}},{key:"toggleValidateOnBlur",value:function(){_reactFormstate.FormState.setEnsureValidationOnBlur(!this.state.validateOnBlur),this.setState({validateOnBlur:!this.state.validateOnBlur})}},{key:"toggleShowOnSubmit",value:function(){_reactFormstate.FormState.setShowMessageOnSubmit(!this.state.showOnSubmit),this.setState({showOnSubmit:!this.state.showOnSubmit})}}]),t}();exports.default=DemoView;
 
 },{"../forms/Dependents.jsx":1,"../forms/Event.jsx":2,"../forms/Login.jsx":4,"../forms/OtherInputs.jsx":5,"../forms/UserAccount.jsx":7,"../inputs/bootstrap/Select.jsx":12,"react":"react","react-bootstrap":"react-bootstrap","react-formstate":328}],28:[function(require,module,exports){
-"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}require("babel-polyfill");var _react=require("react"),_react2=_interopRequireDefault(_react),_reactDom=require("react-dom"),_reactDom2=_interopRequireDefault(_reactDom),_DemoView=require("./components/views/DemoView.jsx"),_DemoView2=_interopRequireDefault(_DemoView),_reactFormstate=require("react-formstate"),_reactFormstateValidation=require("react-formstate-validation");_reactFormstateValidation.validationAdapter.plugInto(_reactFormstate.FormState),_reactDom2.default.render(_react2.default.createElement(_DemoView2.default,null),document.getElementById("react-mount-point"));
+"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}require("babel-polyfill");var _react=require("react"),_react2=_interopRequireDefault(_react),_reactDom=require("react-dom"),_reactDom2=_interopRequireDefault(_reactDom),_DemoView=require("./components/views/DemoView.jsx"),_DemoView2=_interopRequireDefault(_DemoView),_reactFormstate=require("react-formstate"),_reactFormstateValidation=require("react-formstate-validation");_reactFormstate.FormState.rfsProps.updateFormState.suppress=!0,_reactFormstateValidation.validationAdapter.plugInto(_reactFormstate.FormState),_reactDom2.default.render(_react2.default.createElement(_DemoView2.default,null),document.getElementById("react-mount-point"));
 
 },{"./components/views/DemoView.jsx":27,"babel-polyfill":29,"react":"react","react-dom":"react-dom","react-formstate":328,"react-formstate-validation":327}],29:[function(require,module,exports){
 (function (global){
@@ -10859,6 +10859,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.FormState = exports.FormExtension = exports.FormArray = exports.FormObject = exports.Form = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -10891,9 +10893,11 @@ var FORM_STATE_PREFIX = 'formState.';
 function prefix(path, name) {
   if (name === undefined) {
     return FORM_STATE_PREFIX + path;
-  } else {
-    return path ? path + '.' + name : name;
   }
+  if (name === '') {
+    return path || '';
+  }
+  return path ? path + '.' + name : name;
 }
 
 function _getFieldState(state, key) {
@@ -11071,12 +11075,12 @@ function changeHandler(formState, field, e) {
     }
   }
 
-  fieldState.setCoercedValue(value).validate();
+  fieldState.setValue(value).validate();
 
-  if (formState.rootFormState.updateCallback) {
+  if (formState.root().updateCallback) {
     // accessing internals... clean this up?
-    context.formState = formState.rootFormState;
-    formState.rootFormState.updateCallback(context, field.key);
+    context.formState = formState.root();
+    formState.root().updateCallback(context, field.key);
   } else {
     context.updateFormState();
   }
@@ -11086,12 +11090,12 @@ function simpleChangeHandler(formState, field, value) {
   var context = formState.createUnitOfWork(),
       fieldState = context.getFieldState(field);
 
-  fieldState.setCoercedValue(value).validate();
+  fieldState.setValue(value).validate();
 
-  if (formState.rootFormState.updateCallback) {
+  if (formState.root().updateCallback) {
     // accessing internals... clean this up?
-    context.formState = formState.rootFormState;
-    formState.rootFormState.updateCallback(context, field.key);
+    context.formState = formState.root();
+    formState.root().updateCallback(context, field.key);
   } else {
     context.updateFormState();
   }
@@ -11188,7 +11192,12 @@ var FormObject = exports.FormObject = function (_Component2) {
         this.formState.clearFields();
       }
 
-      return _react2.default.createElement('div', null, _react2.default.Children.map(this.props.children, this.addProps));
+      var props = null;
+      if (typeof this.props.className === 'string' && this.props.className.trim() !== '') {
+        props = { className: this.props.className };
+      }
+
+      return _react2.default.createElement('div', props, _react2.default.Children.map(this.props.children, this.addProps));
     }
   }, {
     key: 'addProps',
@@ -11198,9 +11207,11 @@ var FormObject = exports.FormObject = function (_Component2) {
       } // else
 
       var props = null,
-          formState = this.formState;
+          formState = this.formState,
+          swallowProps = false;
 
       if (exists(child.props.formField)) {
+        swallowProps = true;
         props = this.createFieldProps(child);
       } else if (exists(child.props.formObject) || exists(child.props.formArray)) {
         props = this.createObjectProps(exists(child.props.formObject) ? child.props.formObject : child.props.formArray, child.props, exists(child.props.formArray));
@@ -11218,7 +11229,26 @@ var FormObject = exports.FormObject = function (_Component2) {
         throw new Error('a FormExtension element should not be nested within a Form, FormObject, or FormArray element in the same render function');
       }
 
-      var result = _react2.default.cloneElement(child, props, child.props.children && _react2.default.Children.map(child.props.children, this.addProps));
+      var result = null;
+
+      if (swallowProps) {
+
+        var computedProps = {};
+
+        conditionallyAddProps(child.props, computedProps);
+        conditionallyAddProps(props, computedProps);
+
+        if (child.key) {
+          computedProps.key = child.key;
+        }
+        if (child.ref) {
+          computedProps.ref = child.ref;
+        }
+
+        result = _react2.default.createElement(child.type, computedProps, child.props.children && _react2.default.Children.map(child.props.children, this.addProps));
+      } else {
+        result = _react2.default.cloneElement(child, props, child.props.children && _react2.default.Children.map(child.props.children, this.addProps));
+      }
 
       this.formState = formState;
 
@@ -11252,14 +11282,6 @@ var FormObject = exports.FormObject = function (_Component2) {
         validationComponent: this.validationComponent, // ignored by a nested COMPONENT
         labelPrefix: (this.labelPrefix || '') + (props.labelPrefix || '')
       };
-
-      // this was a waste of time. react.cloneElement merges props. it doesn't replace them.
-      //
-      // let { name, formObject, formArray, labelPrefix, preferNull, ...newProps } = props;
-      // newProps.formState = formState.createFormState(normalizedName);
-      // newProps.validationComponent = this.validationComponent; // ignored by a nested COMPONENT
-      // newProps.labelPrefix = (this.labelPrefix || '') + (props.labelPrefix || '');
-      // return newProps;
     }
   }, {
     key: 'createExtensionProps',
@@ -11274,9 +11296,6 @@ var FormObject = exports.FormObject = function (_Component2) {
     value: function createFieldProps(child) {
 
       var props = child.props;
-
-      // this was a waste of time. react.cloneElement merges props. it doesn't replace them.
-      // let {formField,label,required,validate,etc,...newProps} = props;
 
       var fieldName = props.formField.toString(),
           formState = this.formState,
@@ -11325,9 +11344,9 @@ var FormObject = exports.FormObject = function (_Component2) {
         field.revalidateOnSubmit = Boolean(props.revalidateOnSubmit);
 
         if (typeof props.noCoercion === 'function') {
-          field.handlerBindFunction = props.noCoercion;
+          field.handlerBindFunction = props.noCoercion; // deprecated
         } else {
-          field.handlerBindFunction = props.handlerBindFunction;
+          field.handlerBindFunction = props.handlerBindFunction; // deprecated
         }
       }
 
@@ -11384,16 +11403,17 @@ var FormExtension = exports.FormExtension = function (_FormObject2) {
 var FieldState = function () {
 
   //
+  //
   // "private"
   //
+  //
 
-  function FieldState(_fieldState, key, field, isModified, stateContext) {
+  function FieldState(_fieldState, key, field, stateContext) {
     _classCallCheck(this, FieldState);
 
     this.fieldState = _fieldState;
     this.key = key;
     this.field = field;
-    this.isModified = isModified;
     this.stateContext = stateContext;
   }
 
@@ -11403,6 +11423,7 @@ var FieldState = function () {
       if (!this.stateContext) {
         throw new Error('Cannot update a read-only field state');
       }
+      // should have gotten this through getFieldState, and if the persisted fieldState was deleted, it would have returned a new, empty fieldState instead.
       if (this.isDeleted()) {
         throw new Error('Cannot update a deleted field state.');
       }
@@ -11418,49 +11439,6 @@ var FieldState = function () {
       return this.fieldState.asyncToken;
     }
   }, {
-    key: 'setValueImp',
-    value: function setValueImp(value, isCoerced) {
-      if (this.isModified) {
-        throw new Error('setting value on a modified field state? if you are changing the value do that first');
-      }
-      return this.setProps(value, Boolean(isCoerced));
-    }
-  }, {
-    key: 'getCustomProps',
-    value: function getCustomProps() {
-      var _fieldState2 = this.fieldState,
-          value = _fieldState2.value,
-          isCoerced = _fieldState2.isCoerced,
-          validity = _fieldState2.validity,
-          message = _fieldState2.message,
-          asyncToken = _fieldState2.asyncToken,
-          isMessageVisible = _fieldState2.isMessageVisible,
-          other = _objectWithoutProperties(_fieldState2, ['value', 'isCoerced', 'validity', 'message', 'asyncToken', 'isMessageVisible']);
-
-      return other;
-    }
-  }, {
-    key: 'setProps',
-    value: function setProps(value, isCoerced, validity, message, asyncToken, isMessageVisible) {
-      this.assertCanUpdate();
-
-      if (!this.isModified) {
-        this.fieldState = {};
-        this.isModified = true;
-        _setFieldState(this.stateContext.stateUpdates, this.key, this.fieldState);
-      }
-
-      // if the list of fields changes, need to update getCustomProps too
-      this.fieldState.value = value;
-      this.fieldState.isCoerced = isCoerced;
-      this.fieldState.validity = validity;
-      this.fieldState.message = message;
-      this.fieldState.asyncToken = asyncToken;
-      this.fieldState.isMessageVisible = isMessageVisible;
-
-      return this;
-    }
-  }, {
     key: 'callValidationFunction',
     value: function callValidationFunction(f) {
       if (typeof f === 'function') {
@@ -11473,126 +11451,25 @@ var FieldState = function () {
     value: function callRegisteredValidationFunction(f, params) {
       return f.apply(undefined, [this.getValue(), this.field.label].concat(_toConsumableArray(params)));
     }
+  }, {
+    key: 'delete',
+    value: function _delete() {
+      var _this5 = this;
 
+      this.assertCanUpdate();
+      Object.keys(this.fieldState).forEach(function (k) {
+        return delete _this5.fieldState[k];
+      });
+      this.fieldState.isModified = true;
+      this.fieldState.isDeleted = true;
+    }
+
+    //
     //
     // public
     //
+    //
 
-  }, {
-    key: 'equals',
-    value: function equals(fieldState) {
-      if (fieldState.getMessage() !== this.getMessage()) {
-        return false;
-      } // else
-      if (fieldState.isMessageVisible() !== this.isMessageVisible()) {
-        return false;
-      } // else
-      var a = fieldState.getValue(),
-          b = this.getValue();
-      if (!Array.isArray(a)) {
-        return a === b;
-      } // else
-      return a.length === b.length && a.every(function (v, i) {
-        return v === b[i];
-      });
-    }
-  }, {
-    key: 'get',
-    value: function get(name) {
-      return this.fieldState[name];
-    }
-  }, {
-    key: 'getKey',
-    value: function getKey() {
-      return this.key;
-    }
-  }, {
-    key: 'getName',
-    value: function getName() {
-      return this.field && this.field.name;
-    }
-  }, {
-    key: 'getValue',
-    value: function getValue() {
-      var value = this.fieldState.value;
-
-      if (this.fieldState.isCoerced || this.field && this.field.noCoercion) {
-        return value;
-      }
-
-      if (!exists(value) && this.field && Array.isArray(this.field.defaultValue)) {
-        // if injected model.value is null and you are providing the value to, say, a select-multiple
-        // note that you can use 'preferNull' to reverse this upon model generation
-        return [];
-      }
-
-      return coerceToString(value);
-    }
-  }, {
-    key: 'getUncoercedValue',
-    value: function getUncoercedValue() {
-      return this.fieldState.value;
-    }
-  }, {
-    key: 'getMessage',
-    value: function getMessage() {
-      return this.fieldState.message;
-    }
-  }, {
-    key: 'isCoerced',
-    value: function isCoerced() {
-      return Boolean(this.fieldState.isCoerced);
-    }
-  }, {
-    key: 'isValidated',
-    value: function isValidated() {
-      return exists(this.fieldState.validity);
-    }
-  }, {
-    key: 'isValid',
-    value: function isValid() {
-      return this.fieldState.validity === 1;
-    }
-  }, {
-    key: 'isInvalid',
-    value: function isInvalid() {
-      return this.fieldState.validity === 2;
-    }
-  }, {
-    key: 'isValidating',
-    value: function isValidating() {
-      return this.fieldState.validity === 3;
-    }
-  }, {
-    key: 'isUploading',
-    value: function isUploading() {
-      return this.fieldState.validity === 4;
-    }
-  }, {
-    key: 'isDeleted',
-    value: function isDeleted() {
-      return Boolean(this.fieldState.isDeleted);
-    }
-  }, {
-    key: 'isMessageVisible',
-    value: function isMessageVisible() {
-      return Boolean(this.fieldState.isMessageVisible);
-    }
-  }, {
-    key: 'getField',
-    value: function getField() {
-      return this.field;
-    }
-  }, {
-    key: 'setValue',
-    value: function setValue(value) {
-      return this.setValueImp(value, false);
-    }
-  }, {
-    key: 'setCoercedValue',
-    value: function setCoercedValue(value) {
-      return this.setValueImp(value, true);
-    }
   }, {
     key: 'validate',
     value: function validate() {
@@ -11606,20 +11483,6 @@ var FieldState = function () {
 
       if (this.field.validate && this.field.fsValidate) {
         console.log('warning: both validate and fsValidate defined on ' + this.field.key + '. fsValidate will be used.');
-      }
-
-      // Bigger fix is in UnitOfWork.getFieldState, if fieldState is not aleady in the context, then
-      // ALWAYS make a copy the "form state" fieldState right away and add it into the context.
-      // Then further calls to getFieldState on that context will return the context's version of the fieldState,
-      // so they will all point to the same fieldState that is under construction. 'isModified' should be moved
-      // into the fieldState, and the updateFormState method will need tweaking. Make sure not to store
-      // 'isModified' === true into the root "form state", and try to avoid unnecessary setState calls.
-      //
-      // Note that this also suggests that the 'setCoercedValue' method is useless, as is the 'isCoerced'
-      // fieldState value. 'noCoercion' however IS important! very important!
-
-      if (!this.isModified) {
-        this.setValue(this.getValue()); // TODO: temporary quick hacky fix until I clean things up
       }
 
       var message = void 0;
@@ -11689,56 +11552,207 @@ var FieldState = function () {
       // else
       return this.setValid();
     }
+  }, {
+    key: 'equals',
+    value: function equals(fieldState) {
+      // deprecated
+      // this turned out to be overly simplistic in terms of preventing unnecessary renders.
+      // the calculation ultimately will depend on that nature of the specific input component and all its features.
+      return false;
+      // validity?
+      // if (fieldState.getMessage() !== this.getMessage()) { return false; } // else
+      // if (fieldState.isMessageVisible() !== this.isMessageVisible()) { return false; } // else
+      // let a = fieldState.getValue(), b = this.getValue();
+      // if (!Array.isArray(a)) { return a === b; } // else
+      // return a.length === b.length && a.every((v,i) => v === b[i]);
+    }
+  }, {
+    key: 'get',
+    value: function get(name) {
+      return this.fieldState[name];
+    }
+  }, {
+    key: 'getKey',
+    value: function getKey() {
+      return this.key;
+    }
+  }, {
+    key: 'getName',
+    value: function getName() {
+      return this.field && this.field.name;
+    }
+  }, {
+    key: 'getValue',
+    value: function getValue() {
+      var value = this.fieldState.value;
 
-    // when you hit submit the message gets wiped by validation. use setValid instead.
-    // setMessage(message) { return this.setProps(this.getValue(), this.isCoerced(), this.getValidity(), message, this.getAsyncToken(), this.isMessageVisible()); }
+      if (this.field && this.field.noCoercion) {
+        return value;
+      }
+
+      if (!exists(value) && this.field && Array.isArray(this.field.defaultValue)) {
+        // if injected model.value is null and you are providing the value to, say, a select-multiple
+        // note that you can use 'preferNull' to reverse this upon model generation
+        return [];
+      }
+
+      return coerceToString(value);
+    }
+  }, {
+    key: 'getUncoercedValue',
+    value: function getUncoercedValue() {
+      return this.fieldState.value;
+    }
+  }, {
+    key: 'getMessage',
+    value: function getMessage() {
+      return this.fieldState.message;
+    }
+  }, {
+    key: 'isCoerced',
+    value: function isCoerced() {
+      return false;
+    } // deprecated
 
   }, {
-    key: 'set',
-    value: function set(name, value) {
-      if (!this.isModified) {
-        var customProps = this.getCustomProps();
-        this.setProps(this.getValue(), this.isCoerced(), this.getValidity(), this.getMessage(), this.getAsyncToken(), this.isMessageVisible());
-        Object.assign(this.fieldState, customProps);
+    key: 'isValidated',
+    value: function isValidated() {
+      return exists(this.fieldState.validity);
+    }
+  }, {
+    key: 'isValid',
+    value: function isValid() {
+      return this.fieldState.validity === 1;
+    }
+  }, {
+    key: 'isInvalid',
+    value: function isInvalid() {
+      return this.fieldState.validity === 2;
+    }
+  }, {
+    key: 'isValidating',
+    value: function isValidating() {
+      return this.fieldState.validity === 3;
+    }
+  }, {
+    key: 'isUploading',
+    value: function isUploading() {
+      return this.fieldState.validity === 4;
+    }
+  }, {
+    key: 'isDeleted',
+    value: function isDeleted() {
+      return Boolean(this.fieldState.isDeleted);
+    }
+  }, {
+    key: 'isMessageVisible',
+    value: function isMessageVisible() {
+      return Boolean(this.fieldState.isMessageVisible);
+    }
+  }, {
+    key: 'getField',
+    value: function getField() {
+      return this.field;
+    }
+
+    //
+    // set value
+    // should wipe the entire field state
+    //
+
+  }, {
+    key: 'setValue',
+    value: function setValue(value) {
+      var _this6 = this;
+
+      if (this.fieldState.isModified) {
+        throw new Error('setting value on a modified field state? if you are changing the value do that first');
       }
-      this.fieldState[name] = value;
+      this.assertCanUpdate();
+      Object.keys(this.fieldState).forEach(function (k) {
+        return delete _this6.fieldState[k];
+      });
+      this.fieldState.isModified = true;
+      this.fieldState.value = value;
+      return this;
+    }
+  }, {
+    key: 'setCoercedValue',
+    value: function setCoercedValue(value) {
+      return this.setValue(value);
+    } // deprecated
+
+    //
+    // set validity
+    // preserve custom properites? best guess is yes.
+    //
+
+  }, {
+    key: 'setValidity',
+    value: function setValidity(validity, message) {
+      this.assertCanUpdate();
+      this.fieldState.isModified = true;
+      this.fieldState.validity = validity;
+      this.fieldState.message = message;
       return this;
     }
   }, {
     key: 'setValid',
     value: function setValid(message) {
-      return this.setProps(this.getValue(), this.isCoerced(), 1, message);
+      return this.setValidity(1, message);
     }
   }, {
     key: 'setInvalid',
     value: function setInvalid(message) {
-      return this.setProps(this.getValue(), this.isCoerced(), 2, message);
+      return this.setValidity(2, message);
     }
   }, {
     key: 'setValidating',
-    value: function setValidating(message, visible) {
-      // actually, the visible parameter is pointless since you could just make a subsequent call to showMessage.
-      // it's a holdover from previous implementation that automatically set message to visible here.
-      var asyncToken = generateQuickGuid();
-      this.setProps(this.getValue(), this.isCoerced(), 3, message, asyncToken, exists(visible) ? visible : false);
-      return asyncToken; // thinking this is more valuable than chaining
+    value: function setValidating(message) {
+      this.setValidity(3, message);
+      this.fieldState.asyncToken = generateQuickGuid();
+      return this.fieldState.asyncToken; // in retrospect i wish i had used a custom property for asyncToken... but not worth a breaking change.
     }
   }, {
     key: 'setUploading',
     value: function setUploading(message) {
-      return this.setProps(this.getValue(), this.isCoerced(), 4, message, null, true);
+      return this.setValidity(4, message);
     }
+
+    //
+    // show message
+    // preserve custom properties
+    //
+
   }, {
     key: 'showMessage',
     value: function showMessage() {
-      // i don't think chaining adds any value to this method. can always change it later.
+      this.assertCanUpdate();
       if (!this.isMessageVisible()) {
         // prevents unnecessary calls to setState
-        var customProps = this.getCustomProps();
-        this.setProps(this.getValue(), this.isCoerced(), this.getValidity(), this.getMessage(), this.getAsyncToken(), true);
-        Object.assign(this.fieldState, customProps);
+        this.fieldState.isModified = true;
+        this.fieldState.isMessageVisible = true;
       }
+      return this;
     }
+
+    //
+    // set custom property
+    // preserve custom properties
+    //
+
+  }, {
+    key: 'set',
+    value: function set(name, value) {
+      this.assertCanUpdate();
+      this.fieldState.isModified = true;
+      this.fieldState[name] = value;
+      return this;
+    }
+
+    // when you hit submit the message gets wiped by validation. use setValid instead.
+    // setMessage(message) { ...nevermind }
+
   }]);
 
   return FieldState;
@@ -11825,7 +11839,7 @@ var FormState = exports.FormState = function () {
   }]);
 
   function FormState(form) {
-    var _this5 = this;
+    var _this7 = this;
 
     _classCallCheck(this, FormState);
 
@@ -11834,7 +11848,7 @@ var FormState = exports.FormState = function () {
     this.rootFormState = this;
     this.fields = [];
     this.anyFieldState = function (f) {
-      return anyFieldState(_this5.form.state, f);
+      return anyFieldState(_this7.form.state, f);
     };
   }
 
@@ -11848,6 +11862,11 @@ var FormState = exports.FormState = function () {
       return formState;
     }
   }, {
+    key: 'root',
+    value: function root() {
+      return this.rootFormState;
+    }
+  }, {
     key: 'setShowMessageOnBlur',
     value: function setShowMessageOnBlur(value) {
       this.showOnBlur = exists(value) ? value : true;
@@ -11855,7 +11874,7 @@ var FormState = exports.FormState = function () {
   }, {
     key: 'showMessageOnBlur',
     value: function showMessageOnBlur() {
-      var root = this.rootFormState;
+      var root = this.root();
       return exists(root.showOnBlur) ? root.showOnBlur : root.constructor.showMessageOnBlur();
     }
   }, {
@@ -11866,7 +11885,7 @@ var FormState = exports.FormState = function () {
   }, {
     key: 'showMessageOnSubmit',
     value: function showMessageOnSubmit() {
-      var root = this.rootFormState;
+      var root = this.root();
       return exists(root.showOnSubmit) ? root.showOnSubmit : root.constructor.showMessageOnSubmit();
     }
   }, {
@@ -11877,7 +11896,7 @@ var FormState = exports.FormState = function () {
   }, {
     key: 'ensureValidationOnBlur',
     value: function ensureValidationOnBlur() {
-      var root = this.rootFormState;
+      var root = this.root();
       return exists(root.validateOnBlur) ? root.validateOnBlur : root.constructor.ensureValidationOnBlur();
     }
   }, {
@@ -11893,7 +11912,13 @@ var FormState = exports.FormState = function () {
   }, {
     key: 'add',
     value: function add(state, name, value, doNotFlatten) {
-      new UnitOfWork(this, state).add(name, value, doNotFlatten);
+      // deprecated
+      this.injectField(state, name, value, doNotFlatten);
+    }
+  }, {
+    key: 'injectField',
+    value: function injectField(state, name, value, doNotFlatten) {
+      new UnitOfWork(this, state).injectField(name, value, doNotFlatten);
     }
   }, {
     key: 'remove',
@@ -11933,34 +11958,30 @@ var FormState = exports.FormState = function () {
   }, {
     key: 'getRootFields',
     value: function getRootFields() {
-      return this.rootFormState.fields;
+      return this.root().fields;
     }
   }, {
     key: 'getFieldState',
-    value: function getFieldState(fieldOrName, asyncToken, stateContext) {
+    value: function getFieldState(fieldOrName) {
       var field = findFieldByFieldOrName(this, fieldOrName),
           key = field ? field.key : this.buildKey(fieldOrName),
-          _fieldState = _getFieldState(this.form.state, key);
+          _fieldState = this.form && this.form.state ? _getFieldState(this.form.state, key) : null;
 
       // if model prop provided to root FormObject
       // decided not to replace a deleted fieldState here, hopefully that's the right call
-      if (!_fieldState && this.rootFormState.flatModel) {
-        _fieldState = _getFieldState(this.rootFormState.flatModel, key);
+      if (!_fieldState && this.root().flatModel) {
+        _fieldState = _getFieldState(this.root().flatModel, key);
       }
 
       if (!_fieldState || _fieldState.isDeleted) {
-        _fieldState = { value: null };
+        _fieldState = {};
 
         if (field && field.defaultValue !== undefined) {
           _fieldState.value = field.defaultValue;
         }
       }
 
-      if (asyncToken && _fieldState.asyncToken !== asyncToken) {
-        return null;
-      } else {
-        return new FieldState(_fieldState, key, field, false, stateContext);
-      }
+      return new FieldState(_fieldState, key, field);
     }
   }, {
     key: 'get',
@@ -11986,7 +12007,7 @@ var FormState = exports.FormState = function () {
   }, {
     key: 'clearFields',
     value: function clearFields() {
-      if (this === this.rootFormState) {
+      if (this === this.root()) {
         this.fields.length = 0;
       }
     }
@@ -11996,7 +12017,7 @@ var FormState = exports.FormState = function () {
       if (typeof f !== 'function') {
         throw new Error('adding an update callback that is not a function?');
       }
-      if (this !== this.rootFormState) {
+      if (this !== this.root()) {
         throw new Error('cannot add an update callback to nested form state');
       }
       this.updateCallback = f;
@@ -12004,7 +12025,7 @@ var FormState = exports.FormState = function () {
   }, {
     key: 'injectModelProp',
     value: function injectModelProp(model) {
-      if (this === this.rootFormState) {
+      if (this === this.root()) {
         if (!this.flatModel) {
           // one-time only
           if (isObject(model)) {
@@ -12051,6 +12072,46 @@ var UnitOfWork = function () {
   }
 
   _createClass(UnitOfWork, [{
+    key: '_injectModel',
+    value: function _injectModel(model, doNotFlatten) {
+      var _this8 = this;
+
+      model = model || {};
+
+      if ((typeof model === 'undefined' ? 'undefined' : _typeof(model)) !== 'object') {
+        throw new Error('injectModel only accepts object types (including arrays)');
+      }
+
+      // at this point there is no way to know how an array value will be used by the jsx.
+      // will it be for a FormArray or for a select-multiple or checkbox group?
+      // to cover either case, add an additional fieldState record for array values below.
+      // understand that the jsx will define the model that gets generated,
+      // so the extraneous fieldState entries should be harmless since they won't be referenced.
+      // that is, assuming isInvalid() is sufficient wrt the api...
+      // if formState.isValid() becomes necessary this could be problematic.
+      //
+      // object values also stored, for instance, react-datepicker uses a 'moment' data type.
+
+      var fi = this.getFieldState('');
+      fi.setValue(model);
+
+      if (doNotFlatten) {
+        return;
+      }
+
+      // else
+
+      if (Array.isArray(model)) {
+        for (var i = 0, len = model.length; i < len; i++) {
+          this.injectField(i.toString(), model[i]);
+        }
+      } else {
+        Object.keys(model).forEach(function (name) {
+          return _this8.injectField(name, model[name]);
+        });
+      }
+    }
+  }, {
     key: 'recursiveCreateModel',
     value: function recursiveCreateModel(fields, model) {
       var isModelValid = true;
@@ -12138,11 +12199,19 @@ var UnitOfWork = function () {
           key = field ? field.key : this.formState.buildKey(fieldOrName),
           _fieldState = _getFieldState(this.stateUpdates, key);
 
-      if (_fieldState) {
-        return new FieldState(_fieldState, key, field, true, this);
-      } else {
-        return this.formState.getFieldState(field ? field : fieldOrName, asyncToken, this);
+      var result = _fieldState ? new FieldState(_fieldState, key, field, this) : this.formState.getFieldState(field ? field : fieldOrName);
+
+      if (asyncToken && result.getAsyncToken() !== asyncToken) {
+        return null;
       }
+
+      if (!_fieldState) {
+        result.stateContext = this;
+        result.fieldState = _extends({}, result.fieldState, { isModified: false });
+        _setFieldState(this.stateUpdates, key, result.fieldState);
+      }
+
+      return result;
     }
   }, {
     key: 'get',
@@ -12162,98 +12231,95 @@ var UnitOfWork = function () {
   }, {
     key: 'setc',
     value: function setc(name, value) {
-      return this.getFieldState(name).setCoercedValue(value);
+      // deprecated
+      return this.set(name, value);
+    }
+  }, {
+    key: 'getUpdates',
+    value: function getUpdates(resetContext) {
+      var _this9 = this;
+
+      var updates = {};
+
+      Object.keys(this.stateUpdates).forEach(function (k) {
+        var fi = _this9.stateUpdates[k];
+        if (fi.isModified) {
+          var fiClone = _extends({}, fi);
+          delete fiClone['isModified'];
+          updates[k] = fiClone;
+        }
+        if (resetContext) {
+          fi.isModified = false;
+        }
+      });
+
+      return updates;
     }
   }, {
     key: 'updateFormState',
     value: function updateFormState(additionalUpdates) {
+      var updates = this.getUpdates(true);
+
       if (additionalUpdates) {
-        this.formState.form.setState(Object.assign(this.stateUpdates, additionalUpdates));
-      } else if (Object.keys(this.stateUpdates).length > 0) {
-        this.formState.form.setState(this.stateUpdates);
+        this.formState.form.setState(Object.assign(updates, additionalUpdates));
+      } else if (Object.keys(updates).length > 0) {
+        this.formState.form.setState(updates);
       }
-    }
-  }, {
-    key: 'add',
-    value: function add(name, value, doNotFlatten) {
-      if (isObject(value)) {
-        var formState = this.formState;
-        this.formState = formState.createFormState(name);
-        this.injectModel(value, doNotFlatten);
-        this.formState = formState;
-      }
-
-      // at this point there is no way to know how an array value will be used by the jsx.
-      // will it be for a FormArray or for a select-multiple or checkbox group?
-      // to cover either case, add an additional fieldState record for array values below.
-      // understand that the jsx will define the model that gets generated,
-      // so the extraneous fieldState entries should be harmless since they won't be referenced.
-      // that is, assuming isInvalid() is sufficient wrt the api...
-      // if formState.isValid() becomes necessary this could be problematic.
-
-      if (!isObject(value) || Array.isArray(value)) {
-        _setFieldState(this.stateUpdates, this.formState.buildKey(name), { value: value });
-      }
-
-      return this.stateUpdates; // for transforming form state in form component constructor
-    }
-  }, {
-    key: 'remove',
-    value: function remove(name) {
-      var _this6 = this;
-
-      var key = this.formState.buildKey(name);
-
-      _setFieldState(this.stateUpdates, key, { isDeleted: true });
-
-      // remove the whole branch
-
-      var keyDot = key + '.';
-
-      iterateKeys(this.formState.form.state, function (key) {
-        if (key.startsWith(keyDot)) {
-          _setFieldState(_this6.stateUpdates, key, { isDeleted: true });
-        }
-      });
     }
   }, {
     key: 'injectModel',
     value: function injectModel(model, doNotFlatten) {
-      model = model || {};
-
-      if ((typeof model === 'undefined' ? 'undefined' : _typeof(model)) !== 'object') {
-        throw new Error('injectModel only accepts object types (including arrays)');
-      }
-
-      // a place to hold deleted status and validation messages
-      // actually for react-datepicker, which uses moments, you have to store the object value
-      _setFieldState(this.stateUpdates, this.formState.path || '', { value: model });
-
-      if (doNotFlatten) {
-        return this.stateUpdates;
-      }
-
-      // else
-
-      if (Array.isArray(model)) {
-        for (var i = 0, len = model.length; i < len; i++) {
-          this.add(i.toString(), model[i]);
-        }
+      this._injectModel(model, doNotFlatten);
+      return this.getUpdates(false); // this is wasteful, but reverse compatible
+    }
+  }, {
+    key: 'add',
+    value: function add(name, value, doNotFlatten) {
+      // deprecated. 'injectField' is preferable.
+      this.injectField(name, value, doNotFlatten);
+      return this.getUpdates(false); // this is wasteful, but reverse compatible.
+    }
+  }, {
+    key: 'injectField',
+    value: function injectField(name, value, doNotFlatten) {
+      if (isObject(value)) {
+        var formState = this.formState;
+        this.formState = formState.createFormState(name);
+        this._injectModel(value, doNotFlatten);
+        this.formState = formState;
       } else {
-        var names = Object.keys(model);
-
-        for (var _i = 0, _len = names.length; _i < _len; _i++) {
-          var name = names[_i];
-          this.add(name, model[name]);
-        }
+        var fi = this.getFieldState(name);
+        fi.setValue(value);
       }
+    }
+  }, {
+    key: 'remove',
+    value: function remove(name) {
+      var _this10 = this;
 
-      return this.stateUpdates;
+      var fi = this.getFieldState(name);
+      fi.delete();
+
+      // remove the whole branch
+      var contextBranch = this.formState.buildKey('');
+      var amtToSlice = contextBranch.length > 0 ? contextBranch.length + 1 : 0;
+
+      var key = this.formState.buildKey(name);
+      var keyDot = key + '.';
+
+      iterateKeys(this.formState.form.state, function (key) {
+        if (key.startsWith(keyDot)) {
+          // have to transform the absolute path to something relative to the context's path.
+          // there's probably a better way to code this... might involve rejiggering getFieldState somehow.
+          fi = _this10.getFieldState(key.slice(amtToSlice));
+          fi.delete();
+        }
+      });
     }
   }, {
     key: 'createModel',
     value: function createModel(noUpdate) {
-      if (this.formState !== this.formState.rootFormState) {
+      if (this.formState !== this.formState.root()) {
         throw new Error('createModel should only be called on root form state.');
       }
 
@@ -12305,6 +12371,43 @@ var FormStateValidation = function () {
 
   return FormStateValidation;
 }();
+
+//
+// rfsProps
+//
+
+FormState.rfsProps = {
+  formState: { suppress: false },
+  fieldState: { suppress: false },
+  handleValueChange: { suppress: false },
+  showValidationMessage: { suppress: false },
+  required: { suppress: false },
+  label: { suppress: false },
+  updateFormState: { suppress: false }, // deprecated ... reverse compatibility
+  // suppressed
+  formField: { suppress: true },
+  validate: { suppress: true },
+  fsValidate: { suppress: true },
+  fsv: { suppress: true },
+  noTrim: { suppress: true },
+  preferNull: { suppress: true },
+  intConvert: { suppress: true },
+  defaultValue: { suppress: true },
+  noCoercion: { suppress: true },
+  revalidateOnSubmit: { suppress: true },
+  handlerBindFunction: { suppress: true },
+  validationMessages: { suppress: true },
+  msgs: { suppress: true }
+};
+
+function conditionallyAddProps(source, dest) {
+  Object.keys(source).forEach(function (k) {
+    var propSpec = FormState.rfsProps[k];
+    if (!propSpec || !propSpec.suppress) {
+      dest[k] = source[k];
+    }
+  });
+}
 
 },{"react":"react"}],329:[function(require,module,exports){
 "use strict";

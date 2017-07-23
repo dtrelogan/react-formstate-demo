@@ -41,8 +41,8 @@ class EventForm extends Component {
     if (props.model) {
       // have to "reverse coerce" the string to a moment to work with react-datepicker
       // passing 'true' prevents flattening the 'moment' object into form state.
-      this.formState.add(this.state, 'startDate', moment(props.model.startDate), true);
-      this.formState.add(this.state, 'endDate', moment(props.model.endDate), true);
+      this.formState.injectField(this.state, 'startDate', moment(props.model.startDate), true);
+      this.formState.injectField(this.state, 'endDate', moment(props.model.endDate), true);
     }
   }
 
