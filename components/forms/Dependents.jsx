@@ -22,6 +22,12 @@ const testModel = {
   ]
 };
 
+const ageOptions = [];
+
+for (let i = 0; i < 150; i++) {
+  ageOptions.push({id: i.toString(), text: i.toString()});
+}
+
 // even though it's stateless, you have to make this extend Component to work with react-formstate
 // so that react-formstate can retrieve generated props and pass them along to more deeply nested components
 //
@@ -34,14 +40,6 @@ class Dependent extends Component {
   }
 
   render() {
-    if (!this.constructor.ageOptions) {
-      this.constructor.ageOptions=[];
-
-      for(let i=0; i<150; i++) {
-        this.constructor.ageOptions.push({id: i.toString(), text: i.toString()});
-      }
-    }
-
     return (
       <FormExtension nestedForm={this}>
         <div>
@@ -63,7 +61,7 @@ class Dependent extends Component {
           <Select
             formField='age'
             label='Age'
-            optionValues={this.constructor.ageOptions}
+            optionValues={ageOptions}
             required='-'
             fsv={v => v.minLength(1).msg('Age is required')}
             intConvert
