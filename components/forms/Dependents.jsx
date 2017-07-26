@@ -62,8 +62,7 @@ class Dependent extends Component {
             formField='age'
             label='Age'
             optionValues={ageOptions}
-            required='-'
-            fsv={v => v.minLength(1).msg('Age is required')}
+            required
             intConvert
             />
         </div>
