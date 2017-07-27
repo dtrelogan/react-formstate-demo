@@ -5,13 +5,19 @@
 .main-title {margin-top: 0px; font-size: 16pt; font-weight: bold; margin-right: 20px; color: green;}
 
 .demo-form-select {margin-top: 5px; max-width: 600px;}
+
 .main-demo-options {margin-bottom: 15px;}
+
+.single-column-row {max-width: 450px;}
 
 /*.date-input-container div {width: 100% !important;}*/
 
 body {margin-bottom: 100px;}
+
 .instructions {margin-left: 20px; margin-top: 50px; max-width: 600px;}
+
 .required .control-label::after, .required .checkbox-label::after {content: '\2217';}
+
 .emphasized-note {color: green;}
 
 .failed-login-message {color: red; margin-bottom: 10px;}
