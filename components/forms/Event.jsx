@@ -21,17 +21,6 @@ const testModel = {
 };
 
 
-//
-//
-// Register a reusable validation that works for react-datepicker
-// (normally you'd do this in a more central location)
-//
-//
-FormState.registerValidation('rdpRequired', function(value, label) {
-  if (!value) { return `${label} is required`; }
-});
-
-
 class EventForm extends Component {
 
   constructor(props) {
@@ -53,8 +42,7 @@ class EventForm extends Component {
 
   validateEndDate(v, context) {
     // Cannot do fsv prop AND a regular validation block, only one or the other.
-    // If this were more complicated, there are better ways to share validation logic between the registered 'rdpRequired' validation function and this validation block...
-    if (!v) { return 'End Date is required'; }
+    if (!vlib.exists(v)) { return 'End Date is required'; }
     if (v <= context.getu('startDate')) {
       return 'End Date must be after Start Date';
     }
@@ -84,7 +72,7 @@ class EventForm extends Component {
               formField='startDate'
               label='Start Date'
               required='-'
-              fsv={v => v.rdpRequired()}
+              fsv={v => v.exists().msg('Start Date is required')}
               handleValueChange={v => this.handleStartDateChange(v)}
               />
           </Row>

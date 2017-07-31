@@ -18,8 +18,11 @@ import Select from '../inputs/rfs-bootstrap/Select.jsx';
 // (normally you'd do this in a more central location)
 //
 //
-FormState.registerValidation('capitalize', function(value, label) {
-  if (value.substring(0,1) === value.substring(0,1).toLowerCase()) {
+const capitalized = (v) => {
+  return typeof(v) === 'string' && v.substring(0,1) !== v.substring(0,1).toLowerCase();
+}
+FormState.registerValidation('capitalize', (value, label) => {
+  if (!capitalized(value)) {
     return `${label} should be capitalized`;
   }
 });
@@ -46,12 +49,11 @@ for (let i = 0; i < 150; i++) {
 //
 class Dependent extends Component {
 
-  validateName(newValue) {
-    // switched to a reusable validation. but you could put validation here in the nested component, and even have it autowired.
-    //
-    // if (newValue.substring(0,1) === newValue.substring(0,1).toLowerCase()) {
-    //   return 'Name should be capitalized';
-    // }
+  // could just as easily use the fluent API, but demonstrating an autowired validation function in a nested component.
+  validateName(newName) {
+    if (!capitalized(newName)) {
+      return 'Name should be capitalized';
+    }
   }
 
   render() {
@@ -69,7 +71,6 @@ class Dependent extends Component {
             formField='name'
             label='Name'
             required
-            fsv={v => v.capitalize()}
             autoComplete='off'
             />
         </div>
