@@ -183,11 +183,11 @@ class UserAccountForm extends Component {
     // simulate calling an api
     window.setTimeout(() => {
       const context = this.formState.createUnitOfWork(),
-        fieldState = context.getFieldState('username', asyncToken),
-        visible = fieldState.isMessageVisible();
+        fieldState = context.getFieldState('username', asyncToken);
 
       // if the token still matches, the username we are verifying is still relevant
       if (fieldState) {
+        const visible = fieldState.isMessageVisible();
         if (username.toLowerCase() === 'taken' || username.toLowerCase() === 'huckle') {
           fieldState.setInvalid('Username already exists');
         } else {
