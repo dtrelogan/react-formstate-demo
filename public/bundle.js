@@ -11210,7 +11210,7 @@ var FormObject = exports.FormObject = function (_Component2) {
           formState = this.formState,
           swallowProps = false;
 
-      if (exists(child.props.formField)) {
+      if (exists(child.props[formState.constructor.rfsProps.formField.name])) {
         swallowProps = true;
         props = this.createFieldProps(child);
       } else if (exists(child.props.formObject) || exists(child.props.formArray)) {
@@ -11297,8 +11297,8 @@ var FormObject = exports.FormObject = function (_Component2) {
 
       var props = child.props;
 
-      var fieldName = props.formField.toString(),
-          formState = this.formState,
+      var formState = this.formState,
+          fieldName = props[formState.constructor.rfsProps.formField.name].toString(),
           key = formState.buildKey(fieldName),
           field = findField(formState.getRootFields(), key);
 
@@ -11333,7 +11333,7 @@ var FormObject = exports.FormObject = function (_Component2) {
           // you can add noCoercion to the component so you don't have to specify every time it's used.
           field.noCoercion = Boolean(child.type && child.type.rfsNoCoercion);
         }
-        field.fsValidate = props.fsValidate || props.fsv;
+        field.fsValidate = props.fsValidate || props[formState.constructor.rfsProps.fsv.name];
         if (!field.fsValidate) {
           var _f = this.validationComponent['fsValidate' + capitalize(field.name)];
           if (_f) {
@@ -11350,14 +11350,17 @@ var FormObject = exports.FormObject = function (_Component2) {
         }
       }
 
-      return {
+      var generatedProps = {
         label: field.label,
-        fieldState: formState.getFieldState(field), // read-only
         updateFormState: props.updateFormState || changeHandler.bind(null, formState, field), // deprecated
-        handleValueChange: props.handleValueChange || simpleChangeHandler.bind(null, formState, field),
-        showValidationMessage: props.showValidationMessage || blurHandler.bind(null, formState, field),
         formState: this.formState
       };
+
+      generatedProps[formState.constructor.rfsProps.fieldState.name] = formState.getFieldState(field); // read-only
+      generatedProps[formState.constructor.rfsProps.handleValueChange.name] = props[formState.constructor.rfsProps.handleValueChange.name] || simpleChangeHandler.bind(null, formState, field);
+      generatedProps[formState.constructor.rfsProps.showValidationMessage.name] = props[formState.constructor.rfsProps.showValidationMessage.name] || blurHandler.bind(null, formState, field);
+
+      return generatedProps;
     }
   }]);
 
@@ -12378,17 +12381,17 @@ var FormStateValidation = function () {
 
 FormState.rfsProps = {
   formState: { suppress: false },
-  fieldState: { suppress: false },
-  handleValueChange: { suppress: false },
-  showValidationMessage: { suppress: false },
+  fieldState: { suppress: false, name: 'fieldState' },
+  handleValueChange: { suppress: false, name: 'handleValueChange' },
+  showValidationMessage: { suppress: false, name: 'showValidationMessage' },
   required: { suppress: false },
   label: { suppress: false },
   updateFormState: { suppress: false }, // deprecated ... reverse compatibility
   // suppressed
-  formField: { suppress: true },
+  formField: { suppress: true, name: 'formField' },
   validate: { suppress: true },
   fsValidate: { suppress: true },
-  fsv: { suppress: true },
+  fsv: { suppress: true, name: 'fsv' },
   noTrim: { suppress: true },
   preferNull: { suppress: true },
   intConvert: { suppress: true },
@@ -12401,8 +12404,16 @@ FormState.rfsProps = {
 };
 
 function conditionallyAddProps(source, dest) {
-  Object.keys(source).forEach(function (k) {
+  var rfsProps = {};
+  Object.keys(FormState.rfsProps).forEach(function (k) {
     var propSpec = FormState.rfsProps[k];
+    rfsProps[k] = propSpec;
+    if (propSpec.name) {
+      rfsProps[propSpec.name] = propSpec;
+    }
+  });
+  Object.keys(source).forEach(function (k) {
+    var propSpec = rfsProps[k];
     if (!propSpec || !propSpec.suppress) {
       dest[k] = source[k];
     }
