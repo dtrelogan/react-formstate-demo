@@ -187,13 +187,11 @@ class UserAccountForm extends Component {
 
       // if the token still matches, the username we are verifying is still relevant
       if (fieldState) {
-        const visible = fieldState.isMessageVisible();
         if (username.toLowerCase() === 'taken' || username.toLowerCase() === 'huckle') {
           fieldState.setInvalid('Username already exists');
         } else {
           fieldState.setValid('Verified');
         }
-        if (visible) { fieldState.showMessage(); }
         context.updateFormState();
       }
     }, 2000);
