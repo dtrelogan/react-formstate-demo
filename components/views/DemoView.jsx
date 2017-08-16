@@ -7,6 +7,9 @@ import EventForm from '../forms/Event.jsx';
 import LoginForm from '../forms/Login.jsx';
 import DependentsForm from '../forms/Dependents.jsx';
 import OtherInputsForm from '../forms/OtherInputs.jsx';
+import ReduxForm from '../forms/ReduxForm.jsx';
+import DependentsReduxForm from '../forms/DependentsRedux.jsx';
+import { v4 as uuid } from 'uuid';
 
 
 export default class DemoView extends Component {
@@ -14,20 +17,21 @@ export default class DemoView extends Component {
   constructor(props) {
     super(props);
 
-    let formId = 'UserAccount';
-    if (location.search.toLowerCase().endsWith('form=useraccount')) {formId = 'UserAccount';}
-    if (location.search.toLowerCase().endsWith('form=event')) {formId = 'Event';}
-    if (location.search.toLowerCase().endsWith('form=login')) {formId = 'Login';}
-    if (location.search.toLowerCase().endsWith('form=dependents')) {formId = 'Dependents';}
-    if (location.search.toLowerCase().endsWith('form=otherinputs')) {formId = 'OtherInputs';}
+    let formName = 'UserAccount';
+    if (location.search.toLowerCase().endsWith('form=useraccount')) {formName = 'UserAccount';}
+    if (location.search.toLowerCase().endsWith('form=event')) {formName = 'Event';}
+    if (location.search.toLowerCase().endsWith('form=login')) {formName = 'Login';}
+    if (location.search.toLowerCase().endsWith('form=dependents')) {formName = 'Dependents';}
+    if (location.search.toLowerCase().endsWith('form=otherinputs')) {formName = 'OtherInputs';}
+    if (location.search.toLowerCase().endsWith('form=redux')) {formName = 'Redux';}
+    if (location.search.toLowerCase().endsWith('form=dependentsRedux')) {formName = 'DependentsRedux';}
 
     this.state = {
-      formId,
-      key: 0,
+      formName,
+      formInstanceId: uuid(),
       edit: false,
-      showOnBlur: false,
-      validateOnBlur: false,
-      showOnSubmit: false
+      showMessageOn: 'change',
+      validateOnBlur: false
     };
 
 
@@ -51,6 +55,14 @@ export default class DemoView extends Component {
       'OtherInputs' : {
         name: 'Other Inputs',
         type: OtherInputsForm
+      },
+      'Redux' : {
+        name: 'Redux Integration',
+        type: ReduxForm
+      },
+      'DependentsRedux' : {
+        name: 'Dependents (alternate implementation)',
+        type: DependentsReduxForm
       }
     };
   }
@@ -58,7 +70,7 @@ export default class DemoView extends Component {
 
   render() {
 
-    const Form = this.forms[this.state.formId].type;
+    const Form = this.forms[this.state.formName].type;
     const spacer = <span>&nbsp;&nbsp;&nbsp;</span>;
 
     return (
@@ -69,30 +81,33 @@ export default class DemoView extends Component {
             className='demo-form-select'
             controlId='formSelect'
             optionValues={Object.keys(this.forms).map(id => {return {id, name: this.forms[id].name}})}
-            value={this.state.formId}
-            onChange={e => this.setState({edit: false, formId: e.target.value})}
+            value={this.state.formName}
+            onChange={e => this.setState({edit: false, formName: e.target.value, formInstanceId: uuid()})}
             />
           <InlineForm className='main-demo-options' inline>
-            <Radio checked={this.state.edit} onClick={() => this.setState({key: this.state.key + 1, edit: !this.state.edit})}>
+            <Select
+              className='select-show-message-on'
+              controlId='selectShowMessageOn'
+              optionValues={[{id: 'change', name: 'onChange'},{id: 'blur', name: 'onBlur'},{id: 'submit', name: 'onSubmit'}]}
+              value={this.state.showMessageOn}
+              onChange={(e) => this.showMessageOn(e.target.value)}
+              />
+            <Radio checked={this.state.edit} onClick={() => this.setState({formInstanceId: uuid(), edit: !this.state.edit})}>
               &nbsp;Edit Existing Model&nbsp;&nbsp;&nbsp;
-            </Radio>
-            <Radio checked={this.state.showOnBlur} onClick={() => this.toggleShowOnBlur()}>
-              &nbsp;Show Message onBlur&nbsp;&nbsp;&nbsp;
             </Radio>
             <Radio checked={this.state.validateOnBlur} onClick={() => this.toggleValidateOnBlur()}>
               &nbsp;Ensure Validation onBlur&nbsp;&nbsp;&nbsp;
             </Radio>
-            <Radio checked={this.state.showOnSubmit} onClick={() => this.toggleShowOnSubmit()}>
-              &nbsp;Show Message onSubmit
-            </Radio>
           </InlineForm>
-          <Button onClick={() => this.setState({key: this.state.key + 1})}>
+          <Button className='resetButton' onClick={() => this.setState({formInstanceId: uuid()})}>
             Reset Form
           </Button>
         </Jumbotron>
         <Form
-          key={this.state.key}
+          key={this.state.formInstanceId}
           model={this.state.edit ? Form.testModel : null}
+          store={this.props.store}
+          formId={this.state.formInstanceId}
           />
       </div>
     );
@@ -104,18 +119,13 @@ export default class DemoView extends Component {
   //
   // Note you can override them "locally" on the formState instance for a particular form component.
 
-  toggleShowOnBlur() {
-    FormState.setShowMessageOnBlur(!this.state.showOnBlur);
-    this.setState({showOnBlur: !this.state.showOnBlur});
+  showMessageOn(newSetting) {
+    FormState.showMessageOn(newSetting);
+    this.setState({showMessageOn: newSetting});
   }
 
   toggleValidateOnBlur() {
     FormState.setEnsureValidationOnBlur(!this.state.validateOnBlur);
     this.setState({validateOnBlur: !this.state.validateOnBlur})
-  }
-
-  toggleShowOnSubmit() {
-    FormState.setShowMessageOnSubmit(!this.state.showOnSubmit);
-    this.setState({showOnSubmit: !this.state.showOnSubmit});
   }
 };

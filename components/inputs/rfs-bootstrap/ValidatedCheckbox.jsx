@@ -1,21 +1,39 @@
 import React, { Component } from 'react';
 import BootstrapValidatedCheckbox from '../bootstrap/ValidatedCheckbox.jsx';
-import processProps from  './_processProps.es6';
+import { computeClassName, computeValidationStateAndHelp } from  './_processProps.es6';
 
-export default ({className, required, formState, fieldState, handleValueChange, showValidationMessage, ...other}) => {
+export const ValidatedCheckbox = (props) => {
 
-  const {computedClassName, validationState, help, onBlur} = processProps({className, required, formState, fieldState, showValidationMessage});
+  // using HOCs to compute these props
+  //   className, help, validationState
+
+  const {
+    className,
+    label,
+    help,
+    validationState,
+    formState, // consume
+    fieldState, // consume
+    handleValueChange, // consume
+    handleBlur, // consume
+    required, // consume
+    showMessage, // consume
+    ...other
+  } = props;
 
   return (
     <BootstrapValidatedCheckbox
-      className={computedClassName}
+      className={className}
       controlId={fieldState.getKey()}
-      validationState={validationState}
+      label={label}
       checked={fieldState.getValue()}
-      onChange={e => handleValueChange(e.target.checked)}
-      onBlur={onBlur}
       help={help}
+      validationState={validationState}
+      onChange={e => handleValueChange(e.target.checked)}
+      onBlur={handleBlur}
       {...other}
       />
   );
 }
+
+export default computeValidationStateAndHelp(computeClassName(ValidatedCheckbox));

@@ -1,21 +1,39 @@
 import React from 'react';
-import RadioGroup from '../bootstrap/RadioGroup.jsx';
-import processProps from  './_processProps.es6';
+import BootstrapRadioGroup from '../bootstrap/RadioGroup.jsx';
+import { computeClassName, computeValidationStateAndHelp } from  './_processProps.es6';
 
-export default ({className, required, formState, fieldState, handleValueChange, showValidationMessage, ...other}) => {
+export const RadioGroup = (props) => {
 
-  const {computedClassName, validationState, help, onBlur} = processProps({className, required, formState, fieldState, showValidationMessage});
+  // using HOCs to compute these props
+  //   className, help, validationState
+
+  const {
+    className,
+    label,
+    help,
+    validationState,
+    formState, // consume
+    fieldState, // consume
+    handleValueChange, // consume
+    handleBlur, // consume
+    required, // consume
+    showMessage, // consume
+    ...other
+  } = props;
 
   return (
-    <RadioGroup
-      className={computedClassName}
+    <BootstrapRadioGroup
+      className={className}
       controlId={fieldState.getKey()}
-      validationState={validationState}
+      label={label}
       value={fieldState.getValue()}
-      onChange={e => handleValueChange(e.target.value)}
-      onBlur={onBlur}
       help={help}
+      validationState={validationState}
+      onChange={e => handleValueChange(e.target.value)}
+      onBlur={handleBlur}
       {...other}
       />
   );
 };
+
+export default computeValidationStateAndHelp(computeClassName(RadioGroup));

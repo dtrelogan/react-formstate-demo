@@ -1,21 +1,39 @@
 import React, { Component } from 'react';
 import BootstrapTextArea from '../bootstrap/TextArea.jsx';
-import processProps from  './_processProps.es6';
+import { computeClassName, computeValidationStateAndHelp } from  './_processProps.es6';
 
-export default ({className, required, formState, fieldState, handleValueChange, showValidationMessage, ...other}) => {
+export const TextArea = (props) => {
 
-  const {computedClassName, validationState, help, onBlur} = processProps({className, required, formState, fieldState, showValidationMessage});
+  // using HOCs to compute these props
+  //   className, help, validationState
+
+  const {
+    className,
+    label,
+    help,
+    validationState,
+    formState, // consume
+    fieldState, // consume
+    handleValueChange, // consume
+    handleBlur, // consume
+    required, // consume
+    showMessage, // consume
+    ...other
+  } = props;
 
   return (
     <BootstrapTextArea
-      className={computedClassName}
+      className={className}
       controlId={fieldState.getKey()}
-      validationState={validationState}
+      label={label}
       value={fieldState.getValue()}
-      onChange={e => handleValueChange(e.target.value)}
-      onBlur={onBlur}
       help={help}
+      validationState={validationState}
+      onChange={e => handleValueChange(e.target.value)}
+      onBlur={handleBlur}
       {...other}
       />
   );
 };
+
+export default computeValidationStateAndHelp(computeClassName(TextArea));

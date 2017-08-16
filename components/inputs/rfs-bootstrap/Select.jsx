@@ -1,22 +1,41 @@
 import React, { Component } from 'react';
 import BootstrapSelect from '../bootstrap/Select.jsx';
-import processProps from  './_processProps.es6';
+import { computeClassName, computeValidationStateAndHelp } from  './_processProps.es6';
 
-export default ({className, required, formState, fieldState, handleValueChange, showValidationMessage, multiple, ...other}) => {
+export const Select = (props) => {
 
-  const {computedClassName, validationState, help, onBlur} = processProps({className, required, formState, fieldState, showValidationMessage});
+  // using HOCs to compute these props
+  //   className, help, validationState
+
+  const {
+    multiple,
+    className,
+    label,
+    help,
+    validationState,
+    formState, // consume
+    fieldState, // consume
+    handleValueChange, // consume
+    handleBlur, // consume
+    required, // consume
+    showMessage, // consume
+    ...other
+  } = props;
 
   return (
     <BootstrapSelect
-      className={computedClassName}
-      controlId={fieldState.getKey()}
-      validationState={validationState}
-      value={fieldState.getValue()}
-      onChange={e => handleValueChange(multiple ? BootstrapSelect.getSelectMultipleValue(e) : e.target.value)}
-      onBlur={onBlur}
-      help={help}
       multiple={multiple}
+      className={className}
+      controlId={fieldState.getKey()}
+      label={label}
+      value={fieldState.getValue()}
+      help={help}
+      validationState={validationState}
+      onChange={e => handleValueChange(multiple ? BootstrapSelect.getSelectMultipleValue(e) : e.target.value)}
+      onBlur={handleBlur}
       {...other}
       />
   );
-}
+};
+
+export default computeValidationStateAndHelp(computeClassName(Select));

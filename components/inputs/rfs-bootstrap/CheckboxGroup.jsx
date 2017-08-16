@@ -1,23 +1,39 @@
 import React, { Component } from 'react';
 import BootstrapCheckboxGroup from '../bootstrap/CheckboxGroup.jsx';
-import processProps from  './_processProps.es6';
+import { computeClassName, computeValidationStateAndHelp } from  './_processProps.es6';
 
-export default ({className, required, formState, fieldState, handleValueChange, showValidationMessage, ...other}) => {
+export const CheckboxGroup = (props) => {
 
-  const {computedClassName, validationState, help, onBlur} = processProps({className, required, formState, fieldState, showValidationMessage});
+  // using HOCs to compute these props
+  //   className, help, validationState
 
-  const value = fieldState.getValue();
+  const {
+    className,
+    label,
+    help,
+    validationState,
+    formState, // consume
+    fieldState, // consume
+    handleValueChange, // consume
+    handleBlur, // consume
+    required, // consume
+    showMessage, // consume
+    ...other
+  } = props;
 
   return (
     <BootstrapCheckboxGroup
-      className={computedClassName}
+      className={className}
       controlId={fieldState.getKey()}
-      validationState={validationState}
-      value={value}
-      onChange={e => handleValueChange(BootstrapCheckboxGroup.getValue(value, e))}
-      onBlur={onBlur}
+      label={label}
+      value={fieldState.getValue()}
       help={help}
+      validationState={validationState}
+      onChange={e => handleValueChange(BootstrapCheckboxGroup.getValue(fieldState.getValue(), e))}
+      onBlur={handleBlur}
       {...other}
       />
   );
 };
+
+export default computeValidationStateAndHelp(computeClassName(CheckboxGroup));

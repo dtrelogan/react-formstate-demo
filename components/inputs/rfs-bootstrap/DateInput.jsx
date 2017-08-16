@@ -1,25 +1,41 @@
 import React, { Component } from 'react';
 import BootstrapDateInput from '../bootstrap/DateInput.jsx';
-import processProps from  './_processProps.es6';
+import { computeClassName, computeValidationStateAndHelp } from  './_processProps.es6';
 
-const DateInput = ({className, required, formState, fieldState, handleValueChange, showValidationMessage, ...other}) => {
+const DateInput = (props) => {
 
-  const {computedClassName, validationState, help, onBlur} = processProps({className, required, formState, fieldState, showValidationMessage});
+  // using HOCs to compute these props
+  //   className, help, validationState
+
+  const {
+    className,
+    label,
+    help,
+    validationState,
+    formState, // consume
+    fieldState, // consume
+    handleValueChange, // consume
+    handleBlur, // consume
+    required, // consume
+    showMessage, // consume
+    ...other
+  } = props;
 
   return (
     <BootstrapDateInput
-      className={computedClassName}
+      className={className}
       controlId={fieldState.getKey()}
-      validationState={validationState}
+      label={label}
       value={fieldState.getValue()}
-      onChange={handleValueChange}
-      onBlur={onBlur}
       help={help}
+      validationState={validationState}
+      onChange={handleValueChange}
+      onBlur={handleBlur}
       {...other}
       />
   );
 };
 
-DateInput.rfsNoCoercion = true; // <---- set it ONCE
-
-export default DateInput;
+const DecoratedDateInput = computeValidationStateAndHelp(computeClassName(DateInput));
+DecoratedDateInput.rfsNoCoercion = true; // <---- set it ONCE
+export default DecoratedDateInput;

@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { FormState, Form } from 'react-formstate';
 import { library as vlib } from 'react-formstate-validation';
-import { Grid, ListGroup, ListGroupItem } from 'react-bootstrap';
-import Row from '../layout/bootstrap/SingleColumnRow.jsx';
+import { ListGroup, ListGroupItem } from 'react-bootstrap';
+
+import ShowModel from '../parts/ShowModelHoc.jsx';
+import { FormStateDisplay, addCurrentModelToUpdates } from '../parts/FormStateDisplay.jsx';
+import Instructions from '../parts/Instructions.jsx';
+
 import HiddenInput from '../inputs/rfs-bootstrap/HiddenInput.jsx';
 import Input from '../inputs/rfs-bootstrap/Input.jsx';
 import Submit from '../inputs/bootstrap/Submit.jsx';
-import ShowModel from './ShowModelHoc.jsx';
-import Instructions from './Instructions.jsx';
 
 
 const testModel = {
@@ -28,8 +30,18 @@ class UserAccountForm extends Component {
 
   constructor(props) {
     super(props);
-    this.formState = new FormState(this);
-    this.state = this.formState.injectModel(props.model);
+    this.formState = new FormState(this, () => this.state, this.updateState.bind(this));
+    this.state = {};
+  }
+
+  updateState(updates) {
+    this.setState(addCurrentModelToUpdates(this.formState, updates));
+  }
+
+  componentDidMount() {
+    const context = this.formState.createUnitOfWork();
+    context.injectModel(this.props.model);
+    context.updateFormState();
   }
 
   editMode() {
@@ -75,78 +87,70 @@ class UserAccountForm extends Component {
   //
 
   render() {
+    const instructions = (
+      <Instructions>
+        <ListGroup>
+          <ListGroupItem>Check out the <a href='https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/UserAccount.jsx'>source code</a></ListGroupItem>
+          <ListGroupItem>{'Try "taken" or "huckle" for username.'}</ListGroupItem>
+          <ListGroupItem>Password not required if editing an existing account.</ListGroupItem>
+          <ListGroupItem>For playing with the various blur options, use the following validations:
+            <ul>
+              <li>Name must be capitalized.</li>
+              <li>Username must not contain spaces.</li>
+              <li>Password minimum 8 characters, and no spaces.</li>
+              <li>Password less than 12 characters will warn.</li>
+            </ul>
+          </ListGroupItem>
+          <ListGroupItem>Password and confirmation fields use preferNull for model output - when editing an account and password is left unchanged.</ListGroupItem>
+        </ListGroup>
+      </Instructions>
+    );
+
     return (
       <Form formState={this.formState} onSubmit={e => this.handleSubmit(e)}>
-        <Grid fluid>
-          <Row>
-            <HiddenInput
-              formField='id'
-              defaultValue='0'
-              intConvert
-              />
-          </Row>
-          <Row>
-            <Input
-              formField='name'
-              label='Name'
-              required
-              autoComplete='off'
-              />
-          </Row>
-          <Row>
-            <Input
-              formField='username'
-              label='Username'
-              required
-              fsv={v => v.regex(/^\S+$/).msg('Username must not contain spaces')}
-              handleValueChange={v => this.handleUsernameChange(v)}
-              autoComplete='off'
-              />
-          </Row>
-          <Row>
-            <Input
-              type='password'
-              formField='newPassword'
-              label={this.editMode() ? 'New Password' : 'Password'}
-              required={!this.editMode()}
-              handleValueChange={v => this.handlePasswordChange(v)}
-              preferNull
-              />
-          </Row>
-          <Row>
-            <Input
-              type='password'
-              formField='confirmNewPassword'
-              label={this.editMode() ? 'Confirm New Password' : 'Confirm Password'}
-              required={!this.editMode()}
-              preferNull
-              />
-          </Row>
-          <Row>
-            <Submit
-              className='submit'
-              invalid={this.formState.isInvalid()}
-              validating={this.formState.isValidating()}
-              grabRef={c => this.submitButton = c}
-              />
-          </Row>
-        </Grid>
-        <Instructions>
-          <ListGroup>
-            <ListGroupItem>Check out the <a href='https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/UserAccount.jsx'>source code</a></ListGroupItem>
-            <ListGroupItem>{'Try "taken" or "huckle" for username.'}</ListGroupItem>
-            <ListGroupItem>Password not required if editing an existing account.</ListGroupItem>
-            <ListGroupItem>For playing with the various blur options, use the following validations:
-              <ul>
-                <li>Name must be capitalized.</li>
-                <li>Username must not contain spaces.</li>
-                <li>Password minimum 8 characters, and no spaces.</li>
-                <li>Password less than 12 characters will warn.</li>
-              </ul>
-            </ListGroupItem>
-            <ListGroupItem>Password and confirmation fields use preferNull for model output - when editing an account and password is left unchanged.</ListGroupItem>
-          </ListGroup>
-        </Instructions>
+        <FormStateDisplay state={this.state}>
+          <HiddenInput
+            formField='id'
+            defaultValue='0'
+            intConvert
+            />
+          <Input
+            formField='name'
+            label='Name'
+            required
+            autoComplete='off'
+            />
+          <Input
+            formField='username'
+            label='Username'
+            required
+            fsv={v => v.regex(/^\S+$/).msg('Username must not contain spaces')}
+            handleValueChange={v => this.handleUsernameChange(v)}
+            autoComplete='off'
+            />
+          <Input
+            type='password'
+            formField='newPassword'
+            label={this.editMode() ? 'New Password' : 'Password'}
+            required={!this.editMode()}
+            handleValueChange={v => this.handlePasswordChange(v)}
+            preferNull
+            />
+          <Input
+            type='password'
+            formField='confirmNewPassword'
+            label={this.editMode() ? 'Confirm New Password' : 'Confirm Password'}
+            required={!this.editMode()}
+            preferNull
+            />
+          <Submit
+            className='submit'
+            invalid={this.formState.isInvalid()}
+            validating={this.formState.isValidating()}
+            grabRef={c => this.submitButton = c}
+            />
+          {instructions}
+        </FormStateDisplay>
       </Form>
     );
   }
@@ -156,10 +160,6 @@ class UserAccountForm extends Component {
   // Handlers
   //
   //
-
-  originalUsername() {
-    return this.props.model && this.props.model.username;
-  }
 
   handleUsernameChange(username) {
     const context = this.formState.createUnitOfWork(),
@@ -171,8 +171,8 @@ class UserAccountForm extends Component {
       return;
     } // else
 
-    if (username === this.originalUsername()) {
-      fieldState.setValid('Verified');
+    if (username === fieldState.getInitialValue()) {
+      fieldState.setValid();
       context.updateFormState();
       return;
     } // else
