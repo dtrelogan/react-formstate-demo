@@ -24,7 +24,7 @@ export default class DemoView extends Component {
     if (location.search.toLowerCase().endsWith('form=dependents')) {formName = 'Dependents';}
     if (location.search.toLowerCase().endsWith('form=otherinputs')) {formName = 'OtherInputs';}
     if (location.search.toLowerCase().endsWith('form=redux')) {formName = 'Redux';}
-    if (location.search.toLowerCase().endsWith('form=dependentsRedux')) {formName = 'DependentsRedux';}
+    if (location.search.toLowerCase().endsWith('form=dependentsredux')) {formName = 'DependentsRedux';}
 
     this.state = {
       formName,
