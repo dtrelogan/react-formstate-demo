@@ -143,7 +143,7 @@ class DependentsForm extends Component {
     const instructions = (
       <Instructions>
         <ListGroup>
-          <ListGroupItem>Check out the <a href='https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/Dependents.jsx'>source code</a></ListGroupItem>
+          <ListGroupItem>Check out the <a href='https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/DependentsRedux.jsx'>source code</a></ListGroupItem>
           <ListGroupItem>This is an alternate implementation of the Dependents form.</ListGroupItem>
           <ListGroupItem>In this implementation, dynamic form fields are driven more directly by the backing model, using the more traditional approach of explicit initialization.</ListGroupItem>
           <ListGroupItem>Since we are actively doing something with the unsubmitted model prior to form submission (in this case, displaying it), this approach might be more intuitive to people, but it is unclear whether it is actually less complex.</ListGroupItem>
