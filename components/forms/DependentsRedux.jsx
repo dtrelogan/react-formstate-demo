@@ -215,7 +215,7 @@ class DependentsForm extends Component {
     model = {...model, dependents: [...model.dependents, newDependent]};
 
     const context = this.formState.createUnitOfWork();
-    context.injectField(`dependents.${model.dependents.length}`, newDependent);
+    context.injectField(`dependents.${model.dependents.length - 1}`, newDependent);
     context.updateFormState({model});
   }
 
