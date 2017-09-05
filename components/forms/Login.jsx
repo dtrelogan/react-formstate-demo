@@ -49,7 +49,7 @@ class LoginForm extends Component {
 
   constructor(props) {
     super(props);
-    this.formState = new FormState(this, () => this.state, this.updateState.bind(this));
+    this.formState = FormState.create(this, () => this.state, this.updateState.bind(this));
     this.state = {};
 
     // set a callback from the standard onChange handler

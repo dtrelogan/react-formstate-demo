@@ -34,7 +34,7 @@ class ReduxForm extends Component {
 
   constructor(props) {
     super(props);
-    this.formState = new FormState(this, this.getState.bind(this), this.updateState.bind(this));
+    this.formState = FormState.create(this, this.getState.bind(this), this.updateState.bind(this));
   }
 
   getState() {
