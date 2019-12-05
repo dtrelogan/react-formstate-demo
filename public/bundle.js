@@ -1,31 +1,31 @@
 require=(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var r=0;r<t.length;r++){var a=t[r];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(t,r,a){return r&&e(t.prototype,r),a&&e(t,a),t}}(),_react=require("react"),_react2=_interopRequireDefault(_react),_reactDom=require("react-dom"),_reactDom2=_interopRequireDefault(_reactDom),_reactFormstate=require("react-formstate"),_reactFormstateValidation=require("react-formstate-validation"),_reactBootstrap=require("react-bootstrap"),_ShowModelHoc=require("../parts/ShowModelHoc.jsx"),_ShowModelHoc2=_interopRequireDefault(_ShowModelHoc),_FormStateDisplay=require("../parts/FormStateDisplay.jsx"),_Instructions=require("../parts/Instructions.jsx"),_Instructions2=_interopRequireDefault(_Instructions),_HiddenInput=require("../inputs/rfs-bootstrap/HiddenInput.jsx"),_HiddenInput2=_interopRequireDefault(_HiddenInput),_Input=require("../inputs/rfs-bootstrap/Input.jsx"),_Input2=_interopRequireDefault(_Input),_Submit=require("../inputs/bootstrap/Submit.jsx"),_Submit2=_interopRequireDefault(_Submit),_Select=require("../inputs/rfs-bootstrap/Select.jsx"),_Select2=_interopRequireDefault(_Select);function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var capitalized=function(e){return"string"==typeof e&&e.substring(0,1)!==e.substring(0,1).toLowerCase()};_reactFormstate.FormState.registerValidation("capitalize",function(e,t){if(!capitalized(e))return t+" should be capitalized"});for(var testModel={id:8910,name:"Father Cat",dependents:[{id:1,name:"Huckle Cat",age:8},{id:2,name:"Sally Cat",age:5},{id:3,name:"Lowly the Worm",age:8}]},ageOptions=[],i=0;i<150;i++)ageOptions.push({id:i.toString(),text:i.toString()});var Dependent=function(e){function t(){return _classCallCheck(this,t),_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}return _inherits(t,_react.Component),_createClass(t,[{key:"validateName",value:function(e){if(!capitalized(e))return"Name should be capitalized"}},{key:"render",value:function(){return _react2.default.createElement(_reactFormstate.FormExtension,{nestedForm:this},_react2.default.createElement("div",null,_react2.default.createElement(_HiddenInput2.default,{formField:"id",defaultValue:"0",intConvert:!0})),_react2.default.createElement("div",null,_react2.default.createElement(_Input2.default,{formField:"name",label:"Name",required:!0,autoComplete:"off"})),_react2.default.createElement("div",null,_react2.default.createElement(_Select2.default,{formField:"age",label:"Age",optionValues:ageOptions,required:!0,intConvert:!0})))}}]),t}(),DependentsForm=function(e){function t(e){_classCallCheck(this,t);var r=_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));return r.formState=_reactFormstate.FormState.create(r,function(){return r.state},r.updateState.bind(r)),r.state={},r.state.numDependents=0,e.model&&e.model.dependents&&(r.state.numDependents=e.model.dependents.length),r}return _inherits(t,_react.Component),_createClass(t,[{key:"updateState",value:function(e){this.setState((0,_FormStateDisplay.addCurrentModelToUpdates)(this.formState,e))}},{key:"componentDidMount",value:function(){var e=this.formState.createUnitOfWork();e.injectModel(this.props.model),e.updateFormState()}},{key:"editMode",value:function(){return Boolean(this.props.model)}},{key:"render",value:function(){for(var e=this,t=_react2.default.createElement(_Instructions2.default,null,_react2.default.createElement(_reactBootstrap.ListGroup,null,_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Check out the ",_react2.default.createElement("a",{href:"https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/Dependents.jsx"},"source code")),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"This demonstrates a very simple nested form component."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"It also demonstrates dynamically adding and removing inputs and the resulting model output."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"The intConvert setting transforms the age value to a number upon output."))),r=[],a=0;a<this.state.numDependents;a++)this.formState.isDeleted("dependents."+a)||r.push(_react2.default.createElement(_reactBootstrap.ListGroup,{key:a},_react2.default.createElement(_reactBootstrap.ListGroupItem,null,_react2.default.createElement(Dependent,{formObject:a}),_react2.default.createElement("div",null,_react2.default.createElement("a",{href:"#",onClick:this.removeDependent(a)},"remove")))));return _react2.default.createElement(_reactFormstate.Form,{formState:this.formState,onSubmit:function(t){return e.handleSubmit(t)}},_react2.default.createElement(_FormStateDisplay.FormStateDisplay,{state:this.state},_react2.default.createElement(_HiddenInput2.default,{formField:"id",defaultValue:"0",intConvert:!0}),_react2.default.createElement(_Input2.default,{formField:"name",label:"Name",required:!0,fsv:function(e){return e.capitalize()},autoComplete:"off"}),_react2.default.createElement("div",{className:"add-dependent"},_react2.default.createElement("a",{href:"#",onClick:function(t){return e.addDependent(t)}},"add dependent")),_react2.default.createElement(_reactFormstate.FormArray,{name:"dependents"},r),_react2.default.createElement(_Submit2.default,{className:"submit",invalid:this.formState.isInvalid(),validating:this.formState.isValidating(),grabRef:function(t){return e.submitButton=t}}),t))}},{key:"componentDidUpdate",value:function(){this.state.forceModelUpdate&&this.updateState({forceModelUpdate:!1})}},{key:"addDependent",value:function(e){e.preventDefault(),this.updateState({numDependents:this.state.numDependents+1,forceModelUpdate:!0})}},{key:"removeDependent",value:function(e){var t=this;return function(r){r.preventDefault();var a=t.formState.createUnitOfWork();a.remove("dependents."+e),a.updateFormState({forceModelUpdate:!0})}}},{key:"handleSubmit",value:function(e){e.preventDefault(),_reactDom2.default.findDOMNode(this.submitButton).focus();var t=this.formState.createUnitOfWork().createModel();t&&this.props.showModel(t)}}]),t}(),Hoc=(0,_ShowModelHoc2.default)(DependentsForm);Hoc.testModel=testModel,exports.default=Hoc;
 
-},{"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../inputs/rfs-bootstrap/Select.jsx":22,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":395,"react-formstate-validation":394}],2:[function(require,module,exports){
+},{"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../inputs/rfs-bootstrap/Select.jsx":22,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":385,"react-formstate-validation":384}],2:[function(require,module,exports){
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var a in r)Object.prototype.hasOwnProperty.call(r,a)&&(e[a]=r[a])}return e},_createClass=function(){function e(e,t){for(var r=0;r<t.length;r++){var a=t[r];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(t,r,a){return r&&e(t.prototype,r),a&&e(t,a),t}}(),_react=require("react"),_react2=_interopRequireDefault(_react),_reactDom=require("react-dom"),_reactDom2=_interopRequireDefault(_reactDom),_reactFormstate=require("react-formstate"),_reactFormstateValidation=require("react-formstate-validation"),_reactBootstrap=require("react-bootstrap"),_ShowModelHoc=require("../parts/ShowModelHoc.jsx"),_ShowModelHoc2=_interopRequireDefault(_ShowModelHoc),_FormStateDisplay=require("../parts/FormStateDisplay.jsx"),_Instructions=require("../parts/Instructions.jsx"),_Instructions2=_interopRequireDefault(_Instructions),_HiddenInput=require("../inputs/rfs-bootstrap/HiddenInput.jsx"),_HiddenInput2=_interopRequireDefault(_HiddenInput),_Input=require("../inputs/rfs-bootstrap/Input.jsx"),_Input2=_interopRequireDefault(_Input),_Submit=require("../inputs/bootstrap/Submit.jsx"),_Submit2=_interopRequireDefault(_Submit),_Select=require("../inputs/rfs-bootstrap/Select.jsx"),_Select2=_interopRequireDefault(_Select),_container=require("../../redux/container.jsx"),_container2=_interopRequireDefault(_container);function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _toConsumableArray(e){if(Array.isArray(e)){for(var t=0,r=Array(e.length);t<e.length;t++)r[t]=e[t];return r}return Array.from(e)}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var capitalized=function(e){return"string"==typeof e&&e.substring(0,1)!==e.substring(0,1).toLowerCase()};_reactFormstate.FormState.registerValidation("capitalize",function(e,t){if(!capitalized(e))return t+" should be capitalized"});for(var testModel={id:8910,name:"Father Cat",dependents:[{id:1,name:"Huckle Cat",age:8},{id:2,name:"Sally Cat",age:5},{id:3,name:"Lowly the Worm",age:8}]},ageOptions=[],i=0;i<150;i++)ageOptions.push({id:i.toString(),text:i.toString()});var Dependent=function(e){function t(){return _classCallCheck(this,t),_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}return _inherits(t,_react.Component),_createClass(t,[{key:"validateName",value:function(e){if(!capitalized(e))return"Name should be capitalized"}},{key:"render",value:function(){return _react2.default.createElement(_reactFormstate.FormExtension,{nestedForm:this},_react2.default.createElement("div",null,_react2.default.createElement(_HiddenInput2.default,{formField:"id",defaultValue:"0",intConvert:!0})),_react2.default.createElement("div",null,_react2.default.createElement(_Input2.default,{formField:"name",label:"Name",required:!0,autoComplete:"off"})),_react2.default.createElement("div",null,_react2.default.createElement(_Select2.default,{formField:"age",label:"Age",optionValues:ageOptions,required:!0,intConvert:!0})))}}]),t}(),DependentsForm=function(e){function t(e){_classCallCheck(this,t);var r=_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));return r.formState=_reactFormstate.FormState.create(r,r.getState.bind(r),r.updateState.bind(r)),r}return _inherits(t,_react.Component),_createClass(t,[{key:"getState",value:function(){return this.props.stateFromReduxStore}},{key:"updateState",value:function(e){this.props.updateStateInReduxStore(e.model?e:(0,_FormStateDisplay.addCurrentModelToUpdates)(this.formState,e))}},{key:"componentDidMount",value:function(){var e=this.formState.createUnitOfWork(),t=this.props.model?this.props.model:{id:"0",name:"",dependents:[]};e.injectModel(t),e.updateFormState({initialModel:t,model:t})}},{key:"editMode",value:function(){return Boolean(this.props.model)}},{key:"render",value:function(){var e=this,t=this.getState().model;if(!t)return null;for(var r=_react2.default.createElement(_Instructions2.default,null,_react2.default.createElement(_reactBootstrap.ListGroup,null,_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Check out the ",_react2.default.createElement("a",{href:"https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/DependentsRedux.jsx"},"source code")),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"This is an alternate implementation of the Dependents form."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"In this implementation, dynamic form fields are driven more directly by the backing model, using the more traditional approach of explicit initialization."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Since we are actively doing something with the unsubmitted model prior to form submission (in this case, displaying it), this approach might be more intuitive to people, but it is unclear whether it is actually less complex."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"You can use either approach with react-formstate"))),a=[],n=0,o=0;n<t.dependents.length;o++)this.formState.isDeleted("dependents."+o)||(a.push(_react2.default.createElement(_reactBootstrap.ListGroup,{key:o},_react2.default.createElement(_reactBootstrap.ListGroupItem,null,_react2.default.createElement(Dependent,{formObject:o}),_react2.default.createElement("div",null,_react2.default.createElement("a",{href:"#",onClick:this.removeDependent(n,o)},"remove"))))),n++);return _react2.default.createElement(_reactFormstate.Form,{formState:this.formState,onSubmit:function(t){return e.handleSubmit(t)}},_react2.default.createElement(_FormStateDisplay.FormStateDisplay,{state:this.getState()},_react2.default.createElement(_HiddenInput2.default,{formField:"id",defaultValue:"0",intConvert:!0}),_react2.default.createElement(_Input2.default,{formField:"name",label:"Name",required:!0,fsv:function(e){return e.capitalize()},autoComplete:"off"}),_react2.default.createElement("div",{className:"add-dependent"},_react2.default.createElement("a",{href:"#",onClick:function(t){return e.addDependent(t)}},"add dependent")),_react2.default.createElement(_reactFormstate.FormArray,{name:"dependents"},a),_react2.default.createElement(_Submit2.default,{className:"submit",invalid:this.formState.isInvalid(),validating:this.formState.isValidating(),grabRef:function(t){return e.submitButton=t}}),r))}},{key:"addDependent",value:function(e){e.preventDefault();var t={id:"0",name:"",age:""},r=this.getState().model;r=_extends({},r,{dependents:[].concat(_toConsumableArray(r.dependents),[t])});var a=this.formState.createUnitOfWork();a.injectField("dependents."+(r.dependents.length-1),t),a.updateFormState({model:r})}},{key:"removeDependent",value:function(e,t){var r=this;return function(a){a.preventDefault();for(var n=r.getState().model,o=[],i=0;i<n.dependents.length;i++)i!==e&&o.push(n.dependents[i]);n=_extends({},n,{dependents:o});var l=r.formState.createUnitOfWork();l.remove("dependents."+t),l.updateFormState({model:n})}}},{key:"handleSubmit",value:function(e){e.preventDefault(),_reactDom2.default.findDOMNode(this.submitButton).focus();var t=this.formState.createUnitOfWork().createModel();t&&this.props.showModel(t)}}]),t}(),Hoc=(0,_container2.default)((0,_ShowModelHoc2.default)(DependentsForm));Hoc.testModel=testModel,exports.default=Hoc;
 
-},{"../../redux/container.jsx":417,"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../inputs/rfs-bootstrap/Select.jsx":22,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":395,"react-formstate-validation":394}],3:[function(require,module,exports){
+},{"../../redux/container.jsx":401,"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../inputs/rfs-bootstrap/Select.jsx":22,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":385,"react-formstate-validation":384}],3:[function(require,module,exports){
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function t(t,e){for(var a=0;a<e.length;a++){var r=e[a];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,a,r){return a&&t(e.prototype,a),r&&t(e,r),e}}(),_react=require("react"),_react2=_interopRequireDefault(_react),_reactDom=require("react-dom"),_reactDom2=_interopRequireDefault(_reactDom),_reactFormstate=require("react-formstate"),_reactFormstateValidation=require("react-formstate-validation"),_reactBootstrap=require("react-bootstrap"),_ShowModelHoc=require("../parts/ShowModelHoc.jsx"),_ShowModelHoc2=_interopRequireDefault(_ShowModelHoc),_FormStateDisplay=require("../parts/FormStateDisplay.jsx"),_Instructions=require("../parts/Instructions.jsx"),_Instructions2=_interopRequireDefault(_Instructions),_HiddenInput=require("../inputs/rfs-bootstrap/HiddenInput.jsx"),_HiddenInput2=_interopRequireDefault(_HiddenInput),_Input=require("../inputs/rfs-bootstrap/Input.jsx"),_Input2=_interopRequireDefault(_Input),_Submit=require("../inputs/bootstrap/Submit.jsx"),_Submit2=_interopRequireDefault(_Submit),_DateInput=require("../inputs/rfs-bootstrap/DateInput.jsx"),_DateInput2=_interopRequireDefault(_DateInput),_moment=require("moment"),_moment2=_interopRequireDefault(_moment);function _interopRequireDefault(t){return t&&t.__esModule?t:{default:t}}function _classCallCheck(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(t,e){if(!t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!e||"object"!=typeof e&&"function"!=typeof e?t:e}function _inherits(t,e){if("function"!=typeof e&&null!==e)throw new TypeError("Super expression must either be null or a function, not "+typeof e);t.prototype=Object.create(e&&e.prototype,{constructor:{value:t,enumerable:!1,writable:!0,configurable:!0}}),e&&(Object.setPrototypeOf?Object.setPrototypeOf(t,e):t.__proto__=e)}var testModel={id:123,name:"Travel to Europe (I wish!)",startDate:"2019-07-12T18:32:24.402Z",endDate:"2019-07-26T18:32:24.402Z"},EventForm=function(t){function e(t){_classCallCheck(this,e);var a=_possibleConstructorReturn(this,(e.__proto__||Object.getPrototypeOf(e)).call(this,t));return a.formState=_reactFormstate.FormState.create(a,function(){return a.state},a.updateState.bind(a)),a.state={},a}return _inherits(e,_react.Component),_createClass(e,[{key:"updateState",value:function(t){this.setState((0,_FormStateDisplay.addCurrentModelToUpdates)(this.formState,t))}},{key:"componentDidMount",value:function(){var t=this.formState.createUnitOfWork();t.injectModel(this.props.model),this.props.model&&(t.injectField("startDate",(0,_moment2.default)(this.props.model.startDate),!0),t.injectField("endDate",(0,_moment2.default)(this.props.model.endDate),!0)),t.updateFormState()}},{key:"editMode",value:function(){return Boolean(this.props.model)}},{key:"validateEndDate",value:function(t,e){return _reactFormstateValidation.library.exists(t)?t<=e.getu("startDate")?"End Date must be after Start Date":void 0:"End Date is required"}},{key:"render",value:function(){var t=this,e=_react2.default.createElement(_Instructions2.default,null,_react2.default.createElement(_reactBootstrap.ListGroup,null,_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Check out the ",_react2.default.createElement("a",{href:"https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/Event.jsx"},"source code")),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Unlike a standard HTML input that works with string values, react-datepicker is a nonstandard input that works with ",'"moment"'," objects."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"startDate < endDate validation takes place against endDate. If startDate changes, the validation status of endDate gets reset, and, if empty, initialized to startDate. (This is very similar to resetting password confirmation when password changes. It is a handy pattern.)"),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"react-datepicker is not designed to work as a controlled component and runs into issues with being controlled by form state if you manually wipe the input box.")));return _react2.default.createElement(_reactFormstate.Form,{formState:this.formState,onSubmit:function(e){return t.handleSubmit(e)}},_react2.default.createElement(_FormStateDisplay.FormStateDisplay,{state:this.state},_react2.default.createElement(_HiddenInput2.default,{formField:"id",defaultValue:"0",intConvert:!0}),_react2.default.createElement(_Input2.default,{formField:"name",label:"Event Name",required:!0,autoComplete:"off"}),_react2.default.createElement(_DateInput2.default,{formField:"startDate",label:"Start Date",required:"-",fsv:function(t){return t.exists().msg("Start Date is required")},handleValueChange:function(e){return t.handleStartDateChange(e)}}),_react2.default.createElement(_DateInput2.default,{formField:"endDate",label:"End Date",required:"-"}),_react2.default.createElement(_Submit2.default,{className:"submit",invalid:this.formState.isInvalid(),validating:this.formState.isValidating(),grabRef:function(e){return t.submitButton=e}}),e))}},{key:"handleStartDateChange",value:function(t){var e=this.formState.createUnitOfWork();e.set("startDate",t).validate();var a=e.getu("endDate");e.set("endDate",a||t),e.updateFormState()}},{key:"handleSubmit",value:function(t){t.preventDefault(),_reactDom2.default.findDOMNode(this.submitButton).focus();var e=this.formState.createUnitOfWork().createModel();e&&this.props.showModel(e)}}]),e}(),Hoc=(0,_ShowModelHoc2.default)(EventForm);Hoc.testModel=testModel,exports.default=Hoc;
 
-},{"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/DateInput.jsx":18,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"moment":383,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":395,"react-formstate-validation":394}],4:[function(require,module,exports){
+},{"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/DateInput.jsx":18,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"moment":373,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":385,"react-formstate-validation":384}],4:[function(require,module,exports){
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var r=0;r<t.length;r++){var a=t[r];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(t,r,a){return r&&e(t.prototype,r),a&&e(t,a),t}}(),_extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var a in r)Object.prototype.hasOwnProperty.call(r,a)&&(e[a]=r[a])}return e},_react=require("react"),_react2=_interopRequireDefault(_react),_reactDom=require("react-dom"),_reactDom2=_interopRequireDefault(_reactDom),_reactFormstate=require("react-formstate"),_reactFormstateValidation=require("react-formstate-validation"),_reactBootstrap=require("react-bootstrap"),_ShowModelHoc=require("../parts/ShowModelHoc.jsx"),_ShowModelHoc2=_interopRequireDefault(_ShowModelHoc),_FormStateDisplay=require("../parts/FormStateDisplay.jsx"),_Instructions=require("../parts/Instructions.jsx"),_Instructions2=_interopRequireDefault(_Instructions),_HiddenInput=require("../inputs/rfs-bootstrap/HiddenInput.jsx"),_HiddenInput2=_interopRequireDefault(_HiddenInput),_Input=require("../inputs/rfs-bootstrap/Input.jsx"),_Submit=require("../inputs/bootstrap/Submit.jsx"),_Submit2=_interopRequireDefault(_Submit),_processProps=require("../inputs/rfs-bootstrap/_processProps.es6");function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}function _objectWithoutProperties(e,t){var r={};for(var a in e)t.indexOf(a)>=0||Object.prototype.hasOwnProperty.call(e,a)&&(r[a]=e[a]);return r}var computeValidationStateAndHelp=function(e){return function(t){var r=t.fieldState,a=t.showMessage,o=_objectWithoutProperties(t,["fieldState","showMessage"]),n=null,s=null;a&&(r.isInvalid()&&(n="error"),s=r.getMessage());var i=_extends({fieldState:r,showMessage:a,validationState:n,help:s},o);return _react2.default.createElement(e,i)}},Input=computeValidationStateAndHelp((0,_processProps.computeClassName)(_Input.Input)),LoginForm=function(e){function t(e){_classCallCheck(this,t);var r=_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));return r.formState=_reactFormstate.FormState.create(r,function(){return r.state},r.updateState.bind(r)),r.state={},r.formState.onUpdate(r.onUpdate.bind(r)),r}return _inherits(t,_react.Component),_createClass(t,[{key:"updateState",value:function(e){this.setState((0,_FormStateDisplay.addCurrentModelToUpdates)(this.formState,e))}},{key:"componentDidMount",value:function(){var e=this.formState.createUnitOfWork();e.injectModel(this.props.model),e.updateFormState()}},{key:"editMode",value:function(){return Boolean(this.props.model)}},{key:"onUpdate",value:function(e){this.state.loggingIn||e.updateFormState({failedLogin:!1})}},{key:"render",value:function(){var e=this,t=_react2.default.createElement(_Instructions2.default,null,_react2.default.createElement(_reactBootstrap.ListGroup,null,_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Check out the ",_react2.default.createElement("a",{href:"https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/Login.jsx"},"source code")),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Use username=huckle and password=busytown for a successful login"),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"This demonstrates the use of the onUpdate callback from the standard change handler. Any input after a failed login will clear the failure message."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"This form has a customized input component experience.")));return _react2.default.createElement(_reactFormstate.Form,{formState:this.formState,onSubmit:function(t){return e.handleSubmit(t)}},_react2.default.createElement(_FormStateDisplay.FormStateDisplay,{state:this.state},_react2.default.createElement("div",{className:"failed-login-message"},this.state.failedLogin?"Invalid username or password":null),_react2.default.createElement(Input,{formField:"username",label:"Username",required:!0,autoComplete:"off"}),_react2.default.createElement(Input,{formField:"password",label:"Password",required:!0,type:"password"}),_react2.default.createElement(_Submit2.default,{className:"submit",invalid:this.formState.isInvalid(),message:this.state.loggingIn?"Logging in...":null,bsStyle:this.state.loggingIn?"warning":null,disabled:!!this.state.loggingIn||null,grabRef:function(t){return e.submitButton=t}}),t))}},{key:"handleSubmit",value:function(e){if(e.preventDefault(),_reactDom2.default.findDOMNode(this.submitButton).focus(),!this.state.loggingIn){var t=this.formState.createUnitOfWork().createModel();t&&(this.setState({loggingIn:!0,failedLogin:!1}),window.setTimeout(function(){"huckle"===t.username&&"busytown"===t.password?(this.setState({loggingIn:!1,failedLogin:!1}),this.props.showModel(Object.assign({message:"Successful Login!"},t))):this.setState({loggingIn:!1,failedLogin:!0})}.bind(this),2e3))}}}]),t}();exports.default=(0,_ShowModelHoc2.default)(LoginForm);
 
-},{"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../inputs/rfs-bootstrap/_processProps.es6":25,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":395,"react-formstate-validation":394}],5:[function(require,module,exports){
+},{"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../inputs/rfs-bootstrap/_processProps.es6":25,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":385,"react-formstate-validation":384}],5:[function(require,module,exports){
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var r=0;r<t.length;r++){var o=t[r];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(t,r,o){return r&&e(t.prototype,r),o&&e(t,o),t}}(),_react=require("react"),_react2=_interopRequireDefault(_react),_reactDom=require("react-dom"),_reactDom2=_interopRequireDefault(_reactDom),_reactFormstate=require("react-formstate"),_reactFormstateValidation=require("react-formstate-validation"),_reactBootstrap=require("react-bootstrap"),_ShowModelHoc=require("../parts/ShowModelHoc.jsx"),_ShowModelHoc2=_interopRequireDefault(_ShowModelHoc),_FormStateDisplay=require("../parts/FormStateDisplay.jsx"),_Instructions=require("../parts/Instructions.jsx"),_Instructions2=_interopRequireDefault(_Instructions),_HiddenInput=require("../inputs/rfs-bootstrap/HiddenInput.jsx"),_HiddenInput2=_interopRequireDefault(_HiddenInput),_Input=require("../inputs/rfs-bootstrap/Input.jsx"),_Input2=_interopRequireDefault(_Input),_Submit=require("../inputs/bootstrap/Submit.jsx"),_Submit2=_interopRequireDefault(_Submit),_Select=require("../inputs/rfs-bootstrap/Select.jsx"),_Select2=_interopRequireDefault(_Select),_TextArea=require("../inputs/rfs-bootstrap/TextArea.jsx"),_TextArea2=_interopRequireDefault(_TextArea),_RadioGroup=require("../inputs/rfs-bootstrap/RadioGroup.jsx"),_RadioGroup2=_interopRequireDefault(_RadioGroup),_ValidatedCheckbox=require("../inputs/rfs-bootstrap/ValidatedCheckbox.jsx"),_ValidatedCheckbox2=_interopRequireDefault(_ValidatedCheckbox),_CheckboxGroup=require("../inputs/rfs-bootstrap/CheckboxGroup.jsx"),_CheckboxGroup2=_interopRequireDefault(_CheckboxGroup);function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var testModel={favoriteOceanId:2,lunchIds:[1,2,3,4,5,6,7],say:"Thank you for your interest in react-formstate",yumIds:[1,2,3,4,5],youCheckedTheBox:!0},options=function(e){return e.map(function(e,t){return{id:t+1,name:e}})},OtherInputsForm=function(e){function t(e){_classCallCheck(this,t);var r=_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));return r.formState=_reactFormstate.FormState.create(r,function(){return r.state},r.updateState.bind(r)),r.state={},r}return _inherits(t,_react.Component),_createClass(t,[{key:"updateState",value:function(e){this.setState((0,_FormStateDisplay.addCurrentModelToUpdates)(this.formState,e))}},{key:"componentDidMount",value:function(){var e=this.formState.createUnitOfWork();e.injectModel(this.props.model),e.updateFormState()}},{key:"editMode",value:function(){return Boolean(this.props.model)}},{key:"render",value:function(){var e=this,t=_react2.default.createElement(_Instructions2.default,null,_react2.default.createElement(_reactBootstrap.ListGroup,null,_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Check out the ",_react2.default.createElement("a",{href:"https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/OtherInputs.jsx"},"source code")),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"This demonstrates inputs not yet covered by the other examples."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Using intConvert to transform ids back to integers for model output."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"The text area uses noTrim for model output."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"The text area value has a validated limit of 140 characters.")));return _react2.default.createElement(_reactFormstate.Form,{formState:this.formState,onSubmit:function(t){return e.handleSubmit(t)}},_react2.default.createElement(_FormStateDisplay.FormStateDisplay,{state:this.state},_react2.default.createElement(_RadioGroup2.default,{formField:"favoriteOceanId",label:"Favorite Ocean",buttonValues:options(["Arctic","Atlantic","Indian","Pacific","Southern","Billy"]),required:"Water, water, everywhere... ap-par-ent-ly you don't care",intConvert:!0}),_react2.default.createElement(_CheckboxGroup2.default,{formField:"lunchIds",label:"Lunch",checkboxValues:options(["Sandwich","Potato Chips","Fruit","Pickle","Milkshake","Beer","Martini(s)"]),required:"-",fsv:function(e){return e.minLength(1).msg("Not hungry?")},intConvert:!0,defaultValue:[]}),_react2.default.createElement(_TextArea2.default,{formField:"say",label:"Say Something",required:"C'mon say SOMETHING",fsv:function(e){return e.maxLength(140)},noTrim:!0}),_react2.default.createElement(_Select2.default,{formField:"yumIds",label:"Yum!",multiple:!0,optionValues:options(["Cake","Cookies","Pie","Ice Cream","Doughnuts"]),required:"-",fsv:function(e){return e.minLength(1).msg("Got something against cake?")},size:5,intConvert:!0,defaultValue:[]}),_react2.default.createElement(_ValidatedCheckbox2.default,{formField:"youCheckedTheBox",label:"You must check this box",required:"-",fsv:function(e){return e.equals(!0).msg("YOU ABSOLUTELY MUST CHECK THIS BOX!")}}),_react2.default.createElement(_Submit2.default,{className:"submit",invalid:this.formState.isInvalid(),validating:this.formState.isValidating(),grabRef:function(t){return e.submitButton=t}}),t))}},{key:"handleSubmit",value:function(e){e.preventDefault(),_reactDom2.default.findDOMNode(this.submitButton).focus();var t=this.formState.createUnitOfWork().createModel();t&&this.props.showModel(t)}}]),t}(),Hoc=(0,_ShowModelHoc2.default)(OtherInputsForm);Hoc.testModel=testModel,exports.default=Hoc;
 
-},{"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/CheckboxGroup.jsx":17,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../inputs/rfs-bootstrap/RadioGroup.jsx":21,"../inputs/rfs-bootstrap/Select.jsx":22,"../inputs/rfs-bootstrap/TextArea.jsx":23,"../inputs/rfs-bootstrap/ValidatedCheckbox.jsx":24,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":395,"react-formstate-validation":394}],6:[function(require,module,exports){
+},{"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/CheckboxGroup.jsx":17,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../inputs/rfs-bootstrap/RadioGroup.jsx":21,"../inputs/rfs-bootstrap/Select.jsx":22,"../inputs/rfs-bootstrap/TextArea.jsx":23,"../inputs/rfs-bootstrap/ValidatedCheckbox.jsx":24,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":385,"react-formstate-validation":384}],6:[function(require,module,exports){
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var r=0;r<t.length;r++){var o=t[r];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(t,r,o){return r&&e(t.prototype,r),o&&e(t,o),t}}(),_react=require("react"),_react2=_interopRequireDefault(_react),_reactDom=require("react-dom"),_reactDom2=_interopRequireDefault(_reactDom),_reactFormstate=require("react-formstate"),_reactFormstateValidation=require("react-formstate-validation"),_reactBootstrap=require("react-bootstrap"),_ShowModelHoc=require("../parts/ShowModelHoc.jsx"),_ShowModelHoc2=_interopRequireDefault(_ShowModelHoc),_FormStateDisplay=require("../parts/FormStateDisplay.jsx"),_Instructions=require("../parts/Instructions.jsx"),_Instructions2=_interopRequireDefault(_Instructions),_HiddenInput=require("../inputs/rfs-bootstrap/HiddenInput.jsx"),_HiddenInput2=_interopRequireDefault(_HiddenInput),_Input=require("../inputs/rfs-bootstrap/Input.jsx"),_Input2=_interopRequireDefault(_Input),_Select=require("../inputs/rfs-bootstrap/Select.jsx"),_Select2=_interopRequireDefault(_Select),_RadioGroup=require("../inputs/rfs-bootstrap/RadioGroup.jsx"),_RadioGroup2=_interopRequireDefault(_RadioGroup),_Submit=require("../inputs/bootstrap/Submit.jsx"),_Submit2=_interopRequireDefault(_Submit),_container=require("../../redux/container.jsx"),_container2=_interopRequireDefault(_container);function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var testModel={id:123,name:"Buster Brown",energeticId:1,musicId:6},options=function(e){return e.map(function(e,t){return{id:t+1,name:e}})},ReduxForm=function(e){function t(e){_classCallCheck(this,t);var r=_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));return r.formState=_reactFormstate.FormState.create(r,r.getState.bind(r),r.updateState.bind(r)),r}return _inherits(t,_react.Component),_createClass(t,[{key:"getState",value:function(){return this.props.stateFromReduxStore}},{key:"updateState",value:function(e){this.props.updateStateInReduxStore((0,_FormStateDisplay.addCurrentModelToUpdates)(this.formState,e))}},{key:"componentDidMount",value:function(){var e=this.formState.createUnitOfWork();e.injectModel(this.props.model),e.updateFormState()}},{key:"editMode",value:function(){return Boolean(this.props.model)}},{key:"render",value:function(){var e=this,t=_react2.default.createElement(_Instructions2.default,null,_react2.default.createElement(_reactBootstrap.ListGroup,null,_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Check out the ",_react2.default.createElement("a",{href:"https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/ReduxForm.jsx"},"source code")),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Form state and current model are stored in a Redux store")));return _react2.default.createElement(_reactFormstate.Form,{formState:this.formState,onSubmit:function(t){return e.handleSubmit(t)}},_react2.default.createElement(_FormStateDisplay.FormStateDisplay,{state:this.getState()},_react2.default.createElement(_HiddenInput2.default,{formField:"id",defaultValue:"0",intConvert:!0}),_react2.default.createElement(_Input2.default,{formField:"name",label:"Name",required:!0,autoComplete:"off"}),_react2.default.createElement(_RadioGroup2.default,{formField:"energeticId",label:"Energetic?",buttonValues:options(["Morning Person","NOT a Morning Person"]),required:!0,intConvert:!0,inline:!0}),_react2.default.createElement(_Select2.default,{formField:"musicId",label:"Favorite Kind of Music",optionValues:options(["Rap","Rock","Reggae","Pop","Country","Classical","Jazz","Electronica","I Dislike All Forms of Music"]),required:!0,intConvert:!0}),_react2.default.createElement(_Submit2.default,{className:"submit",invalid:this.formState.isInvalid(),grabRef:function(t){return e.submitButton=t}}),t))}},{key:"handleSubmit",value:function(e){e.preventDefault(),_reactDom2.default.findDOMNode(this.submitButton).focus();var t=this.formState.createUnitOfWork().createModel();t&&this.props.showModel(t)}}]),t}(),Hoc=(0,_container2.default)((0,_ShowModelHoc2.default)(ReduxForm));Hoc.testModel=testModel,exports.default=Hoc;
 
-},{"../../redux/container.jsx":417,"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../inputs/rfs-bootstrap/RadioGroup.jsx":21,"../inputs/rfs-bootstrap/Select.jsx":22,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":395,"react-formstate-validation":394}],7:[function(require,module,exports){
+},{"../../redux/container.jsx":401,"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../inputs/rfs-bootstrap/RadioGroup.jsx":21,"../inputs/rfs-bootstrap/Select.jsx":22,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":385,"react-formstate-validation":384}],7:[function(require,module,exports){
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var r=0;r<t.length;r++){var a=t[r];a.enumerable=a.enumerable||!1,a.configurable=!0,"value"in a&&(a.writable=!0),Object.defineProperty(e,a.key,a)}}return function(t,r,a){return r&&e(t.prototype,r),a&&e(t,a),t}}(),_react=require("react"),_react2=_interopRequireDefault(_react),_reactDom=require("react-dom"),_reactDom2=_interopRequireDefault(_reactDom),_reactFormstate=require("react-formstate"),_reactFormstateValidation=require("react-formstate-validation"),_reactBootstrap=require("react-bootstrap"),_ShowModelHoc=require("../parts/ShowModelHoc.jsx"),_ShowModelHoc2=_interopRequireDefault(_ShowModelHoc),_FormStateDisplay=require("../parts/FormStateDisplay.jsx"),_Instructions=require("../parts/Instructions.jsx"),_Instructions2=_interopRequireDefault(_Instructions),_HiddenInput=require("../inputs/rfs-bootstrap/HiddenInput.jsx"),_HiddenInput2=_interopRequireDefault(_HiddenInput),_Input=require("../inputs/rfs-bootstrap/Input.jsx"),_Input2=_interopRequireDefault(_Input),_Submit=require("../inputs/bootstrap/Submit.jsx"),_Submit2=_interopRequireDefault(_Submit);function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var testModel={id:123,name:"Huckle",username:"huckle"},UserAccountForm=function(e){function t(e){_classCallCheck(this,t);var r=_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));return r.formState=_reactFormstate.FormState.create(r,function(){return r.state},r.updateState.bind(r)),r.state={},r}return _inherits(t,_react.Component),_createClass(t,[{key:"updateState",value:function(e){this.setState((0,_FormStateDisplay.addCurrentModelToUpdates)(this.formState,e))}},{key:"componentDidMount",value:function(){var e=this.formState.createUnitOfWork();e.injectModel(this.props.model),e.updateFormState()}},{key:"editMode",value:function(){return Boolean(this.props.model)}},{key:"validateName",value:function(e){if(e.substring(0,1)===e.substring(0,1).toLowerCase())return"Name should be capitalized"}},{key:"validateNewPassword",value:function(e,t){if(""!==e.trim()){if(!_reactFormstateValidation.library.regex(e,/^\S+$/))return"Password must not contain whitespace";if(e.length<8)return"Password must be at least 8 characters";var r=t.getFieldState("newPassword");return e.length<12?(r.setValid("Passwords are ideally at least 12 characters"),void r.set("warn",!0)):void 0}}},{key:"validateConfirmNewPassword",value:function(e,t){var r=t.get("newPassword");if(""!==r.trim()&&e!==r)return"Password confirmation does not match"}},{key:"render",value:function(){var e=this,t=_react2.default.createElement(_Instructions2.default,null,_react2.default.createElement(_reactBootstrap.ListGroup,null,_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Check out the ",_react2.default.createElement("a",{href:"https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/UserAccount.jsx"},"source code")),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,'Try "taken" or "huckle" for username.'),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Password not required if editing an existing account."),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"For playing with the various blur options, use the following validations:",_react2.default.createElement("ul",null,_react2.default.createElement("li",null,"Name must be capitalized."),_react2.default.createElement("li",null,"Username must not contain spaces."),_react2.default.createElement("li",null,"Password minimum 8 characters, and no spaces."),_react2.default.createElement("li",null,"Password less than 12 characters will warn."))),_react2.default.createElement(_reactBootstrap.ListGroupItem,null,"Password and confirmation fields use preferNull for model output - when editing an account and password is left unchanged.")));return _react2.default.createElement(_reactFormstate.Form,{formState:this.formState,onSubmit:function(t){return e.handleSubmit(t)}},_react2.default.createElement(_FormStateDisplay.FormStateDisplay,{state:this.state},_react2.default.createElement(_HiddenInput2.default,{formField:"id",defaultValue:"0",intConvert:!0}),_react2.default.createElement(_Input2.default,{formField:"name",label:"Name",required:!0,autoComplete:"off"}),_react2.default.createElement(_Input2.default,{formField:"username",label:"Username",required:!0,fsv:function(e){return e.regex(/^\S+$/).msg("Username must not contain spaces")},handleValueChange:function(t){return e.handleUsernameChange(t)},autoComplete:"off"}),_react2.default.createElement(_Input2.default,{type:"password",formField:"newPassword",label:this.editMode()?"New Password":"Password",required:!this.editMode(),handleValueChange:function(t){return e.handlePasswordChange(t)},preferNull:!0}),_react2.default.createElement(_Input2.default,{type:"password",formField:"confirmNewPassword",label:this.editMode()?"Confirm New Password":"Confirm Password",required:!this.editMode(),preferNull:!0}),_react2.default.createElement(_Submit2.default,{className:"submit",invalid:this.formState.isInvalid(),validating:this.formState.isValidating(),grabRef:function(t){return e.submitButton=t}}),t))}},{key:"handleUsernameChange",value:function(e){var t=this,r=this.formState.createUnitOfWork(),a=r.set("username",e);if(a.validate(),a.isInvalid())r.updateFormState();else{if(e===a.getInitialValue())return a.setValid(),void r.updateFormState();var o=a.setValidating("Verifying username...");r.updateFormState(),window.setTimeout(function(){var r=t.formState.createUnitOfWork(),a=r.getFieldState("username",o);a&&("taken"===e.toLowerCase()||"huckle"===e.toLowerCase()?a.setInvalid("Username already exists"):a.setValid("Verified"),r.updateFormState())},2e3)}}},{key:"handlePasswordChange",value:function(e){var t=this.formState.createUnitOfWork();t.set("newPassword",e).validate(),t.set("confirmNewPassword",""),t.updateFormState()}},{key:"handleSubmit",value:function(e){e.preventDefault(),_reactDom2.default.findDOMNode(this.submitButton).focus();var t=this.formState.createUnitOfWork().createModel();t&&this.props.showModel(t)}}]),t}(),Hoc=(0,_ShowModelHoc2.default)(UserAccountForm);Hoc.testModel=testModel,exports.default=Hoc;
 
-},{"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":395,"react-formstate-validation":394}],8:[function(require,module,exports){
+},{"../inputs/bootstrap/Submit.jsx":14,"../inputs/rfs-bootstrap/HiddenInput.jsx":19,"../inputs/rfs-bootstrap/Input.jsx":20,"../parts/FormStateDisplay.jsx":26,"../parts/Instructions.jsx":27,"../parts/ShowModelHoc.jsx":28,"react":"react","react-bootstrap":"react-bootstrap","react-dom":"react-dom","react-formstate":385,"react-formstate-validation":384}],8:[function(require,module,exports){
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _react=require("react"),_react2=_interopRequireDefault(_react),_reactBootstrap=require("react-bootstrap");function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}var CheckboxGroup=function(e){var t=e.className,r=e.controlId,a=e.validationState,o=e.label,u=e.checkboxValues,l=e.value,n=e.help,c=e.onChange,i=e.onBlur,s=u.map(function(e){return _react2.default.createElement(_reactBootstrap.Checkbox,{key:e.id,value:e.id,checked:(l||[]).some(function(t){return t===e.id.toString()}),onChange:c},e.name)});return _react2.default.createElement(_reactBootstrap.FormGroup,{className:t,controlId:r,validationState:a,onBlur:i},o?_react2.default.createElement(_reactBootstrap.ControlLabel,null,o):null,s,_react2.default.createElement(_reactBootstrap.HelpBlock,null,n))};CheckboxGroup.getValue=function(e,t){if(e||(e=[]),!t.target.checked)return e.filter(function(e){return e!==t.target.value});var r=e.slice(0);return r.some(function(e){return e===t.target.value})||(r.push(t.target.value),r.sort()),r},exports.default=CheckboxGroup;
 
 },{"react":"react","react-bootstrap":"react-bootstrap"}],9:[function(require,module,exports){
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _react=require("react"),_react2=_interopRequireDefault(_react),_reactBootstrap=require("react-bootstrap"),_reactDatepicker=require("react-datepicker"),_reactDatepicker2=_interopRequireDefault(_reactDatepicker);function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}exports.default=function(e){var t=e.className,a=e.controlId,r=e.validationState,l=e.label,c=e.value,o=e.help,n=e.onChange,u=e.onBlur;return _react2.default.createElement(_reactBootstrap.FormGroup,{className:t,controlId:a,validationState:r},_react2.default.createElement(_reactBootstrap.ControlLabel,null,l),_react2.default.createElement("div",{className:"date-input-container"},_react2.default.createElement(_reactDatepicker2.default,{className:"form-control",selected:c||null,onChange:n,onBlur:u})),_react2.default.createElement(_reactBootstrap.HelpBlock,null,o))};
 
-},{"react":"react","react-bootstrap":"react-bootstrap","react-datepicker":392}],10:[function(require,module,exports){
+},{"react":"react","react-bootstrap":"react-bootstrap","react-datepicker":382}],10:[function(require,module,exports){
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _react=require("react"),_react2=_interopRequireDefault(_react),_reactBootstrap=require("react-bootstrap");function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}exports.default=function(e){var t=e.className,a=e.controlId,r=e.validationState,o=e.type,l=e.label,c=e.value,u=e.help,n=e.onChange,d=e.onBlur,s=e.placeholder,p=e.disabled,_=e.autoFocus,i=e.autoComplete,f=e.showFeedback;return _react2.default.createElement(_reactBootstrap.FormGroup,{className:t,controlId:a,validationState:r},_react2.default.createElement(_reactBootstrap.ControlLabel,null,l),_react2.default.createElement(_reactBootstrap.FormControl,{type:o||"text",value:c,placeholder:s,onChange:n,onBlur:d,disabled:p,autoFocus:_,autoComplete:i}),!1===f?null:_react2.default.createElement(_reactBootstrap.FormControl.Feedback,null),_react2.default.createElement(_reactBootstrap.HelpBlock,null,u))};
 
 },{"react":"react","react-bootstrap":"react-bootstrap"}],11:[function(require,module,exports){
@@ -85,10 +85,10 @@ require=(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=
 },{"../inputs/bootstrap/SimpleModal.jsx":13,"react":"react"}],29:[function(require,module,exports){
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _createClass=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),_react=require("react"),_react2=_interopRequireDefault(_react),_reactBootstrap=require("react-bootstrap"),_reactFormstate=require("react-formstate"),_Select=require("../inputs/bootstrap/Select.jsx"),_Select2=_interopRequireDefault(_Select),_UserAccount=require("../forms/UserAccount.jsx"),_UserAccount2=_interopRequireDefault(_UserAccount),_Event=require("../forms/Event.jsx"),_Event2=_interopRequireDefault(_Event),_Login=require("../forms/Login.jsx"),_Login2=_interopRequireDefault(_Login),_Dependents=require("../forms/Dependents.jsx"),_Dependents2=_interopRequireDefault(_Dependents),_OtherInputs=require("../forms/OtherInputs.jsx"),_OtherInputs2=_interopRequireDefault(_OtherInputs),_ReduxForm=require("../forms/ReduxForm.jsx"),_ReduxForm2=_interopRequireDefault(_ReduxForm),_DependentsRedux=require("../forms/DependentsRedux.jsx"),_DependentsRedux2=_interopRequireDefault(_DependentsRedux),_uuid=require("uuid");function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var DemoView=function(e){function t(e){_classCallCheck(this,t);var n=_possibleConstructorReturn(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e)),r="UserAccount";return location.search.toLowerCase().endsWith("form=useraccount")&&(r="UserAccount"),location.search.toLowerCase().endsWith("form=event")&&(r="Event"),location.search.toLowerCase().endsWith("form=login")&&(r="Login"),location.search.toLowerCase().endsWith("form=dependents")&&(r="Dependents"),location.search.toLowerCase().endsWith("form=otherinputs")&&(r="OtherInputs"),location.search.toLowerCase().endsWith("form=redux")&&(r="Redux"),location.search.toLowerCase().endsWith("form=dependentsredux")&&(r="DependentsRedux"),n.state={formName:r,formInstanceId:(0,_uuid.v4)(),edit:!1,showMessageOn:"change",validateOnBlur:!1},n.forms={UserAccount:{name:"User Account (async validation)",type:_UserAccount2.default},Event:{name:"Event (non-HTML input)",type:_Event2.default},Login:{name:"Login (onUpdate callback)",type:_Login2.default},Dependents:{name:"Dependents (nested form components)",type:_Dependents2.default},OtherInputs:{name:"Other Inputs",type:_OtherInputs2.default},Redux:{name:"Redux Integration",type:_ReduxForm2.default},DependentsRedux:{name:"Dependents (alternate implementation)",type:_DependentsRedux2.default}},n}return _inherits(t,_react.Component),_createClass(t,[{key:"render",value:function(){var e=this,t=this.forms[this.state.formName].type;_react2.default.createElement("span",null,"   ");return _react2.default.createElement("div",null,_react2.default.createElement(_reactBootstrap.Jumbotron,null,_react2.default.createElement("span",{className:"main-title"},"react-formstate-demo")," ",_react2.default.createElement("span",{className:"choose-a-form-label"},"Choose a form:"),_react2.default.createElement(_Select2.default,{className:"demo-form-select",controlId:"formSelect",optionValues:Object.keys(this.forms).map(function(t){return{id:t,name:e.forms[t].name}}),value:this.state.formName,onChange:function(t){return e.setState({edit:!1,formName:t.target.value,formInstanceId:(0,_uuid.v4)()})}}),_react2.default.createElement(_reactBootstrap.Form,{className:"main-demo-options",inline:!0},_react2.default.createElement(_Select2.default,{className:"select-show-message-on",controlId:"selectShowMessageOn",optionValues:[{id:"change",name:"onChange"},{id:"blur",name:"onBlur"},{id:"submit",name:"onSubmit"}],value:this.state.showMessageOn,onChange:function(t){return e.showMessageOn(t.target.value)}}),_react2.default.createElement(_reactBootstrap.Radio,{checked:this.state.edit,onClick:function(){return e.setState({formInstanceId:(0,_uuid.v4)(),edit:!e.state.edit})},onChange:function(){}}," Edit Existing Model   "),_react2.default.createElement(_reactBootstrap.Radio,{checked:this.state.validateOnBlur,onClick:function(){return e.toggleValidateOnBlur()},onChange:function(){}}," Ensure Validation onBlur   ")),_react2.default.createElement(_reactBootstrap.Button,{className:"resetButton",onClick:function(){return e.setState({formInstanceId:(0,_uuid.v4)()})}},"Reset Form")),_react2.default.createElement(t,{key:this.state.formInstanceId,model:this.state.edit?t.testModel:null,store:this.props.store,formId:this.state.formInstanceId}))}},{key:"showMessageOn",value:function(e){_reactFormstate.FormState.showMessageOn(e),this.setState({showMessageOn:e})}},{key:"toggleValidateOnBlur",value:function(){_reactFormstate.FormState.setEnsureValidationOnBlur(!this.state.validateOnBlur),this.setState({validateOnBlur:!this.state.validateOnBlur})}}]),t}();exports.default=DemoView;
 
-},{"../forms/Dependents.jsx":1,"../forms/DependentsRedux.jsx":2,"../forms/Event.jsx":3,"../forms/Login.jsx":4,"../forms/OtherInputs.jsx":5,"../forms/ReduxForm.jsx":6,"../forms/UserAccount.jsx":7,"../inputs/bootstrap/Select.jsx":12,"react":"react","react-bootstrap":"react-bootstrap","react-formstate":395,"uuid":412}],30:[function(require,module,exports){
+},{"../forms/Dependents.jsx":1,"../forms/DependentsRedux.jsx":2,"../forms/Event.jsx":3,"../forms/Login.jsx":4,"../forms/OtherInputs.jsx":5,"../forms/ReduxForm.jsx":6,"../forms/UserAccount.jsx":7,"../inputs/bootstrap/Select.jsx":12,"react":"react","react-bootstrap":"react-bootstrap","react-formstate":385,"uuid":396}],30:[function(require,module,exports){
 "use strict";require("babel-polyfill");var _react=require("react"),_react2=_interopRequireDefault(_react),_reactDom=require("react-dom"),_reactDom2=_interopRequireDefault(_reactDom),_DemoView=require("./components/views/DemoView.jsx"),_DemoView2=_interopRequireDefault(_DemoView),_reactFormstate=require("react-formstate"),_reactFormstateValidation=require("react-formstate-validation"),_redux=require("redux"),_reducers=require("./redux/reducers.es6");function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}_reactFormstate.FormState.rfsProps.updateFormState.suppress=!0,_reactFormstate.FormState.rfsProps.showValidationMessage.suppress=!0,_reactFormstateValidation.validationAdapter.plugInto(_reactFormstate.FormState);var store=(0,_redux.createStore)((0,_redux.combineReducers)({forms:_reducers.forms}),{}),renderApp=function(){_reactDom2.default.render(_react2.default.createElement(_DemoView2.default,{store:store}),document.getElementById("react-mount-point"))};store.subscribe(function(){renderApp()}),renderApp();
 
-},{"./components/views/DemoView.jsx":29,"./redux/reducers.es6":418,"babel-polyfill":39,"react":"react","react-dom":"react-dom","react-formstate":395,"react-formstate-validation":394,"redux":408}],31:[function(require,module,exports){
+},{"./components/views/DemoView.jsx":29,"./redux/reducers.es6":402,"babel-polyfill":39,"react":"react","react-dom":"react-dom","react-formstate":385,"react-formstate-validation":384,"redux":393}],31:[function(require,module,exports){
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
@@ -8023,7 +8023,7 @@ function createReactContext(defaultValue, calculateChangedBits) {
 exports.default = createReactContext;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"_process":386,"gud":372,"prop-types":390,"react":"react","warning":368}],367:[function(require,module,exports){
+},{"_process":376,"gud":372,"prop-types":380,"react":"react","warning":368}],367:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -8106,7 +8106,7 @@ if (__DEV__) {
 module.exports = warning;
 
 }).call(this,require('_process'))
-},{"_process":386}],369:[function(require,module,exports){
+},{"_process":376}],369:[function(require,module,exports){
 "use strict";
 
 /**
@@ -8199,7 +8199,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 
 module.exports = invariant;
 }).call(this,require('_process'))
-},{"_process":386}],371:[function(require,module,exports){
+},{"_process":376}],371:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
@@ -8264,7 +8264,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = warning;
 }).call(this,require('_process'))
-},{"./emptyFunction":369,"_process":386}],372:[function(require,module,exports){
+},{"./emptyFunction":369,"_process":376}],372:[function(require,module,exports){
 (function (global){
 // @flow
 'use strict';
@@ -8277,255 +8277,6 @@ module.exports = function() {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],373:[function(require,module,exports){
-var root = require('./_root');
-
-/** Built-in value references. */
-var Symbol = root.Symbol;
-
-module.exports = Symbol;
-
-},{"./_root":380}],374:[function(require,module,exports){
-var Symbol = require('./_Symbol'),
-    getRawTag = require('./_getRawTag'),
-    objectToString = require('./_objectToString');
-
-/** `Object#toString` result references. */
-var nullTag = '[object Null]',
-    undefinedTag = '[object Undefined]';
-
-/** Built-in value references. */
-var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
-
-/**
- * The base implementation of `getTag` without fallbacks for buggy environments.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
-function baseGetTag(value) {
-  if (value == null) {
-    return value === undefined ? undefinedTag : nullTag;
-  }
-  return (symToStringTag && symToStringTag in Object(value))
-    ? getRawTag(value)
-    : objectToString(value);
-}
-
-module.exports = baseGetTag;
-
-},{"./_Symbol":373,"./_getRawTag":377,"./_objectToString":378}],375:[function(require,module,exports){
-(function (global){
-/** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
-
-module.exports = freeGlobal;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],376:[function(require,module,exports){
-var overArg = require('./_overArg');
-
-/** Built-in value references. */
-var getPrototype = overArg(Object.getPrototypeOf, Object);
-
-module.exports = getPrototype;
-
-},{"./_overArg":379}],377:[function(require,module,exports){
-var Symbol = require('./_Symbol');
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var nativeObjectToString = objectProto.toString;
-
-/** Built-in value references. */
-var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
-
-/**
- * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the raw `toStringTag`.
- */
-function getRawTag(value) {
-  var isOwn = hasOwnProperty.call(value, symToStringTag),
-      tag = value[symToStringTag];
-
-  try {
-    value[symToStringTag] = undefined;
-    var unmasked = true;
-  } catch (e) {}
-
-  var result = nativeObjectToString.call(value);
-  if (unmasked) {
-    if (isOwn) {
-      value[symToStringTag] = tag;
-    } else {
-      delete value[symToStringTag];
-    }
-  }
-  return result;
-}
-
-module.exports = getRawTag;
-
-},{"./_Symbol":373}],378:[function(require,module,exports){
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var nativeObjectToString = objectProto.toString;
-
-/**
- * Converts `value` to a string using `Object.prototype.toString`.
- *
- * @private
- * @param {*} value The value to convert.
- * @returns {string} Returns the converted string.
- */
-function objectToString(value) {
-  return nativeObjectToString.call(value);
-}
-
-module.exports = objectToString;
-
-},{}],379:[function(require,module,exports){
-/**
- * Creates a unary function that invokes `func` with its argument transformed.
- *
- * @private
- * @param {Function} func The function to wrap.
- * @param {Function} transform The argument transform.
- * @returns {Function} Returns the new function.
- */
-function overArg(func, transform) {
-  return function(arg) {
-    return func(transform(arg));
-  };
-}
-
-module.exports = overArg;
-
-},{}],380:[function(require,module,exports){
-var freeGlobal = require('./_freeGlobal');
-
-/** Detect free variable `self`. */
-var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-
-/** Used as a reference to the global object. */
-var root = freeGlobal || freeSelf || Function('return this')();
-
-module.exports = root;
-
-},{"./_freeGlobal":375}],381:[function(require,module,exports){
-/**
- * Checks if `value` is object-like. A value is object-like if it's not `null`
- * and has a `typeof` result of "object".
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
- * @example
- *
- * _.isObjectLike({});
- * // => true
- *
- * _.isObjectLike([1, 2, 3]);
- * // => true
- *
- * _.isObjectLike(_.noop);
- * // => false
- *
- * _.isObjectLike(null);
- * // => false
- */
-function isObjectLike(value) {
-  return value != null && typeof value == 'object';
-}
-
-module.exports = isObjectLike;
-
-},{}],382:[function(require,module,exports){
-var baseGetTag = require('./_baseGetTag'),
-    getPrototype = require('./_getPrototype'),
-    isObjectLike = require('./isObjectLike');
-
-/** `Object#toString` result references. */
-var objectTag = '[object Object]';
-
-/** Used for built-in method references. */
-var funcProto = Function.prototype,
-    objectProto = Object.prototype;
-
-/** Used to resolve the decompiled source of functions. */
-var funcToString = funcProto.toString;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/** Used to infer the `Object` constructor. */
-var objectCtorString = funcToString.call(Object);
-
-/**
- * Checks if `value` is a plain object, that is, an object created by the
- * `Object` constructor or one with a `[[Prototype]]` of `null`.
- *
- * @static
- * @memberOf _
- * @since 0.8.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- * }
- *
- * _.isPlainObject(new Foo);
- * // => false
- *
- * _.isPlainObject([1, 2, 3]);
- * // => false
- *
- * _.isPlainObject({ 'x': 0, 'y': 0 });
- * // => true
- *
- * _.isPlainObject(Object.create(null));
- * // => true
- */
-function isPlainObject(value) {
-  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
-    return false;
-  }
-  var proto = getPrototype(value);
-  if (proto === null) {
-    return true;
-  }
-  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
-  return typeof Ctor == 'function' && Ctor instanceof Ctor &&
-    funcToString.call(Ctor) == objectCtorString;
-}
-
-module.exports = isPlainObject;
-
-},{"./_baseGetTag":374,"./_getPrototype":376,"./isObjectLike":381}],383:[function(require,module,exports){
 //! moment.js
 
 ;(function (global, factory) {
@@ -13129,7 +12880,7 @@ module.exports = isPlainObject;
 
 })));
 
-},{}],384:[function(require,module,exports){
+},{}],374:[function(require,module,exports){
 /*
 object-assign
 (c) Sindre Sorhus
@@ -13221,7 +12972,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 	return to;
 };
 
-},{}],385:[function(require,module,exports){
+},{}],375:[function(require,module,exports){
 (function (global){
 /**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
@@ -15849,7 +15600,7 @@ return Popper;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],386:[function(require,module,exports){
+},{}],376:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -16035,7 +15786,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],387:[function(require,module,exports){
+},{}],377:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -16098,7 +15849,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 module.exports = checkPropTypes;
 
 }).call(this,require('_process'))
-},{"./lib/ReactPropTypesSecret":391,"_process":386,"fbjs/lib/invariant":370,"fbjs/lib/warning":371}],388:[function(require,module,exports){
+},{"./lib/ReactPropTypesSecret":381,"_process":376,"fbjs/lib/invariant":370,"fbjs/lib/warning":371}],378:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -16158,7 +15909,7 @@ module.exports = function() {
   return ReactPropTypes;
 };
 
-},{"./lib/ReactPropTypesSecret":391,"fbjs/lib/emptyFunction":369,"fbjs/lib/invariant":370}],389:[function(require,module,exports){
+},{"./lib/ReactPropTypesSecret":381,"fbjs/lib/emptyFunction":369,"fbjs/lib/invariant":370}],379:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -16704,7 +16455,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 };
 
 }).call(this,require('_process'))
-},{"./checkPropTypes":387,"./lib/ReactPropTypesSecret":391,"_process":386,"fbjs/lib/emptyFunction":369,"fbjs/lib/invariant":370,"fbjs/lib/warning":371,"object-assign":384}],390:[function(require,module,exports){
+},{"./checkPropTypes":377,"./lib/ReactPropTypesSecret":381,"_process":376,"fbjs/lib/emptyFunction":369,"fbjs/lib/invariant":370,"fbjs/lib/warning":371,"object-assign":374}],380:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -16736,7 +16487,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./factoryWithThrowingShims":388,"./factoryWithTypeCheckers":389,"_process":386}],391:[function(require,module,exports){
+},{"./factoryWithThrowingShims":378,"./factoryWithTypeCheckers":379,"_process":376}],381:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -16750,7 +16501,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
 
-},{}],392:[function(require,module,exports){
+},{}],382:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -20039,7 +19790,7 @@ var PRESELECT_CHANGE_VIA_NAVIGATE = "navigate";
 exports['default'] = DatePicker;
 exports.CalendarContainer = CalendarContainer;
 
-},{"classnames":41,"moment":383,"prop-types":390,"react":"react","react-onclickoutside":396,"react-popper":400}],393:[function(require,module,exports){
+},{"classnames":41,"moment":373,"prop-types":380,"react":"react","react-onclickoutside":386,"react-popper":390}],383:[function(require,module,exports){
 module.exports = {
   email: '%1 must be an email address',
   equals: '%1 must equal %2',
@@ -20058,7 +19809,7 @@ module.exports = {
   url: '%1 must be a url'
 };
 
-},{}],394:[function(require,module,exports){
+},{}],384:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20238,7 +19989,7 @@ var FormStateAdapter = exports.FormStateAdapter = function () {
 
 var validationAdapter = exports.validationAdapter = new FormStateAdapter(library, _default2.default, aliases);
 
-},{"./content/en-us/default.js":393}],395:[function(require,module,exports){
+},{"./content/en-us/default.js":383}],385:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -22085,7 +21836,7 @@ function conditionallyAddProps(source, dest) {
   });
 }
 
-},{"react":"react"}],396:[function(require,module,exports){
+},{"react":"react"}],386:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -22454,7 +22205,7 @@ function onClickOutsideHOC(WrappedComponent, config) {
 exports.IGNORE_CLASS_NAME = IGNORE_CLASS_NAME;
 exports['default'] = onClickOutsideHOC;
 
-},{"react":"react","react-dom":"react-dom"}],397:[function(require,module,exports){
+},{"react":"react","react-dom":"react-dom"}],387:[function(require,module,exports){
 "use strict";
 
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
@@ -22523,7 +22274,7 @@ function (_React$Component) {
 }(React.Component);
 
 exports.default = Manager;
-},{"@babel/runtime/helpers/assertThisInitialized":31,"@babel/runtime/helpers/defineProperty":32,"@babel/runtime/helpers/inheritsLoose":34,"@babel/runtime/helpers/interopRequireDefault":35,"@babel/runtime/helpers/interopRequireWildcard":36,"create-react-context":367,"react":"react"}],398:[function(require,module,exports){
+},{"@babel/runtime/helpers/assertThisInitialized":31,"@babel/runtime/helpers/defineProperty":32,"@babel/runtime/helpers/inheritsLoose":34,"@babel/runtime/helpers/interopRequireDefault":35,"@babel/runtime/helpers/interopRequireWildcard":36,"create-react-context":367,"react":"react"}],388:[function(require,module,exports){
 (function (process){
 "use strict";
 
@@ -22732,7 +22483,7 @@ function Popper(_ref) {
   });
 }
 }).call(this,require('_process'))
-},{"./Manager":397,"./utils":401,"@babel/runtime/helpers/assertThisInitialized":31,"@babel/runtime/helpers/defineProperty":32,"@babel/runtime/helpers/extends":33,"@babel/runtime/helpers/inheritsLoose":34,"@babel/runtime/helpers/interopRequireDefault":35,"@babel/runtime/helpers/interopRequireWildcard":36,"@babel/runtime/helpers/objectWithoutPropertiesLoose":37,"_process":386,"popper.js":385,"react":"react"}],399:[function(require,module,exports){
+},{"./Manager":387,"./utils":391,"@babel/runtime/helpers/assertThisInitialized":31,"@babel/runtime/helpers/defineProperty":32,"@babel/runtime/helpers/extends":33,"@babel/runtime/helpers/inheritsLoose":34,"@babel/runtime/helpers/interopRequireDefault":35,"@babel/runtime/helpers/interopRequireWildcard":36,"@babel/runtime/helpers/objectWithoutPropertiesLoose":37,"_process":376,"popper.js":375,"react":"react"}],389:[function(require,module,exports){
 "use strict";
 
 var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
@@ -22803,7 +22554,7 @@ function Reference(props) {
     }, props));
   });
 }
-},{"./Manager":397,"./utils":401,"@babel/runtime/helpers/assertThisInitialized":31,"@babel/runtime/helpers/defineProperty":32,"@babel/runtime/helpers/extends":33,"@babel/runtime/helpers/inheritsLoose":34,"@babel/runtime/helpers/interopRequireDefault":35,"@babel/runtime/helpers/interopRequireWildcard":36,"react":"react","warning":402}],400:[function(require,module,exports){
+},{"./Manager":387,"./utils":391,"@babel/runtime/helpers/assertThisInitialized":31,"@babel/runtime/helpers/defineProperty":32,"@babel/runtime/helpers/extends":33,"@babel/runtime/helpers/inheritsLoose":34,"@babel/runtime/helpers/interopRequireDefault":35,"@babel/runtime/helpers/interopRequireWildcard":36,"react":"react","warning":392}],390:[function(require,module,exports){
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -22843,7 +22594,7 @@ var _Popper = _interopRequireWildcard(require("./Popper"));
 var _Manager = _interopRequireDefault(require("./Manager"));
 
 var _Reference = _interopRequireDefault(require("./Reference"));
-},{"./Manager":397,"./Popper":398,"./Reference":399,"@babel/runtime/helpers/interopRequireDefault":35,"@babel/runtime/helpers/interopRequireWildcard":36}],401:[function(require,module,exports){
+},{"./Manager":387,"./Popper":388,"./Reference":389,"@babel/runtime/helpers/interopRequireDefault":35,"@babel/runtime/helpers/interopRequireWildcard":36}],391:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -22919,318 +22670,17 @@ var setRef = function setRef(ref, node) {
 };
 
 exports.setRef = setRef;
-},{}],402:[function(require,module,exports){
+},{}],392:[function(require,module,exports){
 arguments[4][368][0].apply(exports,arguments)
-},{"_process":386,"dup":368}],403:[function(require,module,exports){
-'use strict';
-
-exports.__esModule = true;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-exports['default'] = applyMiddleware;
-
-var _compose = require('./compose');
-
-var _compose2 = _interopRequireDefault(_compose);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/**
- * Creates a store enhancer that applies middleware to the dispatch method
- * of the Redux store. This is handy for a variety of tasks, such as expressing
- * asynchronous actions in a concise manner, or logging every action payload.
- *
- * See `redux-thunk` package as an example of the Redux middleware.
- *
- * Because middleware is potentially asynchronous, this should be the first
- * store enhancer in the composition chain.
- *
- * Note that each middleware will be given the `dispatch` and `getState` functions
- * as named arguments.
- *
- * @param {...Function} middlewares The middleware chain to be applied.
- * @returns {Function} A store enhancer applying the middleware.
- */
-function applyMiddleware() {
-  for (var _len = arguments.length, middlewares = Array(_len), _key = 0; _key < _len; _key++) {
-    middlewares[_key] = arguments[_key];
-  }
-
-  return function (createStore) {
-    return function (reducer, preloadedState, enhancer) {
-      var store = createStore(reducer, preloadedState, enhancer);
-      var _dispatch = store.dispatch;
-      var chain = [];
-
-      var middlewareAPI = {
-        getState: store.getState,
-        dispatch: function dispatch(action) {
-          return _dispatch(action);
-        }
-      };
-      chain = middlewares.map(function (middleware) {
-        return middleware(middlewareAPI);
-      });
-      _dispatch = _compose2['default'].apply(undefined, chain)(store.dispatch);
-
-      return _extends({}, store, {
-        dispatch: _dispatch
-      });
-    };
-  };
-}
-},{"./compose":406}],404:[function(require,module,exports){
-'use strict';
-
-exports.__esModule = true;
-exports['default'] = bindActionCreators;
-function bindActionCreator(actionCreator, dispatch) {
-  return function () {
-    return dispatch(actionCreator.apply(undefined, arguments));
-  };
-}
-
-/**
- * Turns an object whose values are action creators, into an object with the
- * same keys, but with every function wrapped into a `dispatch` call so they
- * may be invoked directly. This is just a convenience method, as you can call
- * `store.dispatch(MyActionCreators.doSomething())` yourself just fine.
- *
- * For convenience, you can also pass a single function as the first argument,
- * and get a function in return.
- *
- * @param {Function|Object} actionCreators An object whose values are action
- * creator functions. One handy way to obtain it is to use ES6 `import * as`
- * syntax. You may also pass a single function.
- *
- * @param {Function} dispatch The `dispatch` function available on your Redux
- * store.
- *
- * @returns {Function|Object} The object mimicking the original object, but with
- * every action creator wrapped into the `dispatch` call. If you passed a
- * function as `actionCreators`, the return value will also be a single
- * function.
- */
-function bindActionCreators(actionCreators, dispatch) {
-  if (typeof actionCreators === 'function') {
-    return bindActionCreator(actionCreators, dispatch);
-  }
-
-  if (typeof actionCreators !== 'object' || actionCreators === null) {
-    throw new Error('bindActionCreators expected an object or a function, instead received ' + (actionCreators === null ? 'null' : typeof actionCreators) + '. ' + 'Did you write "import ActionCreators from" instead of "import * as ActionCreators from"?');
-  }
-
-  var keys = Object.keys(actionCreators);
-  var boundActionCreators = {};
-  for (var i = 0; i < keys.length; i++) {
-    var key = keys[i];
-    var actionCreator = actionCreators[key];
-    if (typeof actionCreator === 'function') {
-      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
-    }
-  }
-  return boundActionCreators;
-}
-},{}],405:[function(require,module,exports){
+},{"_process":376,"dup":368}],393:[function(require,module,exports){
 (function (process){
 'use strict';
 
-exports.__esModule = true;
-exports['default'] = combineReducers;
+Object.defineProperty(exports, '__esModule', { value: true });
 
-var _createStore = require('./createStore');
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var _isPlainObject = require('lodash/isPlainObject');
-
-var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
-
-var _warning = require('./utils/warning');
-
-var _warning2 = _interopRequireDefault(_warning);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function getUndefinedStateErrorMessage(key, action) {
-  var actionType = action && action.type;
-  var actionName = actionType && '"' + actionType.toString() + '"' || 'an action';
-
-  return 'Given action ' + actionName + ', reducer "' + key + '" returned undefined. ' + 'To ignore an action, you must explicitly return the previous state. ' + 'If you want this reducer to hold no value, you can return null instead of undefined.';
-}
-
-function getUnexpectedStateShapeWarningMessage(inputState, reducers, action, unexpectedKeyCache) {
-  var reducerKeys = Object.keys(reducers);
-  var argumentName = action && action.type === _createStore.ActionTypes.INIT ? 'preloadedState argument passed to createStore' : 'previous state received by the reducer';
-
-  if (reducerKeys.length === 0) {
-    return 'Store does not have a valid reducer. Make sure the argument passed ' + 'to combineReducers is an object whose values are reducers.';
-  }
-
-  if (!(0, _isPlainObject2['default'])(inputState)) {
-    return 'The ' + argumentName + ' has unexpected type of "' + {}.toString.call(inputState).match(/\s([a-z|A-Z]+)/)[1] + '". Expected argument to be an object with the following ' + ('keys: "' + reducerKeys.join('", "') + '"');
-  }
-
-  var unexpectedKeys = Object.keys(inputState).filter(function (key) {
-    return !reducers.hasOwnProperty(key) && !unexpectedKeyCache[key];
-  });
-
-  unexpectedKeys.forEach(function (key) {
-    unexpectedKeyCache[key] = true;
-  });
-
-  if (unexpectedKeys.length > 0) {
-    return 'Unexpected ' + (unexpectedKeys.length > 1 ? 'keys' : 'key') + ' ' + ('"' + unexpectedKeys.join('", "') + '" found in ' + argumentName + '. ') + 'Expected to find one of the known reducer keys instead: ' + ('"' + reducerKeys.join('", "') + '". Unexpected keys will be ignored.');
-  }
-}
-
-function assertReducerShape(reducers) {
-  Object.keys(reducers).forEach(function (key) {
-    var reducer = reducers[key];
-    var initialState = reducer(undefined, { type: _createStore.ActionTypes.INIT });
-
-    if (typeof initialState === 'undefined') {
-      throw new Error('Reducer "' + key + '" returned undefined during initialization. ' + 'If the state passed to the reducer is undefined, you must ' + 'explicitly return the initial state. The initial state may ' + 'not be undefined. If you don\'t want to set a value for this reducer, ' + 'you can use null instead of undefined.');
-    }
-
-    var type = '@@redux/PROBE_UNKNOWN_ACTION_' + Math.random().toString(36).substring(7).split('').join('.');
-    if (typeof reducer(undefined, { type: type }) === 'undefined') {
-      throw new Error('Reducer "' + key + '" returned undefined when probed with a random type. ' + ('Don\'t try to handle ' + _createStore.ActionTypes.INIT + ' or other actions in "redux/*" ') + 'namespace. They are considered private. Instead, you must return the ' + 'current state for any unknown actions, unless it is undefined, ' + 'in which case you must return the initial state, regardless of the ' + 'action type. The initial state may not be undefined, but can be null.');
-    }
-  });
-}
-
-/**
- * Turns an object whose values are different reducer functions, into a single
- * reducer function. It will call every child reducer, and gather their results
- * into a single state object, whose keys correspond to the keys of the passed
- * reducer functions.
- *
- * @param {Object} reducers An object whose values correspond to different
- * reducer functions that need to be combined into one. One handy way to obtain
- * it is to use ES6 `import * as reducers` syntax. The reducers may never return
- * undefined for any action. Instead, they should return their initial state
- * if the state passed to them was undefined, and the current state for any
- * unrecognized action.
- *
- * @returns {Function} A reducer function that invokes every reducer inside the
- * passed object, and builds a state object with the same shape.
- */
-function combineReducers(reducers) {
-  var reducerKeys = Object.keys(reducers);
-  var finalReducers = {};
-  for (var i = 0; i < reducerKeys.length; i++) {
-    var key = reducerKeys[i];
-
-    if (process.env.NODE_ENV !== 'production') {
-      if (typeof reducers[key] === 'undefined') {
-        (0, _warning2['default'])('No reducer provided for key "' + key + '"');
-      }
-    }
-
-    if (typeof reducers[key] === 'function') {
-      finalReducers[key] = reducers[key];
-    }
-  }
-  var finalReducerKeys = Object.keys(finalReducers);
-
-  var unexpectedKeyCache = void 0;
-  if (process.env.NODE_ENV !== 'production') {
-    unexpectedKeyCache = {};
-  }
-
-  var shapeAssertionError = void 0;
-  try {
-    assertReducerShape(finalReducers);
-  } catch (e) {
-    shapeAssertionError = e;
-  }
-
-  return function combination() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var action = arguments[1];
-
-    if (shapeAssertionError) {
-      throw shapeAssertionError;
-    }
-
-    if (process.env.NODE_ENV !== 'production') {
-      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action, unexpectedKeyCache);
-      if (warningMessage) {
-        (0, _warning2['default'])(warningMessage);
-      }
-    }
-
-    var hasChanged = false;
-    var nextState = {};
-    for (var _i = 0; _i < finalReducerKeys.length; _i++) {
-      var _key = finalReducerKeys[_i];
-      var reducer = finalReducers[_key];
-      var previousStateForKey = state[_key];
-      var nextStateForKey = reducer(previousStateForKey, action);
-      if (typeof nextStateForKey === 'undefined') {
-        var errorMessage = getUndefinedStateErrorMessage(_key, action);
-        throw new Error(errorMessage);
-      }
-      nextState[_key] = nextStateForKey;
-      hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
-    }
-    return hasChanged ? nextState : state;
-  };
-}
-}).call(this,require('_process'))
-},{"./createStore":407,"./utils/warning":409,"_process":386,"lodash/isPlainObject":382}],406:[function(require,module,exports){
-"use strict";
-
-exports.__esModule = true;
-exports["default"] = compose;
-/**
- * Composes single-argument functions from right to left. The rightmost
- * function can take multiple arguments as it provides the signature for
- * the resulting composite function.
- *
- * @param {...Function} funcs The functions to compose.
- * @returns {Function} A function obtained by composing the argument functions
- * from right to left. For example, compose(f, g, h) is identical to doing
- * (...args) => f(g(h(...args))).
- */
-
-function compose() {
-  for (var _len = arguments.length, funcs = Array(_len), _key = 0; _key < _len; _key++) {
-    funcs[_key] = arguments[_key];
-  }
-
-  if (funcs.length === 0) {
-    return function (arg) {
-      return arg;
-    };
-  }
-
-  if (funcs.length === 1) {
-    return funcs[0];
-  }
-
-  return funcs.reduce(function (a, b) {
-    return function () {
-      return a(b.apply(undefined, arguments));
-    };
-  });
-}
-},{}],407:[function(require,module,exports){
-'use strict';
-
-exports.__esModule = true;
-exports.ActionTypes = undefined;
-exports['default'] = createStore;
-
-var _isPlainObject = require('lodash/isPlainObject');
-
-var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
-
-var _symbolObservable = require('symbol-observable');
-
-var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var $$observable = _interopDefault(require('symbol-observable'));
 
 /**
  * These are private action types reserved by Redux.
@@ -23238,36 +22688,65 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
  * If the current state is undefined, you must return the initial state.
  * Do not reference these action types directly in your code.
  */
-var ActionTypes = exports.ActionTypes = {
-  INIT: '@@redux/INIT'
+var randomString = function randomString() {
+  return Math.random().toString(36).substring(7).split('').join('.');
+};
 
-  /**
-   * Creates a Redux store that holds the state tree.
-   * The only way to change the data in the store is to call `dispatch()` on it.
-   *
-   * There should only be a single store in your app. To specify how different
-   * parts of the state tree respond to actions, you may combine several reducers
-   * into a single reducer function by using `combineReducers`.
-   *
-   * @param {Function} reducer A function that returns the next state tree, given
-   * the current state tree and the action to handle.
-   *
-   * @param {any} [preloadedState] The initial state. You may optionally specify it
-   * to hydrate the state from the server in universal apps, or to restore a
-   * previously serialized user session.
-   * If you use `combineReducers` to produce the root reducer function, this must be
-   * an object with the same shape as `combineReducers` keys.
-   *
-   * @param {Function} [enhancer] The store enhancer. You may optionally specify it
-   * to enhance the store with third-party capabilities such as middleware,
-   * time travel, persistence, etc. The only store enhancer that ships with Redux
-   * is `applyMiddleware()`.
-   *
-   * @returns {Store} A Redux store that lets you read the state, dispatch actions
-   * and subscribe to changes.
-   */
-};function createStore(reducer, preloadedState, enhancer) {
+var ActionTypes = {
+  INIT: "@@redux/INIT" + randomString(),
+  REPLACE: "@@redux/REPLACE" + randomString(),
+  PROBE_UNKNOWN_ACTION: function PROBE_UNKNOWN_ACTION() {
+    return "@@redux/PROBE_UNKNOWN_ACTION" + randomString();
+  }
+};
+
+/**
+ * @param {any} obj The object to inspect.
+ * @returns {boolean} True if the argument appears to be a plain object.
+ */
+function isPlainObject(obj) {
+  if (typeof obj !== 'object' || obj === null) return false;
+  var proto = obj;
+
+  while (Object.getPrototypeOf(proto) !== null) {
+    proto = Object.getPrototypeOf(proto);
+  }
+
+  return Object.getPrototypeOf(obj) === proto;
+}
+
+/**
+ * Creates a Redux store that holds the state tree.
+ * The only way to change the data in the store is to call `dispatch()` on it.
+ *
+ * There should only be a single store in your app. To specify how different
+ * parts of the state tree respond to actions, you may combine several reducers
+ * into a single reducer function by using `combineReducers`.
+ *
+ * @param {Function} reducer A function that returns the next state tree, given
+ * the current state tree and the action to handle.
+ *
+ * @param {any} [preloadedState] The initial state. You may optionally specify it
+ * to hydrate the state from the server in universal apps, or to restore a
+ * previously serialized user session.
+ * If you use `combineReducers` to produce the root reducer function, this must be
+ * an object with the same shape as `combineReducers` keys.
+ *
+ * @param {Function} [enhancer] The store enhancer. You may optionally specify it
+ * to enhance the store with third-party capabilities such as middleware,
+ * time travel, persistence, etc. The only store enhancer that ships with Redux
+ * is `applyMiddleware()`.
+ *
+ * @returns {Store} A Redux store that lets you read the state, dispatch actions
+ * and subscribe to changes.
+ */
+
+function createStore(reducer, preloadedState, enhancer) {
   var _ref2;
+
+  if (typeof preloadedState === 'function' && typeof enhancer === 'function' || typeof enhancer === 'function' && typeof arguments[3] === 'function') {
+    throw new Error('It looks like you are passing several store enhancers to ' + 'createStore(). This is not supported. Instead, compose them ' + 'together to a single function.');
+  }
 
   if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
     enhancer = preloadedState;
@@ -23291,22 +22770,33 @@ var ActionTypes = exports.ActionTypes = {
   var currentListeners = [];
   var nextListeners = currentListeners;
   var isDispatching = false;
+  /**
+   * This makes a shallow copy of currentListeners so we can use
+   * nextListeners as a temporary list while dispatching.
+   *
+   * This prevents any bugs around consumers calling
+   * subscribe/unsubscribe in the middle of a dispatch.
+   */
 
   function ensureCanMutateNextListeners() {
     if (nextListeners === currentListeners) {
       nextListeners = currentListeners.slice();
     }
   }
-
   /**
    * Reads the state tree managed by the store.
    *
    * @returns {any} The current state tree of your application.
    */
+
+
   function getState() {
+    if (isDispatching) {
+      throw new Error('You may not call store.getState() while the reducer is executing. ' + 'The reducer has already received the state as an argument. ' + 'Pass it down from the top reducer instead of reading it from the store.');
+    }
+
     return currentState;
   }
-
   /**
    * Adds a change listener. It will be called any time an action is dispatched,
    * and some part of the state tree may potentially have changed. You may then
@@ -23330,29 +22820,35 @@ var ActionTypes = exports.ActionTypes = {
    * @param {Function} listener A callback to be invoked on every dispatch.
    * @returns {Function} A function to remove this change listener.
    */
+
+
   function subscribe(listener) {
     if (typeof listener !== 'function') {
-      throw new Error('Expected listener to be a function.');
+      throw new Error('Expected the listener to be a function.');
+    }
+
+    if (isDispatching) {
+      throw new Error('You may not call store.subscribe() while the reducer is executing. ' + 'If you would like to be notified after the store has been updated, subscribe from a ' + 'component and invoke store.getState() in the callback to access the latest state. ' + 'See https://redux.js.org/api-reference/store#subscribe(listener) for more details.');
     }
 
     var isSubscribed = true;
-
     ensureCanMutateNextListeners();
     nextListeners.push(listener);
-
     return function unsubscribe() {
       if (!isSubscribed) {
         return;
       }
 
-      isSubscribed = false;
+      if (isDispatching) {
+        throw new Error('You may not unsubscribe from a store listener while the reducer is executing. ' + 'See https://redux.js.org/api-reference/store#subscribe(listener) for more details.');
+      }
 
+      isSubscribed = false;
       ensureCanMutateNextListeners();
       var index = nextListeners.indexOf(listener);
       nextListeners.splice(index, 1);
     };
   }
-
   /**
    * Dispatches an action. It is the only way to trigger a state change.
    *
@@ -23378,8 +22874,10 @@ var ActionTypes = exports.ActionTypes = {
    * Note that, if you use a custom middleware, it may wrap `dispatch()` to
    * return something else (for example, a Promise you can await).
    */
+
+
   function dispatch(action) {
-    if (!(0, _isPlainObject2['default'])(action)) {
+    if (!isPlainObject(action)) {
       throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.');
     }
 
@@ -23399,6 +22897,7 @@ var ActionTypes = exports.ActionTypes = {
     }
 
     var listeners = currentListeners = nextListeners;
+
     for (var i = 0; i < listeners.length; i++) {
       var listener = listeners[i];
       listener();
@@ -23406,7 +22905,6 @@ var ActionTypes = exports.ActionTypes = {
 
     return action;
   }
-
   /**
    * Replaces the reducer currently used by the store to calculate the state.
    *
@@ -23417,21 +22915,30 @@ var ActionTypes = exports.ActionTypes = {
    * @param {Function} nextReducer The reducer for the store to use instead.
    * @returns {void}
    */
+
+
   function replaceReducer(nextReducer) {
     if (typeof nextReducer !== 'function') {
       throw new Error('Expected the nextReducer to be a function.');
     }
 
-    currentReducer = nextReducer;
-    dispatch({ type: ActionTypes.INIT });
-  }
+    currentReducer = nextReducer; // This action has a similiar effect to ActionTypes.INIT.
+    // Any reducers that existed in both the new and old rootReducer
+    // will receive the previous state. This effectively populates
+    // the new state tree with any relevant data from the old one.
 
+    dispatch({
+      type: ActionTypes.REPLACE
+    });
+  }
   /**
    * Interoperability point for observable/reactive libraries.
    * @returns {observable} A minimal observable of state changes.
    * For more information, see the observable proposal:
    * https://github.com/tc39/proposal-observable
    */
+
+
   function observable() {
     var _ref;
 
@@ -23446,7 +22953,7 @@ var ActionTypes = exports.ActionTypes = {
        * emission of values from the observable.
        */
       subscribe: function subscribe(observer) {
-        if (typeof observer !== 'object') {
+        if (typeof observer !== 'object' || observer === null) {
           throw new TypeError('Expected the observer to be an object.');
         }
 
@@ -23458,79 +22965,29 @@ var ActionTypes = exports.ActionTypes = {
 
         observeState();
         var unsubscribe = outerSubscribe(observeState);
-        return { unsubscribe: unsubscribe };
+        return {
+          unsubscribe: unsubscribe
+        };
       }
-    }, _ref[_symbolObservable2['default']] = function () {
+    }, _ref[$$observable] = function () {
       return this;
     }, _ref;
-  }
-
-  // When a store is created, an "INIT" action is dispatched so that every
+  } // When a store is created, an "INIT" action is dispatched so that every
   // reducer returns their initial state. This effectively populates
   // the initial state tree.
-  dispatch({ type: ActionTypes.INIT });
 
+
+  dispatch({
+    type: ActionTypes.INIT
+  });
   return _ref2 = {
     dispatch: dispatch,
     subscribe: subscribe,
     getState: getState,
     replaceReducer: replaceReducer
-  }, _ref2[_symbolObservable2['default']] = observable, _ref2;
-}
-},{"lodash/isPlainObject":382,"symbol-observable":410}],408:[function(require,module,exports){
-(function (process){
-'use strict';
-
-exports.__esModule = true;
-exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
-
-var _createStore = require('./createStore');
-
-var _createStore2 = _interopRequireDefault(_createStore);
-
-var _combineReducers = require('./combineReducers');
-
-var _combineReducers2 = _interopRequireDefault(_combineReducers);
-
-var _bindActionCreators = require('./bindActionCreators');
-
-var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
-
-var _applyMiddleware = require('./applyMiddleware');
-
-var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
-
-var _compose = require('./compose');
-
-var _compose2 = _interopRequireDefault(_compose);
-
-var _warning = require('./utils/warning');
-
-var _warning2 = _interopRequireDefault(_warning);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/*
-* This is a dummy function to check if the function name has been altered by minification.
-* If the function has been minified and NODE_ENV !== 'production', warn the user.
-*/
-function isCrushed() {}
-
-if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
-  (0, _warning2['default'])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
+  }, _ref2[$$observable] = observable, _ref2;
 }
 
-exports.createStore = _createStore2['default'];
-exports.combineReducers = _combineReducers2['default'];
-exports.bindActionCreators = _bindActionCreators2['default'];
-exports.applyMiddleware = _applyMiddleware2['default'];
-exports.compose = _compose2['default'];
-}).call(this,require('_process'))
-},{"./applyMiddleware":403,"./bindActionCreators":404,"./combineReducers":405,"./compose":406,"./createStore":407,"./utils/warning":409,"_process":386}],409:[function(require,module,exports){
-'use strict';
-
-exports.__esModule = true;
-exports['default'] = warning;
 /**
  * Prints a warning in the console if it exists.
  *
@@ -23543,16 +23000,355 @@ function warning(message) {
     console.error(message);
   }
   /* eslint-enable no-console */
+
+
   try {
     // This error was thrown as a convenience so that if you enable
     // "break on all exceptions" in your console,
     // it would pause the execution at this line.
     throw new Error(message);
-    /* eslint-disable no-empty */
-  } catch (e) {}
-  /* eslint-enable no-empty */
+  } catch (e) {} // eslint-disable-line no-empty
+
 }
-},{}],410:[function(require,module,exports){
+
+function getUndefinedStateErrorMessage(key, action) {
+  var actionType = action && action.type;
+  var actionDescription = actionType && "action \"" + String(actionType) + "\"" || 'an action';
+  return "Given " + actionDescription + ", reducer \"" + key + "\" returned undefined. " + "To ignore an action, you must explicitly return the previous state. " + "If you want this reducer to hold no value, you can return null instead of undefined.";
+}
+
+function getUnexpectedStateShapeWarningMessage(inputState, reducers, action, unexpectedKeyCache) {
+  var reducerKeys = Object.keys(reducers);
+  var argumentName = action && action.type === ActionTypes.INIT ? 'preloadedState argument passed to createStore' : 'previous state received by the reducer';
+
+  if (reducerKeys.length === 0) {
+    return 'Store does not have a valid reducer. Make sure the argument passed ' + 'to combineReducers is an object whose values are reducers.';
+  }
+
+  if (!isPlainObject(inputState)) {
+    return "The " + argumentName + " has unexpected type of \"" + {}.toString.call(inputState).match(/\s([a-z|A-Z]+)/)[1] + "\". Expected argument to be an object with the following " + ("keys: \"" + reducerKeys.join('", "') + "\"");
+  }
+
+  var unexpectedKeys = Object.keys(inputState).filter(function (key) {
+    return !reducers.hasOwnProperty(key) && !unexpectedKeyCache[key];
+  });
+  unexpectedKeys.forEach(function (key) {
+    unexpectedKeyCache[key] = true;
+  });
+  if (action && action.type === ActionTypes.REPLACE) return;
+
+  if (unexpectedKeys.length > 0) {
+    return "Unexpected " + (unexpectedKeys.length > 1 ? 'keys' : 'key') + " " + ("\"" + unexpectedKeys.join('", "') + "\" found in " + argumentName + ". ") + "Expected to find one of the known reducer keys instead: " + ("\"" + reducerKeys.join('", "') + "\". Unexpected keys will be ignored.");
+  }
+}
+
+function assertReducerShape(reducers) {
+  Object.keys(reducers).forEach(function (key) {
+    var reducer = reducers[key];
+    var initialState = reducer(undefined, {
+      type: ActionTypes.INIT
+    });
+
+    if (typeof initialState === 'undefined') {
+      throw new Error("Reducer \"" + key + "\" returned undefined during initialization. " + "If the state passed to the reducer is undefined, you must " + "explicitly return the initial state. The initial state may " + "not be undefined. If you don't want to set a value for this reducer, " + "you can use null instead of undefined.");
+    }
+
+    if (typeof reducer(undefined, {
+      type: ActionTypes.PROBE_UNKNOWN_ACTION()
+    }) === 'undefined') {
+      throw new Error("Reducer \"" + key + "\" returned undefined when probed with a random type. " + ("Don't try to handle " + ActionTypes.INIT + " or other actions in \"redux/*\" ") + "namespace. They are considered private. Instead, you must return the " + "current state for any unknown actions, unless it is undefined, " + "in which case you must return the initial state, regardless of the " + "action type. The initial state may not be undefined, but can be null.");
+    }
+  });
+}
+/**
+ * Turns an object whose values are different reducer functions, into a single
+ * reducer function. It will call every child reducer, and gather their results
+ * into a single state object, whose keys correspond to the keys of the passed
+ * reducer functions.
+ *
+ * @param {Object} reducers An object whose values correspond to different
+ * reducer functions that need to be combined into one. One handy way to obtain
+ * it is to use ES6 `import * as reducers` syntax. The reducers may never return
+ * undefined for any action. Instead, they should return their initial state
+ * if the state passed to them was undefined, and the current state for any
+ * unrecognized action.
+ *
+ * @returns {Function} A reducer function that invokes every reducer inside the
+ * passed object, and builds a state object with the same shape.
+ */
+
+
+function combineReducers(reducers) {
+  var reducerKeys = Object.keys(reducers);
+  var finalReducers = {};
+
+  for (var i = 0; i < reducerKeys.length; i++) {
+    var key = reducerKeys[i];
+
+    if (process.env.NODE_ENV !== 'production') {
+      if (typeof reducers[key] === 'undefined') {
+        warning("No reducer provided for key \"" + key + "\"");
+      }
+    }
+
+    if (typeof reducers[key] === 'function') {
+      finalReducers[key] = reducers[key];
+    }
+  }
+
+  var finalReducerKeys = Object.keys(finalReducers); // This is used to make sure we don't warn about the same
+  // keys multiple times.
+
+  var unexpectedKeyCache;
+
+  if (process.env.NODE_ENV !== 'production') {
+    unexpectedKeyCache = {};
+  }
+
+  var shapeAssertionError;
+
+  try {
+    assertReducerShape(finalReducers);
+  } catch (e) {
+    shapeAssertionError = e;
+  }
+
+  return function combination(state, action) {
+    if (state === void 0) {
+      state = {};
+    }
+
+    if (shapeAssertionError) {
+      throw shapeAssertionError;
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action, unexpectedKeyCache);
+
+      if (warningMessage) {
+        warning(warningMessage);
+      }
+    }
+
+    var hasChanged = false;
+    var nextState = {};
+
+    for (var _i = 0; _i < finalReducerKeys.length; _i++) {
+      var _key = finalReducerKeys[_i];
+      var reducer = finalReducers[_key];
+      var previousStateForKey = state[_key];
+      var nextStateForKey = reducer(previousStateForKey, action);
+
+      if (typeof nextStateForKey === 'undefined') {
+        var errorMessage = getUndefinedStateErrorMessage(_key, action);
+        throw new Error(errorMessage);
+      }
+
+      nextState[_key] = nextStateForKey;
+      hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
+    }
+
+    return hasChanged ? nextState : state;
+  };
+}
+
+function bindActionCreator(actionCreator, dispatch) {
+  return function () {
+    return dispatch(actionCreator.apply(this, arguments));
+  };
+}
+/**
+ * Turns an object whose values are action creators, into an object with the
+ * same keys, but with every function wrapped into a `dispatch` call so they
+ * may be invoked directly. This is just a convenience method, as you can call
+ * `store.dispatch(MyActionCreators.doSomething())` yourself just fine.
+ *
+ * For convenience, you can also pass an action creator as the first argument,
+ * and get a dispatch wrapped function in return.
+ *
+ * @param {Function|Object} actionCreators An object whose values are action
+ * creator functions. One handy way to obtain it is to use ES6 `import * as`
+ * syntax. You may also pass a single function.
+ *
+ * @param {Function} dispatch The `dispatch` function available on your Redux
+ * store.
+ *
+ * @returns {Function|Object} The object mimicking the original object, but with
+ * every action creator wrapped into the `dispatch` call. If you passed a
+ * function as `actionCreators`, the return value will also be a single
+ * function.
+ */
+
+
+function bindActionCreators(actionCreators, dispatch) {
+  if (typeof actionCreators === 'function') {
+    return bindActionCreator(actionCreators, dispatch);
+  }
+
+  if (typeof actionCreators !== 'object' || actionCreators === null) {
+    throw new Error("bindActionCreators expected an object or a function, instead received " + (actionCreators === null ? 'null' : typeof actionCreators) + ". " + "Did you write \"import ActionCreators from\" instead of \"import * as ActionCreators from\"?");
+  }
+
+  var boundActionCreators = {};
+
+  for (var key in actionCreators) {
+    var actionCreator = actionCreators[key];
+
+    if (typeof actionCreator === 'function') {
+      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
+    }
+  }
+
+  return boundActionCreators;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    keys.push.apply(keys, Object.getOwnPropertySymbols(object));
+  }
+
+  if (enumerableOnly) keys = keys.filter(function (sym) {
+    return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+  });
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(source, true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(source).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+/**
+ * Composes single-argument functions from right to left. The rightmost
+ * function can take multiple arguments as it provides the signature for
+ * the resulting composite function.
+ *
+ * @param {...Function} funcs The functions to compose.
+ * @returns {Function} A function obtained by composing the argument functions
+ * from right to left. For example, compose(f, g, h) is identical to doing
+ * (...args) => f(g(h(...args))).
+ */
+function compose() {
+  for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
+    funcs[_key] = arguments[_key];
+  }
+
+  if (funcs.length === 0) {
+    return function (arg) {
+      return arg;
+    };
+  }
+
+  if (funcs.length === 1) {
+    return funcs[0];
+  }
+
+  return funcs.reduce(function (a, b) {
+    return function () {
+      return a(b.apply(void 0, arguments));
+    };
+  });
+}
+
+/**
+ * Creates a store enhancer that applies middleware to the dispatch method
+ * of the Redux store. This is handy for a variety of tasks, such as expressing
+ * asynchronous actions in a concise manner, or logging every action payload.
+ *
+ * See `redux-thunk` package as an example of the Redux middleware.
+ *
+ * Because middleware is potentially asynchronous, this should be the first
+ * store enhancer in the composition chain.
+ *
+ * Note that each middleware will be given the `dispatch` and `getState` functions
+ * as named arguments.
+ *
+ * @param {...Function} middlewares The middleware chain to be applied.
+ * @returns {Function} A store enhancer applying the middleware.
+ */
+
+function applyMiddleware() {
+  for (var _len = arguments.length, middlewares = new Array(_len), _key = 0; _key < _len; _key++) {
+    middlewares[_key] = arguments[_key];
+  }
+
+  return function (createStore) {
+    return function () {
+      var store = createStore.apply(void 0, arguments);
+
+      var _dispatch = function dispatch() {
+        throw new Error('Dispatching while constructing your middleware is not allowed. ' + 'Other middleware would not be applied to this dispatch.');
+      };
+
+      var middlewareAPI = {
+        getState: store.getState,
+        dispatch: function dispatch() {
+          return _dispatch.apply(void 0, arguments);
+        }
+      };
+      var chain = middlewares.map(function (middleware) {
+        return middleware(middlewareAPI);
+      });
+      _dispatch = compose.apply(void 0, chain)(store.dispatch);
+      return _objectSpread2({}, store, {
+        dispatch: _dispatch
+      });
+    };
+  };
+}
+
+/*
+ * This is a dummy function to check if the function name has been altered by minification.
+ * If the function has been minified and NODE_ENV !== 'production', warn the user.
+ */
+
+function isCrushed() {}
+
+if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
+  warning('You are currently using minified code outside of NODE_ENV === "production". ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) ' + 'to ensure you have the correct code for your production build.');
+}
+
+exports.__DO_NOT_USE__ActionTypes = ActionTypes;
+exports.applyMiddleware = applyMiddleware;
+exports.bindActionCreators = bindActionCreators;
+exports.combineReducers = combineReducers;
+exports.compose = compose;
+exports.createStore = createStore;
+
+}).call(this,require('_process'))
+},{"_process":376,"symbol-observable":394}],394:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -23584,7 +23380,7 @@ if (typeof self !== 'undefined') {
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./ponyfill.js":411}],411:[function(require,module,exports){
+},{"./ponyfill.js":395}],395:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -23608,7 +23404,7 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
-},{}],412:[function(require,module,exports){
+},{}],396:[function(require,module,exports){
 var v1 = require('./v1');
 var v4 = require('./v4');
 
@@ -23618,7 +23414,7 @@ uuid.v4 = v4;
 
 module.exports = uuid;
 
-},{"./v1":415,"./v4":416}],413:[function(require,module,exports){
+},{"./v1":399,"./v4":400}],397:[function(require,module,exports){
 /**
  * Convert array of 16 byte values to UUID string format of the form:
  * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
@@ -23644,7 +23440,7 @@ function bytesToUuid(buf, offset) {
 
 module.exports = bytesToUuid;
 
-},{}],414:[function(require,module,exports){
+},{}],398:[function(require,module,exports){
 // Unique ID creation requires a high quality random # generator.  In the
 // browser this is a little complicated due to unknown quality of Math.random()
 // and inconsistent support for the `crypto` API.  We do the best we can via
@@ -23680,7 +23476,7 @@ if (getRandomValues) {
   };
 }
 
-},{}],415:[function(require,module,exports){
+},{}],399:[function(require,module,exports){
 var rng = require('./lib/rng');
 var bytesToUuid = require('./lib/bytesToUuid');
 
@@ -23791,7 +23587,7 @@ function v1(options, buf, offset) {
 
 module.exports = v1;
 
-},{"./lib/bytesToUuid":413,"./lib/rng":414}],416:[function(require,module,exports){
+},{"./lib/bytesToUuid":397,"./lib/rng":398}],400:[function(require,module,exports){
 var rng = require('./lib/rng');
 var bytesToUuid = require('./lib/bytesToUuid');
 
@@ -23822,10 +23618,10 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
-},{"./lib/bytesToUuid":413,"./lib/rng":414}],417:[function(require,module,exports){
+},{"./lib/bytesToUuid":397,"./lib/rng":398}],401:[function(require,module,exports){
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _extends=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var o in r)Object.prototype.hasOwnProperty.call(r,o)&&(e[o]=r[o])}return e},_createClass=function(){function e(e,t){for(var r=0;r<t.length;r++){var o=t[r];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(t,r,o){return r&&e(t.prototype,r),o&&e(t,o),t}}(),_react=require("react"),_react2=_interopRequireDefault(_react);function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e}}function _objectWithoutProperties(e,t){var r={};for(var o in e)t.indexOf(o)>=0||Object.prototype.hasOwnProperty.call(e,o)&&(r[o]=e[o]);return r}function _classCallCheck(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function _possibleConstructorReturn(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function _inherits(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}exports.default=function(e){return function(t){function r(e){_classCallCheck(this,r);var t=_possibleConstructorReturn(this,(r.__proto__||Object.getPrototypeOf(r)).call(this,e));return t.updateFormStore=t.updateFormStore.bind(t),t}return _inherits(r,_react.Component),_createClass(r,[{key:"componentDidMount",value:function(){this.createFormStore()}},{key:"componentWillUnmount",value:function(){this.deleteFormStore()}},{key:"createFormStore",value:function(){this.props.store.dispatch({type:"CREATE_FORM",id:this.props.formId})}},{key:"readFormStore",value:function(){var e=this;return this.props.store.getState().forms.filter(function(t){return t.id===e.props.formId})[0]}},{key:"updateFormStore",value:function(e){this.props.store.dispatch({type:"UPDATE_FORM",id:this.props.formId,updates:e})}},{key:"deleteFormStore",value:function(){this.props.store.dispatch({type:"DELETE_FORM",id:this.props.formId})}},{key:"render",value:function(){var t=this.readFormStore();if(void 0===t)return null;var r=this.props,o=r.formId,n=(r.store,_objectWithoutProperties(r,["formId","store"]));return _react2.default.createElement(e,_extends({key:o,stateFromReduxStore:t.state,updateStateInReduxStore:this.updateFormStore},n))}}]),r}()};
 
-},{"react":"react"}],418:[function(require,module,exports){
+},{"react":"react"}],402:[function(require,module,exports){
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0});var _extends=Object.assign||function(r){for(var t=1;t<arguments.length;t++){var e=arguments[t];for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&(r[n]=e[n])}return r};function _toConsumableArray(r){if(Array.isArray(r)){for(var t=0,e=Array(r.length);t<r.length;t++)e[t]=r[t];return e}return Array.from(r)}var forms=exports.forms=function(){var r=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments[1];switch(t.type){case"CREATE_FORM":return[].concat(_toConsumableArray(r),[form({},t)]);case"UPDATE_FORM":return r.map(function(r){return form(r,t)});case"DELETE_FORM":return r.filter(function(r){return r.id!==t.id});default:return r}},form=function(){var r=arguments.length>0&&void 0!==arguments[0]?arguments[0]:{},t=arguments[1];switch(t.type){case"CREATE_FORM":return{id:t.id,state:{}};case"UPDATE_FORM":return r.id!==t.id?r:_extends({},r,{state:_extends({},r.state,t.updates)});default:return r}};
 
 },{}],"react-bootstrap":[function(require,module,exports){

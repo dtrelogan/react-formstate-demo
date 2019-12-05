@@ -39,7 +39,7 @@
     "react-dom": "^16.12.0",
     "react-formstate": "^0.6.14",
     "react-formstate-validation": "^0.3.8",
-    "redux": "^3.7.2",
+    "redux": "^4.0.4",
     "uglify-js": "^3.7.1",
     "uglifyify": "^5.0.2",
     "uuid": "^3.3.3"
