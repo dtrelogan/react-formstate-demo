@@ -13,7 +13,7 @@ export default ({className, controlId, validationState, label, value, help, onCh
       <div className='date-input-container'>
         <DatePicker
           className='form-control'
-          selected={value}
+          selected={value || null}
           onChange={onChange}
           onBlur={onBlur}
           />

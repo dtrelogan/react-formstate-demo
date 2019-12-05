@@ -92,10 +92,10 @@ export default class DemoView extends Component {
               value={this.state.showMessageOn}
               onChange={(e) => this.showMessageOn(e.target.value)}
               />
-            <Radio checked={this.state.edit} onClick={() => this.setState({formInstanceId: uuid(), edit: !this.state.edit})}>
+            <Radio checked={this.state.edit} onClick={() => this.setState({formInstanceId: uuid(), edit: !this.state.edit})} onChange={() => {}}>
               &nbsp;Edit Existing Model&nbsp;&nbsp;&nbsp;
             </Radio>
-            <Radio checked={this.state.validateOnBlur} onClick={() => this.toggleValidateOnBlur()}>
+            <Radio checked={this.state.validateOnBlur} onClick={() => this.toggleValidateOnBlur()} onChange={() => {}}>
               &nbsp;Ensure Validation onBlur&nbsp;&nbsp;&nbsp;
             </Radio>
           </InlineForm>
