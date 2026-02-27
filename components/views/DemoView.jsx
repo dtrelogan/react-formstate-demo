@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form as InlineForm, Jumbotron, Button, Radio } from 'react-bootstrap';
+import { Form as InlineForm, Jumbotron, Button } from 'react-bootstrap';
 import { FormState } from 'react-formstate';
 import Select from '../inputs/bootstrap/Select.jsx';
 import UserAccountForm from '../forms/UserAccount.jsx';
@@ -92,14 +92,27 @@ export default class DemoView extends Component {
               value={this.state.showMessageOn}
               onChange={(e) => this.showMessageOn(e.target.value)}
               />
-            <Radio checked={this.state.edit} onClick={() => this.setState({formInstanceId: uuid(), edit: !this.state.edit})} onChange={() => {}}>
-              &nbsp;Edit Existing Model&nbsp;&nbsp;&nbsp;
-            </Radio>
-            <Radio checked={this.state.validateOnBlur} onClick={() => this.toggleValidateOnBlur()} onChange={() => {}}>
-              &nbsp;Ensure Validation onBlur&nbsp;&nbsp;&nbsp;
-            </Radio>
+            <InlineForm.Check
+              inline
+              type='checkbox'
+              label='Edit Existing Model'
+              checked={this.state.edit}
+              onClick={() => this.setState({formInstanceId: uuid(), edit: !this.state.edit})}
+              onChange={() => {}}
+              />
+            <InlineForm.Check
+              inline
+              type='checkbox'
+              label='Ensure Validation onBlur'
+              checked={this.state.validateOnBlur}
+              onClick={() => this.toggleValidateOnBlur()}
+              onChange={() => {}}
+              />
           </InlineForm>
-          <Button className='resetButton' onClick={() => this.setState({formInstanceId: uuid()})}>
+          <Button
+            className='resetButton'
+            onClick={() => this.setState({formInstanceId: uuid()})}
+            >
             Reset Form
           </Button>
         </Jumbotron>

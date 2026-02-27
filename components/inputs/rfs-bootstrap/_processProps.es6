@@ -17,10 +17,10 @@ export const computeValidationStateAndHelp = (Input) => {
 
     if (showMessage) {
       if (fieldState.isValid()) {
-        computedValidationState = fieldState.get('warn') ? 'warning' : 'success';
+        computedValidationState = fieldState.get('warn') ? 'warning' : 'valid';
       }
       if (fieldState.isValidating()) {computedValidationState = 'warning';}
-      if (fieldState.isInvalid()) {computedValidationState = 'error';}
+      if (fieldState.isInvalid()) {computedValidationState = 'invalid';}
 
       computedHelp = fieldState.getMessage();
     }

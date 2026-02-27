@@ -16,9 +16,9 @@ export default ({className, bsStyle, bsSize, message, invalid, validating, uploa
     <div className={className}>
       <Button
         type='submit'
-        bsStyle={computedBsStyle}
+        variant={computedBsStyle}
         disabled={invalid || validating || uploading || disabled}
-        bsSize={bsSize}
+        size={bsSize}
         ref={grabRef}
         >
         {computedMessage}

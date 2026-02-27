@@ -1,16 +1,16 @@
 import React from 'react';
-import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import HelpBlock from './HelpBlock.jsx';
 
 export default ({className, controlId, validationState, type, label, value, help, onChange, onBlur, placeholder, disabled, autoFocus, autoComplete, showFeedback}) => {
 
   return (
-    <FormGroup
+    <Form.Group
       className={className}
       controlId={controlId}
-      validationState={validationState}
       >
-      <ControlLabel>{label}</ControlLabel>
-      <FormControl
+      <Form.Label>{label}</Form.Label>
+      <Form.Control
         type={type || 'text'}
         value={value}
         placeholder={placeholder}
@@ -19,9 +19,12 @@ export default ({className, controlId, validationState, type, label, value, help
         disabled={disabled}
         autoFocus={autoFocus}
         autoComplete={autoComplete}
+        isValid={validationState === 'valid'}
+        isInvalid={validationState === 'invalid'}
         />
-      {showFeedback === false ? null : <FormControl.Feedback />}
-      <HelpBlock>{help}</HelpBlock>
-    </FormGroup>
+        {/* don't know how to hide red X on right side of input in react bootstrap 1... */}
+        {/* {showFeedback === false ? null : <FormControl.Feedback />} */}
+      <HelpBlock validationState={validationState}>{help}</HelpBlock>
+    </Form.Group>
   );
 };

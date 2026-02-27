@@ -4,11 +4,11 @@
 
 .main-title {margin-top: 0px; font-size: 16pt; font-weight: bold; margin-right: 20px; color: green;}
 
-.demo-form-select {margin-top: 5px; max-width: 600px;}
+.demo-form-select {margin-top: 5px; max-width: 600px; margin-bottom: 0px;}
 .select-show-message-on {padding-right: 10px; max-width: 200px;}
 .select-show-message-on .control-label {padding-right: 5px; font-weight: normal;}
 
-.resetButton {margin-top: -10px;}
+.resetButton {margin-top: 10px;}
 
 .main-demo-options {margin-bottom: 15px;}
 
@@ -21,7 +21,7 @@ body {margin-bottom: 100px;}
 .instructions {margin-left: 20px; margin-top: 50px; max-width: 600px;}
 /*.instructions {max-width: 600px;}*/
 
-.required .control-label::after, .required .checkbox-label::after {content: '\2217';}
+.required .form-label::after, .required .checkbox-label::after {content: '\2217';}
 
 .emphasized-note {color: green;}
 

@@ -1,24 +1,26 @@
 import React from 'react';
-import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import HelpBlock from './HelpBlock.jsx';
 
 export default ({className, controlId, validationState, label, value, help, onChange, onBlur, rows, placeholder, disabled}) => {
   return (
-    <FormGroup
+    <Form.Group
       className={className}
       controlId={controlId}
-      validationState={validationState}
       >
-      {label ? <ControlLabel>{label}</ControlLabel> : null}
-      <FormControl
-        componentClass='textarea'
+      {label ? <Form.Label>{label}</Form.Label> : null}
+      <Form.Control
+        as='textarea'
         rows={rows}
         value={value}
         placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}
         disabled={disabled}
+        isValid={validationState === 'valid'}
+        isInvalid={validationState === 'invalid'}
         />
-      <HelpBlock>{help}</HelpBlock>
-    </FormGroup>
+      <HelpBlock validationState={validationState}>{help}</HelpBlock>
+    </Form.Group>
   );
 };

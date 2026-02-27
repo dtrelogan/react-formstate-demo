@@ -1,5 +1,6 @@
 import React from 'react';
-import { FormGroup, Radio, HelpBlock, ControlLabel } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import HelpBlock from './HelpBlock.jsx';
 
 export default ({className, controlId, validationState, label, inline, buttonValues, value, help, onChange, onBlur, disabled}) => {
 
@@ -7,7 +8,7 @@ export default ({className, controlId, validationState, label, inline, buttonVal
 
   if (label) {
     labelDiv = (
-      <div><ControlLabel>{label}</ControlLabel></div>
+      <div><Form.Label>{label}</Form.Label></div>
     );
   }
 
@@ -22,25 +23,31 @@ export default ({className, controlId, validationState, label, inline, buttonVal
   const buttons = buttonValues.map((v) => {
     return (
       <span key={v.id}>
-        <Radio
+        <Form.Check
+          type='radio'
+          label={v.name || v.text}
           value={v.id}
           checked={value === v.id.toString()}
           onChange={onChange}
           inline={inline}
           disabled={disabled}
-          >
-          {v.name || v.text}
-        </Radio>
+          isValid={validationState === 'valid'}
+          isInvalid={validationState === 'invalid'}
+          />
         {buttonSpacer}
       </span>
     );
   });
 
   return (
-    <FormGroup className={className} controlId={controlId} validationState={validationState} onBlur={onBlur}>
+    <Form.Group
+      className={className}
+      controlId={controlId}
+      onBlur={onBlur}
+      >
       {labelDiv}
       {buttons}
-      <HelpBlock>{help}</HelpBlock>
-    </FormGroup>
+      <HelpBlock validationState={validationState} style={{display: 'block'}}>{help}</HelpBlock>
+    </Form.Group>
   );
 }

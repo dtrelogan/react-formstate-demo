@@ -1,28 +1,30 @@
 import React from 'react';
-import { FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import HelpBlock from './HelpBlock.jsx';
 
 const Select = ({className, controlId, validationState, optionValues, multiple, label, value, help, onChange, onBlur, placeholder, size}) => {
 
   return (
-    <FormGroup
+    <Form.Group
       className={className}
       controlId={controlId}
-      validationState={validationState}
       >
-      {label ? <ControlLabel>{label}</ControlLabel> : null}
-      <FormControl
-        componentClass="select"
+      {label ? <Form.Label>{label}</Form.Label> : null}
+      <Form.Control
+        as="select"
         placeholder={placeholder}
         multiple={multiple}
         value={multiple ? (value || []) : value}
         onChange={onChange}
         onBlur={onBlur}
         size={size}
+        isValid={validationState === 'valid'}
+        isInvalid={validationState === 'invalid'}
         >
         {optionValues.map((v) => <option key={v.id} value={v.id.toString()}>{v.name || v.text}</option>)}
-      </FormControl>
-      <HelpBlock>{help}</HelpBlock>
-    </FormGroup>
+      </Form.Control>
+      <HelpBlock validationState={validationState}>{help}</HelpBlock>
+    </Form.Group>
   );
 };
 

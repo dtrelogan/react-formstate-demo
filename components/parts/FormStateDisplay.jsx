@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 // cull form state:
 //  remove the model since that is shown separately.
@@ -38,7 +38,7 @@ export const addCurrentModelToUpdates = (formState, updates) => {
 export const FormStateDisplay = ({state, children}) => {
 
   return (
-    <Grid fluid>
+    <Container fluid>
       <Row>
         <Col xs={12} sm={6} lg={4}>
           {children}
@@ -53,8 +53,8 @@ export const FormStateDisplay = ({state, children}) => {
             {JSON.stringify(cullFormState(state), jsonUndefinedReplacer, 2)}
           </pre>
         </Col>
-        <Col xsHidden lg={4}/>
+        <Col xs={false} lg={4}/>
       </Row>
-    </Grid>
+    </Container>
   );
 };

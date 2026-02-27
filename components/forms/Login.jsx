@@ -25,7 +25,7 @@ const computeValidationStateAndHelp = (Input) => {
     let validationState = null, help = null;
 
     if (showMessage) {
-      if (fieldState.isInvalid()) { validationState = 'error'; }
+      if (fieldState.isInvalid()) { validationState = 'invalid'; }
       help = fieldState.getMessage();
     }
 

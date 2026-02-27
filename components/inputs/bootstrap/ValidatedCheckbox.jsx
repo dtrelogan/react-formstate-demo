@@ -1,23 +1,25 @@
 import React from 'react';
-import { FormGroup, Checkbox, HelpBlock } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import HelpBlock from './HelpBlock.jsx';
 
 export default ({className, controlId, validationState, label, checked, onChange, onBlur, disabled, value, help}) => {
   return (
-    <FormGroup
+    <Form.Group
       className={className}
       controlId={controlId}
-      validationState={validationState}
       >
-      <Checkbox
+      <Form.Check
+        type='checkbox'
+        label={label}
         checked={checked}
         onChange={onChange}
         onBlur={onBlur}
         disabled={disabled}
         value={value}
-        >
-        <span className='checkbox-label'>{label}</span>
-      </Checkbox>
-      <HelpBlock>{help}</HelpBlock>
-    </FormGroup>
+        isValid={validationState === 'valid'}
+        isInvalid={validationState === 'invalid'}
+        />
+      <HelpBlock validationState={validationState} style={{display: 'block'}}>{help}</HelpBlock>
+    </Form.Group>
   );
 }

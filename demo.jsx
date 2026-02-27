@@ -1,7 +1,15 @@
-import 'babel-polyfill';
+import 'core-js/es';
+import 'raf/polyfill'; // https://reactjs.org/docs/javascript-environment-requirements.html
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import DemoView from './components/views/DemoView.jsx';
+
+// this requires css-loader and style-loader in webpack
+import "react-datepicker/dist/react-datepicker.css";
+
+
+// react-bootstrap 1 is not compatible with React 19
+// so... cannot upgrade to React 19 as of Feb 2026
 
 
 //
@@ -31,15 +39,12 @@ const store = createStore(
   {}
 );
 
-const renderApp = () => {
-  ReactDOM.render(
-    <DemoView store={store}/>,
-    document.getElementById('react-mount-point')
-  );
-};
+let root = ReactDOM.createRoot(
+  document.getElementById('react-mount-point')
+);
 
-store.subscribe(() => {
-  renderApp();
-});
+const renderApp = () => root.render(<DemoView store={store}/>);
+
+store.subscribe(renderApp);
 
 renderApp();

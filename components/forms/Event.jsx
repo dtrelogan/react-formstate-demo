@@ -12,14 +12,14 @@ import HiddenInput from '../inputs/rfs-bootstrap/HiddenInput.jsx';
 import Input from '../inputs/rfs-bootstrap/Input.jsx';
 import Submit from '../inputs/bootstrap/Submit.jsx';
 import DateInput from '../inputs/rfs-bootstrap/DateInput.jsx';
-import moment from 'moment';
+
 
 
 const testModel = {
   id: 123,
   name: 'Travel to Europe (I wish!)',
-  startDate: '2019-07-12T18:32:24.402Z',
-  endDate: '2019-07-26T18:32:24.402Z'
+  startDate: new Date('2019-07-12T18:32:24.402Z'),
+  endDate: new Date('2019-07-26T18:32:24.402Z')
 };
 
 
@@ -39,10 +39,8 @@ class EventForm extends Component {
     const context = this.formState.createUnitOfWork();
     context.injectModel(this.props.model);
     if (this.props.model) {
-      // have to "reverse coerce" the string to a moment to work with react-datepicker
-      // passing 'true' prevents flattening the 'moment' object into form state.
-      context.injectField('startDate', moment(this.props.model.startDate), true);
-      context.injectField('endDate', moment(this.props.model.endDate), true);
+      context.injectField('startDate', this.props.model.startDate);
+      context.injectField('endDate', this.props.model.endDate);
     }
     context.updateFormState();
   }
@@ -64,7 +62,6 @@ class EventForm extends Component {
       <Instructions>
         <ListGroup>
           <ListGroupItem>Check out the <a href='https://github.com/dtrelogan/react-formstate-demo/blob/HEAD/components/forms/Event.jsx'>source code</a></ListGroupItem>
-          <ListGroupItem>Unlike a standard HTML input that works with string values, react-datepicker is a nonstandard input that works with {'"moment"'} objects.</ListGroupItem>
           <ListGroupItem>
             startDate &lt; endDate validation takes place against endDate. If startDate changes, the validation status of endDate gets reset, and, if empty, initialized
             to startDate. (This is very similar to resetting password confirmation when password changes. It is a handy pattern.)

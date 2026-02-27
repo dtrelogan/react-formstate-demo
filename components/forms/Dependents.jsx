@@ -137,7 +137,7 @@ class DependentsForm extends Component {
     for (let i = 0; i < this.state.numDependents; i++) {
       if (!this.formState.isDeleted(`dependents.${i}`)) {
         dependents.push(
-          <ListGroup key={i}>
+          <ListGroup key={i} style={{marginBottom: '20px'}}>
             <ListGroupItem>
               <Dependent formObject={i}/>
               <div>
